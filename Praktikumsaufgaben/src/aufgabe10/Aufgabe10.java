@@ -23,6 +23,8 @@ public class Aufgabe10 {
 		double input2 = scanner.nextDouble(); //Camelcase
 		double ergebnis = (input1/input2);
 		
+		scanner.close();
+		
 		System.out.println(input1 + "/" + input2 + "=" + ergebnis);
 		System.out.println("bzw. " + runden(ergebnis));
 	}
