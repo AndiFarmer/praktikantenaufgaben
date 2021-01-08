@@ -2,10 +2,19 @@ package aufgabe10;
 
 import java.util.Scanner;
 
+/**
+ * 
+ * @author z1300a2k
+ *
+ */
 public class Aufgabe10 {
 	
 	private static final int STELLEN = 4;
 	
+	/**
+	 * Meine tolle Aufgabenklasse
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		
 		System.out.println("Geben Sie zwei Zahlen ein:");
