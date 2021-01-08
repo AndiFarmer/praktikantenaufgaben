@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class Funktionswertberechnung10 {
 
+	private static final double STELLEN = 4;
+
 	public static void main(String[] args) {
 		double fx, a, b, c, p, q, x1, x2;
 		Scanner scanner = new Scanner(System.in);
@@ -18,6 +20,7 @@ public class Funktionswertberechnung10 {
 		b = scanner.nextDouble();
 		System.out.print("c = ");
 		c = scanner.nextDouble();
+		scanner.close();
 		
 		System.out.println(fx + " = " + a + "x\u00B2 + " + b + "x + " + c);
 		
@@ -33,12 +36,20 @@ public class Funktionswertberechnung10 {
 		q = c;
 		x1 = (-p/2) + ( Math.pow((Math.pow((p/2),2)-q),0.5) );
 		x2 = (-p/2) - ( Math.pow((Math.pow((p/2),2)-q),0.5) );
-		x1 = runden(x1);
-		x1 = runden(x1);
 		
+		x1 = runden(x1);
+		x2 = runden(x1);
 		System.out.println("x1 = " + x1);
 		System.out.println("x2 = " + x2);
-		return;
+		System.exit(0);
+	}
+	
+	static private double runden (double input) {
+		input = (input * Math.pow(10, STELLEN)) + 0.5;
+		int abgeschnitten = (int) input;
+		double output = abgeschnitten;
+		output = output / Math.pow(10, STELLEN);
+		return output;
 	}
 
 }
