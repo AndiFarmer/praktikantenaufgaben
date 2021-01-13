@@ -1,6 +1,6 @@
 package funktionswertberechnung11;
 
-public class Funktionswertberechnung111Point{
+public class Funktionswertberechnung111Point {
 	
 	public double xKoordinate=0;
 	public double yKoordinate=0;
