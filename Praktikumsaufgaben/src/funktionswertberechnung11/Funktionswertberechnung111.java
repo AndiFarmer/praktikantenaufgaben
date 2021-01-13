@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-
+import funktionswertberechnung11.Funktionswertberechnung111Point;
 /**
  * 
  * @author z1300a2k
@@ -102,8 +102,9 @@ public Funktionswertberechnung111() {
 		dialog.setSize((int) (2*xVerschiebung),(int) (2*yVerschiebung));
 		schonAusgeführt = true;
 	}
+	
 	abstract double f(double x);
-		
+	
 	
 
 }
