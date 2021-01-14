@@ -5,20 +5,21 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import funktionswertberechnung11.Funktionswertberechnung111Point;
 /**
  * 
  * @author z1300a2k
  *
  */
-public abstract class Funktionswertberechnung111 extends JPanel {
+public abstract class Hauptklasse extends JPanel {
 	/**
 	 * Zeichnet Graph in einem Fenster(Dialog)
 	 * @param args
 	 */
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	protected double fensterbreite = screenSize.width;
-	protected double fensterhöhe = screenSize.height;
+	final protected double fensterbreiteUrsprünglich = screenSize.width;
+	final protected double fensterhöheUrsprünglich = screenSize.height;
+	protected double fensterbreite = fensterbreiteUrsprünglich;
+	protected double fensterhöhe = fensterhöheUrsprünglich;
 	protected double yMax = 0;
 	protected double yMin = 0;
 	protected double xMin= 0;
@@ -27,28 +28,42 @@ public abstract class Funktionswertberechnung111 extends JPanel {
 	protected double xVerschiebung = 0;
 	protected double yVerschiebung = 0;
 	protected JDialog dialog = new JDialog(); //Instanz der Klasse JDialog
+	protected Point[] punktArray = new Point[(int) (fensterbreite+1)];
 	
-public Funktionswertberechnung111() {
+public Hauptklasse() {
 		
 		dialog.getContentPane().add(this);
 		dialog.setTitle("Funktionsgraph");
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setLocation(0, 0);
+		
+		for (double xWert = -fensterbreiteUrsprünglich/2; xWert <= fensterbreiteUrsprünglich/2; xWert++) {
+			double xNow = xWert;
+			double yNow = f(xNow);
+			punktArray[(int) (xNow+ fensterbreiteUrsprünglich/2)] = new Point(xNow, yNow);
+		}
+		
 		dialog.setVisible(true);
 		dialog.setSize(2* (int) xVerschiebung*2, (int) yVerschiebung*2);
 	}
 	
 	public void paint(Graphics g) {
-		if(schonAusgeführt == true) {
+		if(schonAusgeführt == true && fensterbreite<=fensterbreiteUrsprünglich) {
+			
 			fensterbreite = dialog.getSize().width;
 			fensterhöhe = dialog.getSize().height;
+		} else if(schonAusgeführt == true) {
+			fensterbreite = 2*xVerschiebung;
+			fensterhöhe = 2*yVerschiebung;
 		}
 		
 		// Das Herausfinden der Extremstellen(y) und Grenzen(x) muss vor dem Zeichnen erfolgen, da sonst die Skalierung nicht möglich ist
-		boolean xMinGesetzt = false;
+		boolean xMinGesetzt = false; 
+		
 		for (double xWert = -fensterbreite/2; xWert <= fensterbreite/2; xWert++) {
 			double xNow = xWert;
-			double yNow = f(xNow);
+			double yNow = punktArray[(int) (xNow+ fensterbreiteUrsprünglich/2) ].getYKoordinate(); // == f(xNow)
+			
 			if (yNow < fensterhöhe/2 && yNow > -fensterhöhe/2 && xMinGesetzt == false) {
 				xMin=xNow;
 				xMinGesetzt = true;
@@ -82,19 +97,7 @@ public Funktionswertberechnung111() {
 			yVerschiebung = yMaxVorzeichenbereinigt; // Gleicher Grund wie 5 Zeilen drüber
 		}
 
-		
-		double xPrev=xMin;
-		double yPrev=f(xPrev);
-		for (double xWert = -xVerschiebung; xWert <= xVerschiebung; xWert++) {
-			double xNow = xWert;
-			double yNow = f(xNow);
-			System.out.printf("xNow=%.1f, yNow=%.1f, xPrev=%.1f, yPrev=%.1f\n", xNow,yNow,xPrev,yPrev);
-			g.drawLine((int) (xPrev+xVerschiebung), (int) (yPrev+yVerschiebung), (int) (xNow+xVerschiebung), (int) (yNow+yVerschiebung));
-			g.drawLine((int) (xVerschiebung+xVerschiebung), (int) yVerschiebung, (int) (xVerschiebung-xVerschiebung), (int) yVerschiebung);
-			g.drawLine((int) xVerschiebung, (int) (yVerschiebung+yVerschiebung), (int) xVerschiebung, (int) (yVerschiebung-yVerschiebung));
-			yPrev=yNow;
-			xPrev=xNow;
-		}
+		new Paint(xMin, punktArray, xVerschiebung, yVerschiebung, fensterbreiteUrsprünglich, g);
 		
 		System.out.printf("\nxMin=%.1f, xMax=%.1f, yMin=%.1f, yMax=%.1f\n",xMin, xMax, yMin, yMax);
 		System.out.printf("xVerschiebung=%.1f, yVerschiebung=%.1f, Fensterbreite=%d, Fensterhöhe=%d\n",xVerschiebung, yVerschiebung, dialog.getSize().width, dialog.getSize().height);
