@@ -2,9 +2,9 @@ package funktionswertberechnung11;
 
 import java.awt.Graphics;
 
-public class Paint {
+public class Zeichnen {
 
-	public Paint(double xMin,Point[] punktArray, double xVerschiebung, double yVerschiebung, double fensterbreiteUrsprünglich,Graphics g) {
+	public Zeichnen(double xMin,Point[] punktArray, double xVerschiebung, double yVerschiebung, double fensterbreiteUrsprünglich,Graphics g) {
 		double xPrev=xMin;
 		double yPrev=punktArray[(int) (xPrev + fensterbreiteUrsprünglich/2) ].getYKoordinate(); // ==f(xPrev)
 		for (double xWert = -xVerschiebung; xWert <= xVerschiebung; xWert++) {

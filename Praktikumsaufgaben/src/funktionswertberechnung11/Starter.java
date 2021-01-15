@@ -8,8 +8,6 @@ public class Starter {
 		Point punkt= new Point(3,4);
 		punkt.setPoint(2, 1);
 		System.out.println(punkt);
-		
-
 	}
 
 }
