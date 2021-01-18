@@ -20,6 +20,7 @@ public class Funktionswertberechnung5 {
 	
 	static private double eingabe() {
 		Scanner scanner= new Scanner(System.in);
+		scanner.close();
 		return scanner.nextDouble();
 	}
 	

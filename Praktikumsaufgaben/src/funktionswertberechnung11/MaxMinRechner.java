@@ -12,8 +12,7 @@ public class MaxMinRechner {
 		double xNow = 0;
 		double yNow = 0;
 		
-		for (double xWert = -fensterbreite/2; xWert <= fensterbreite/2; xWert++) {
-			xNow = xWert;
+		for (xNow = -fensterbreite/2; xNow <= fensterbreite/2; xNow++) {
 			yNow = punktArray[(int) (xNow+ fensterbreiteUrsprünglich/2) ].getYKoordinate();
 			
 			if (yNow < fensterhöhe/2 && yNow > -fensterhöhe/2 && xMinGesetzt == false) {

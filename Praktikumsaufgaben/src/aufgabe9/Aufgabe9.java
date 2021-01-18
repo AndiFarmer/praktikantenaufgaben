@@ -17,6 +17,8 @@ public class Aufgabe9 {
 		System.out.printf("%.4f\n", ergebnis);	
 		System.out.println(abschneiden(ergebnis));
 		System.out.println(ergebnis);
+		
+		scanner.close();
 	}
 	
 	private static double abschneiden(double input) {

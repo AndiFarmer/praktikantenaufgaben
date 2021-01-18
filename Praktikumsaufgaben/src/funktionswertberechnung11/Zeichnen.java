@@ -9,11 +9,10 @@ public class Zeichnen {
 		double yPrev=punktArray[(int) (xPrev + fensterbreiteUrsprünglich/2) ].getYKoordinate(); // ==f(xPrev)
 		for (double xWert = -xVerschiebung; xWert <= xVerschiebung; xWert++) {
 			double xNow = xWert;
-			double yNow = punktArray[(int) (xNow + fensterbreiteUrsprünglich/2) ].getYKoordinate(); // ==f(xNow);
-			//System.out.printf("xNow=%.1f, yNow=%.1f, xPrev=%.1f, yPrev=%.1f\n", xNow,yNow,xPrev,yPrev);
-			g.drawLine((int) (xPrev+xVerschiebung), (int) (yPrev+yVerschiebung), (int) (xNow+xVerschiebung), (int) (yNow+yVerschiebung));
-			g.drawLine((int) (xVerschiebung+xVerschiebung), (int) yVerschiebung, (int) (xVerschiebung-xVerschiebung), (int) yVerschiebung);
-			g.drawLine((int) xVerschiebung, (int) (yVerschiebung+yVerschiebung), (int) xVerschiebung, (int) (yVerschiebung-yVerschiebung));
+			double yNow = punktArray[(int) (xNow + fensterbreiteUrsprünglich/2) ].getYKoordinate();
+			g.drawLine((int) (xPrev+xVerschiebung-8), (int) (yPrev+yVerschiebung-20), (int) (xNow+xVerschiebung-8), (int) (yNow+yVerschiebung-20)); // durch die Titelleiste wird das innere Fenster um 16 in x-Richtung und 39 in y-Richtung verkleinert
+			g.drawLine((int) (xVerschiebung+xVerschiebung-8), (int) yVerschiebung-20, (int) (xVerschiebung-xVerschiebung-8), (int) yVerschiebung-20);
+			g.drawLine((int) (xVerschiebung-8), (int) (yVerschiebung+yVerschiebung-20), (int) (xVerschiebung-8), (int) (yVerschiebung-yVerschiebung-20));
 			yPrev=yNow;
 			xPrev=xNow;
 		}

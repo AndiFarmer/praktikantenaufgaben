@@ -27,6 +27,7 @@ public class Funktionswertberechnung8 {
 			hochzahlausgabe(i);
 			System.out.printf(" eingeben.\n");
 			koeffizienten[i] = scanner.nextDouble();
+			
 		}
 		
 		// Ausgabe der Funktion mit Ergebnis
@@ -40,7 +41,7 @@ public class Funktionswertberechnung8 {
 		}
 		System.out.print(" = " + f(koeffizienten, x, maxExp));
 		
-		
+		scanner.close();
 		return;
 	}
 	

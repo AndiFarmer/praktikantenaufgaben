@@ -10,6 +10,8 @@ public class Aufgabe6 {
 		double input1 = scanner.nextDouble();
 		double input2 = scanner.nextDouble();
 		System.out.println(input1 + "/" + input2 + "=" + (input1/input2));
+		
+		scanner.close();
 	}
 	
 

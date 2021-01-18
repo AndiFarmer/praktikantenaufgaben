@@ -6,6 +6,7 @@ public class Funktionswertberechnung7 {
 
 	public static void main(String[] args) {
 		Scanner scanner =new Scanner(System.in);
+		scanner.close();
 		double koeffizienten[] = {1,1,1};
 		double x=1;
 		int maxExp = 2;

@@ -27,6 +27,8 @@ public class Aufgabe11 {
 		int punktIndex = ergebnisstring.indexOf('.');
 		System.out.println(ergebnisstring.substring(0, punktIndex+3));
 		System.out.println("\nOhne Schneiden:" + ergebnis);
+		
+		scanner.close();
 	}
 		
 }

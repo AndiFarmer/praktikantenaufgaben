@@ -16,12 +16,14 @@ public class Funktionswertberechnung3 {
 		
 		for(double d=xmin; d<=xmax; d+=xdelta) {
 			System.out.println("f("+d+")=2*sin("+d+")-4 = "+f(d));
+			
 		}
 		
 	}
 	
 	private static double Einlesen () {
 		Scanner scanner = new Scanner(System.in);
+		scanner.close();
 		return scanner.nextDouble();
 	}
 	
@@ -41,6 +43,8 @@ public class Funktionswertberechnung3 {
 			
 		double output = abgeschnitten;
 		output = output / Math.pow(10, STELLEN);
+		
+		
 		return output;
 	}
 }
