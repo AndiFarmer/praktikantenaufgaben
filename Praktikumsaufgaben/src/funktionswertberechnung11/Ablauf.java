@@ -15,11 +15,20 @@ public abstract class Ablauf extends JPanel {
 	 * Zeichnet Graph in einem Fenster(Dialog)
 	 * @param args
 	 */
-	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	final protected double fensterBreiteUrsprünglich = screenSize.width;
-	final protected double fensterHöheUrsprünglich = screenSize.height;
-	protected double fensterBreite = fensterBreiteUrsprünglich;
+	//neue Variablen, bzw. veränderte
+	protected Fenster fenster = new Fenster();
+	final protected double fensterBreiteUrsprünglich = fenster.getFensterBreiteUrsprünglich();
+	final protected double fensterHöheUrsprünglich = fenster.getFensterHöheUrsprünglich();
+	public double fensterBreite = fensterBreiteUrsprünglich;
 	protected double fensterHöhe = fensterHöheUrsprünglich;
+	
+	
+	//alte Variablen
+//	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//	final protected double fensterBreiteUrsprünglich = screenSize.width;
+//	final protected double fensterHöheUrsprünglich = screenSize.height;
+//	public double fensterBreite = fensterBreiteUrsprünglich;
+//	protected double fensterHöhe = fensterHöheUrsprünglich;
 	protected double yMax = 0;
 	protected double yMin = 0;
 	protected double xMin= 0;
@@ -32,7 +41,9 @@ public abstract class Ablauf extends JPanel {
 	private MaxMinRechner meinMaxMinRechner = new MaxMinRechner();
 	protected Point[] punktArray = new Point[(int) (fensterBreite+1)];
 	
+
 	public Ablauf() {
+		
 		
 		meinFensterAnpasser = new FensterAnpassung(dialog);
 		
@@ -45,16 +56,20 @@ public abstract class Ablauf extends JPanel {
 		dialog.setTitle("Funktionsgraph");
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setLocation(0, 0);
-		//dialog.setUndecorated(true);
 		dialog.setSize(0, 40);
 		dialog.setVisible(true);
+		
+		//fenster.setVisibility(true);
 	}
 	
 	public void paint(Graphics g) {
 		if (schonAusgeführt == true) {
-			
-			fensterBreite = meinFensterAnpasser.breite(fensterBreite, fensterBreiteUrsprünglich);
-			fensterHöhe = meinFensterAnpasser.höhe(fensterHöhe, fensterHöheUrsprünglich);
+			fenster.updateBreite(dialog);
+			fenster.updateHöhe(dialog);
+			fensterBreite = fenster.getFensterBreite();
+			fensterHöhe = fenster.getFensterHöhe();
+			//fensterBreite = meinFensterAnpasser.breite(fensterBreite, fensterBreiteUrsprünglich);
+			//fensterHöhe = meinFensterAnpasser.höhe(fensterHöhe, fensterHöheUrsprünglich);
 		}
 
 		xMin = MaxMinRechner.xMin(fensterBreite, fensterHöhe, punktArray, fensterBreiteUrsprünglich);
@@ -62,17 +77,17 @@ public abstract class Ablauf extends JPanel {
 		yMin = MaxMinRechner.yMin(fensterBreite, fensterHöhe, punktArray, fensterBreiteUrsprünglich);
 		yMax = MaxMinRechner.yMax(fensterBreite, fensterHöhe, punktArray, fensterBreiteUrsprünglich);
 
-		// Damit der Graph in beide Richtungen(x & y), um den größeren Extremwert bzw. um die größere Grenze verschoben wird und somit alles sichtbar ist
 		xVerschiebung = AchsenVerschiebung.achsenVerschiebung(xMin, xMax, fensterBreite, schonAusgeführt);
 		yVerschiebung = AchsenVerschiebung.achsenVerschiebung(yMin, yMax, fensterHöhe, schonAusgeführt);
-
+		
 		new Zeichnen(xMin, punktArray, xVerschiebung, yVerschiebung, fensterBreiteUrsprünglich, g);
 		
 		System.out.printf("\nxMin=%.1f, xMax=%.1f, yMin=%.1f, yMax=%.1f\n",xMin, xMax, yMin, yMax);
 		System.out.printf("xVerschiebung=%.1f, yVerschiebung=%.1f, Fensterbreite=%.0f, Fensterhöhe=%.0f\n",xVerschiebung, yVerschiebung, fensterBreite, fensterHöhe);
 		System.out.printf("Bildschirmbreite=%.0f, Bildschirmhöhe=%.0f\n",fensterBreiteUrsprünglich, fensterHöheUrsprünglich);
+		dialog.setSize((int) (2*xVerschiebung), (int) (2*yVerschiebung));
 		System.out.println(dialog.getContentPane().getBounds().getWidth() + "  "+ dialog.getContentPane().getBounds().getHeight());
-		dialog.setSize((int) (2*xVerschiebung),(int) (2*yVerschiebung));
+		
 		schonAusgeführt = true;
 	}	
 
