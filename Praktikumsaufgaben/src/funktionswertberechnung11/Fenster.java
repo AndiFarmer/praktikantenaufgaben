@@ -20,13 +20,6 @@ public class Fenster extends JPanel {
 		fensterHöheUrsprünglich = screenSize.height;
 		fensterBreite = fensterBreiteUrsprünglich;
 		fensterHöhe = fensterHöheUrsprünglich;
-		dialog.getContentPane().add(this);
-		dialog.setTitle("Funktionsgraph");
-		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		dialog.setLocation(0, 0);
-		dialog.setSize(0, 40);
-		dialog.setVisible(false);
-
 	}
 	
 	
@@ -59,11 +52,6 @@ public class Fenster extends JPanel {
 		if(fensterHöhe > fensterHöheUrsprünglich) {
 			fensterHöhe = fensterHöheUrsprünglich;
 		}
-	}
-	
-	
-	protected void setVisibility(boolean input) {
-		this.dialog.setVisible(input);
 	}
 	
 }

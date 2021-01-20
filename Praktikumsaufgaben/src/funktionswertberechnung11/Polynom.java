@@ -6,8 +6,9 @@ package funktionswertberechnung11;
  *
  */
 public class Polynom extends Ablauf {
-	
 
+	int test=123;
+	
 	public double f(double x) {
 		return Math.pow(0.01*x, 5)-1*Math.pow(x, 1)+100;
 	}

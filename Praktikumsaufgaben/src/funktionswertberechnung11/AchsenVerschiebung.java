@@ -2,55 +2,44 @@ package funktionswertberechnung11;
 
 public class AchsenVerschiebung {
  
+	private double xVerschiebung = 0;
+	private double yVerschiebung = 0;
+	
 	public AchsenVerschiebung() {
-		// TODO Auto-generated constructor stub
+
 	}
 	
-	public static double calcXVerschiebung (MaxMinRechner meinMaxMinRechner, double fensterBreite, boolean schonAusgeführt) {
-		/**
-		 * Wenn die xVerschiebung berechnet werden soll, dann ist bei der fensterGröße die fensterBreite einzugeben(bei der yVerschiebung entsprechend die FensterHöhe)  
-		 */
-		
-		double xVerschiebung;
-		double xMinVorzeichenBereinigt = Math.pow(Math.pow(meinMaxMinRechner.getXMin(), 2), 0.5);
-		double yMaxVorzeichenBereinigt = Math.pow(Math.pow(meinMaxMinRechner.getXMax(), 2), 0.5);
-		if (schonAusgeführt == false) {
-			if(xMinVorzeichenBereinigt > yMaxVorzeichenBereinigt) {
-				xVerschiebung = xMinVorzeichenBereinigt;
-			}else {
-				xVerschiebung = yMaxVorzeichenBereinigt;
-			}
-		}else {
-			if(xMinVorzeichenBereinigt > yMaxVorzeichenBereinigt) {
-				xVerschiebung = fensterBreite/2;
-			}else {
-				xVerschiebung = fensterBreite/2;
-			}
-		}
+	public double getXVerschiebung() {
 		return xVerschiebung;
 	}
 	
-	public static double calcYVerschiebung (MaxMinRechner meinMaxMinRechner, double fensterHöhe, boolean schonAusgeführt) {
-		/**
-		 * Wenn die xVerschiebung berechnet werden soll, dann ist bei der fensterGröße die fensterBreite einzugeben(bei der yVerschiebung entsprechend die FensterHöhe)  
-		 */
+	public double getYVerschiebung() {
+		return yVerschiebung;
+	}
+	
+	public void calcXYVerschiebung (MaxMinRechner meinMaxMinRechner, Fenster fenster, boolean schonAusgeführt) {
 		
-		double yVerschiebung;
+		double fensterBreite = fenster.getFensterBreite();
+		double fensterHöhe = fenster.getFensterHöhe();
+		double xMinVorzeichenBereinigt = Math.pow(Math.pow(meinMaxMinRechner.getXMin(), 2), 0.5);
+		double xMaxVorzeichenBereinigt = Math.pow(Math.pow(meinMaxMinRechner.getXMax(), 2), 0.5);
 		double yMinVorzeichenBereinigt = Math.pow(Math.pow(meinMaxMinRechner.getYMin(), 2), 0.5);
 		double yMaxVorzeichenBereinigt = Math.pow(Math.pow(meinMaxMinRechner.getYMax(), 2), 0.5);
+		
 		if (schonAusgeführt == false) {
+			if(xMinVorzeichenBereinigt > xMaxVorzeichenBereinigt) {
+				xVerschiebung = xMinVorzeichenBereinigt;
+			}else {
+				xVerschiebung = xMaxVorzeichenBereinigt;
+			}
 			if(yMinVorzeichenBereinigt > yMaxVorzeichenBereinigt) {
 				yVerschiebung = yMinVorzeichenBereinigt;
 			}else {
 				yVerschiebung = yMaxVorzeichenBereinigt;
 			}
 		}else {
-			if(yMinVorzeichenBereinigt > yMaxVorzeichenBereinigt) {
-				yVerschiebung = fensterHöhe/2;
-			}else {
-				yVerschiebung = fensterHöhe/2;
-			}
+			xVerschiebung = fensterBreite/2;
+			yVerschiebung = fensterHöhe/2;
 		}
-		return yVerschiebung;
 	}
 }

@@ -15,44 +15,34 @@ public abstract class Ablauf extends JPanel {
 	 * Zeichnet Graph in einem Fenster(Dialog)
 	 * @param args
 	 */
-	//neue Variablen, bzw. veränderte
-	protected Fenster fenster = new Fenster();
-	final protected double fensterBreiteUrsprünglich = fenster.getFensterBreiteUrsprünglich();
-	final protected double fensterHöheUrsprünglich = fenster.getFensterHöheUrsprünglich();
-	protected double fensterBreite = fensterBreiteUrsprünglich;
-	protected double fensterHöhe = fensterHöheUrsprünglich;
 	
-	
-	//alte Variablen
-//	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//	final protected double fensterBreiteUrsprünglich = screenSize.width;
-//	final protected double fensterHöheUrsprünglich = screenSize.height;
-//	public double fensterBreite = fensterBreiteUrsprünglich;
-//	protected double fensterHöhe = fensterHöheUrsprünglich;
-//	protected double yMax = 0;
-//	protected double yMin = 0;
-//	protected double xMin= 0;
-//	protected double xMax= 0;
-	static protected boolean schonAusgeführt = false;
-	protected double xVerschiebung = 0;
-	protected double yVerschiebung = 0;
-	protected JDialog dialog = new JDialog(); //Instanz der Klasse JDialog
-	// private FensterAnpassung meinFensterAnpasser = null;
+	private Fenster fenster = new Fenster();
 	private MaxMinRechner meinMaxMinRechner = new MaxMinRechner();
-	protected Point[] punktArray = new Point[(int) (fensterBreite+1)];
-	
+	private AchsenVerschiebung meineAchsenVerschiebung = new AchsenVerschiebung();
+	private Point[] punktArray;
+	private JDialog dialog = new JDialog(); //Instanz der Klasse JDialog
+	final private double fensterBreiteUrsprünglich;
+	final private double fensterHöheUrsprünglich;
+	private double fensterBreite = 0;
+	private double fensterHöhe = 0;
+	private boolean schonAusgeführt = false;
+	private double xVerschiebung = 0;
+	private double yVerschiebung = 0;
 
-	public Ablauf() {
-		
-		
-		// meinFensterAnpasser = new FensterAnpassung(dialog);
+	protected Ablauf() {
+		fensterBreiteUrsprünglich = fenster.getFensterBreiteUrsprünglich();
+		fensterHöheUrsprünglich = fenster.getFensterHöheUrsprünglich();
+		fensterBreite = fensterBreiteUrsprünglich;
+		fensterHöhe = fensterHöheUrsprünglich;
+		punktArray = new Point[(int) (fensterBreite+1)];
 		
 		for (double xNow = -fensterBreiteUrsprünglich/2; xNow <= fensterBreiteUrsprünglich/2; xNow++) {
 			double yNow = f(xNow);
 			punktArray[(int) (xNow+ fensterBreiteUrsprünglich/2)] = new Point(xNow, yNow);
 		}
 		
-		dialog.getContentPane().add(this);
+		dialog.add(this);
+		//dialog.getContentPane().add(this);
 		dialog.setTitle("Funktionsgraph");
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setLocation(0, 0);
@@ -62,39 +52,47 @@ public abstract class Ablauf extends JPanel {
 		//fenster.setVisibility(true);
 	}
 	
-	public void paint(Graphics g) {
+	public void paint(Graphics g) { // paint aus der Klasse JPanel wird hier überschrieben
+		
 		if (schonAusgeführt == true) {
 			fenster.updateBreite(dialog);
 			fenster.updateHöhe(dialog);
 			fensterBreite = fenster.getFensterBreite();
 			fensterHöhe = fenster.getFensterHöhe();
-			//fensterBreite = meinFensterAnpasser.breite(fensterBreite, fensterBreiteUrsprünglich);
-			//fensterHöhe = meinFensterAnpasser.höhe(fensterHöhe, fensterHöheUrsprünglich);
 		}
 
 		if (schonAusgeführt == false) {
-			// meinMaxMinRechner.berechneXYMaxMin(fenster, punktArray, fensterBreiteUrsprünglich);
-			meinMaxMinRechner.calcXMin(fensterBreite, fensterHöhe, punktArray, fensterBreiteUrsprünglich);
-			meinMaxMinRechner.calcXMax(fensterBreite, fensterHöhe, punktArray, fensterBreiteUrsprünglich);
-			meinMaxMinRechner.calcYMin(fensterBreite, fensterHöhe, punktArray, fensterBreiteUrsprünglich);
-			meinMaxMinRechner.calcYMax(fensterBreite, fensterHöhe, punktArray, fensterBreiteUrsprünglich);
+			meinMaxMinRechner.calcXYMaxMin(fenster, punktArray);
 		}
 		
-
-		xVerschiebung = AchsenVerschiebung.calcXVerschiebung(meinMaxMinRechner, fensterBreite, schonAusgeführt);
-		yVerschiebung = AchsenVerschiebung.calcYVerschiebung(meinMaxMinRechner, fensterHöhe, schonAusgeführt);
+		meineAchsenVerschiebung.calcXYVerschiebung(meinMaxMinRechner, fenster, schonAusgeführt);
+		xVerschiebung = meineAchsenVerschiebung.getXVerschiebung();
+		yVerschiebung = meineAchsenVerschiebung.getYVerschiebung();
 		
-		new Zeichnen(punktArray, xVerschiebung, yVerschiebung, fensterBreiteUrsprünglich, g);
+		double xPrev=-xVerschiebung;
+		double yPrev=punktArray[(int) (xPrev + fensterBreiteUrsprünglich/2) ].getYKoordinate(); // ==f(xPrev)
 		
-		System.out.printf("\nxMin=%.1f, xMax=%.1f, yMin=%.1f, yMax=%.1f\n",meinMaxMinRechner.getXMin(), meinMaxMinRechner.getXMax(), meinMaxMinRechner.getYMin(), meinMaxMinRechner.getYMax());
-		System.out.printf("xVerschiebung=%.1f, yVerschiebung=%.1f, Fensterbreite=%.0f, Fensterhöhe=%.0f\n",xVerschiebung, yVerschiebung, fensterBreite, fensterHöhe);
-		System.out.printf("Bildschirmbreite=%.0f, Bildschirmhöhe=%.0f\n",fensterBreiteUrsprünglich, fensterHöheUrsprünglich);
+		for (double xNow = -xVerschiebung; xNow <= xVerschiebung; xNow++) {
+			
+			double yNow = punktArray[(int) (xNow + fensterBreiteUrsprünglich/2) ].getYKoordinate();
+			g.drawLine((int) (xPrev+xVerschiebung-8), (int) (yPrev+yVerschiebung-20), (int) (xNow+xVerschiebung-8), (int) (yNow+yVerschiebung-20)); // durch die Titelleiste wird das innere Fenster um 16 in x-Richtung und 39 in y-Richtung verkleinert
+			g.drawLine((int) (xVerschiebung+xVerschiebung-8), (int) yVerschiebung-20, (int) (xVerschiebung-xVerschiebung-8), (int) yVerschiebung-20);
+			g.drawLine((int) (xVerschiebung-8), (int) (yVerschiebung+yVerschiebung-20), (int) (xVerschiebung-8), (int) (yVerschiebung-yVerschiebung-20));
+			yPrev=yNow;
+			xPrev=xNow;
+		}
+		
 		dialog.setSize((int) (2*xVerschiebung), (int) (2*yVerschiebung));
-		System.out.println(dialog.getContentPane().getBounds().getWidth() + "  "+ dialog.getContentPane().getBounds().getHeight());
-		
 		schonAusgeführt = true;
+		printVariablen();
 	}	
 
 	abstract double f(double x);
 	
+	private void printVariablen() {
+		System.out.printf("\nxMin=%.1f, xMax=%.1f, yMin=%.1f, yMax=%.1f\n",meinMaxMinRechner.getXMin(), meinMaxMinRechner.getXMax(), meinMaxMinRechner.getYMin(), meinMaxMinRechner.getYMax());
+		System.out.printf("xVerschiebung=%.1f, yVerschiebung=%.1f, Fensterbreite=%.0f, Fensterhöhe=%.0f\n",xVerschiebung, yVerschiebung, fensterBreite, fensterHöhe);
+		System.out.printf("Bildschirmbreite=%.0f, Bildschirmhöhe=%.0f\n",fensterBreiteUrsprünglich, fensterHöheUrsprünglich);
+		System.out.println(dialog.getContentPane().getBounds().getWidth() + "  "+ dialog.getContentPane().getBounds().getHeight());
+	}
 }
