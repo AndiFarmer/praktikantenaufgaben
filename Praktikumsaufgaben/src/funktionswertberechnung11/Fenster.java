@@ -19,6 +19,16 @@ public class Fenster {
 		fensterHöhe = fensterHöheUrsprünglich;
 	}
 	
+	protected void updateMaße(JDialog dialog2) {
+		fensterBreite = dialog2.getSize().width;
+		if(fensterBreite > this.fensterBreiteUrsprünglich) {
+			fensterBreite = fensterBreiteUrsprünglich;
+		}
+		fensterHöhe = dialog2.getSize().height;
+		if(fensterHöhe > fensterHöheUrsprünglich) {
+			fensterHöhe = fensterHöheUrsprünglich;
+		}
+	}
 	
 	protected double getFensterBreiteUrsprünglich() {
 		return this.fensterBreiteUrsprünglich;
@@ -32,20 +42,4 @@ public class Fenster {
 	protected double getFensterHöhe() {
 		return this.fensterHöhe;
 	}
-	
-	
-	protected void updateBreite(JDialog dialog2) {
-		fensterBreite = dialog2.getSize().width;
-		if(fensterBreite > this.fensterBreiteUrsprünglich) {
-			fensterBreite = fensterBreiteUrsprünglich;
-		}
-	}
-	
-	protected void updateHöhe(JDialog dialog2) {
-		fensterHöhe = dialog2.getSize().height;
-		if(fensterHöhe > fensterHöheUrsprünglich) {
-			fensterHöhe = fensterHöheUrsprünglich;
-		}
-	}
-	
 }
