@@ -10,14 +10,14 @@ import javax.swing.JPanel;
  * @author z1300a2k
  *
  */
-public abstract class Funktionsdarsteller extends JPanel {
+public class Funktionsdarsteller extends JPanel {
 	/**
 	 * Zeichnet Graph in einem Fenster(Dialog)
 	 * @param args
 	 */
 	
 	private Fenster fenster = new Fenster();
-	private Graph meinMaxMinRechner = new Graph();
+	private Graph polynom = new Polynom(fenster);
 	private AchsenVerschiebung meineAchsenVerschiebung = new AchsenVerschiebung();
 	
 	private JDialog dialog = new JDialog(); //Instanz der Klasse JDialog
@@ -83,8 +83,6 @@ public abstract class Funktionsdarsteller extends JPanel {
 		printVariablen();
 	}	
 
-	abstract double f(double x);
-	
 	private void printVariablen() {
 		System.out.printf("\nxMin=%.1f, xMax=%.1f, yMin=%.1f, yMax=%.1f\n",meinMaxMinRechner.getXMin(), meinMaxMinRechner.getXMax(), meinMaxMinRechner.getYMin(), meinMaxMinRechner.getYMax());
 		System.out.printf("xVerschiebung=%.1f, yVerschiebung=%.1f, Fensterbreite=%.0f, Fensterhöhe=%.0f\n",xVerschiebung, yVerschiebung, fensterBreite, fensterHöhe);

@@ -10,7 +10,7 @@ public abstract class Graph {
 	
 	public Graph(Fenster fenster) {
 		füllePunktArray(fenster);
-		
+		calcXYMaxMin(fenster, punktArray);
 		
 	}
 	
@@ -70,6 +70,9 @@ public abstract class Graph {
 	}
 	public double getYMax() {
 		return yMax;
+	}
+	public Point[] getPunktArray() {
+		return punktArray;
 	}
 }
 
