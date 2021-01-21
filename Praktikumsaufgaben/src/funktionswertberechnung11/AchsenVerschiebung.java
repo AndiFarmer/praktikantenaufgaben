@@ -17,7 +17,7 @@ public class AchsenVerschiebung {
 		return yVerschiebung;
 	}
 	
-	public void calcXYVerschiebung (MaxMinRechner meinMaxMinRechner, Fenster fenster, boolean schonAusgeführt) {
+	public void calcXYVerschiebung (Graph meinMaxMinRechner, Fenster fenster, boolean schonAusgeführt) {
 		
 		double fensterBreite = fenster.getFensterBreite();
 		double fensterHöhe = fenster.getFensterHöhe();

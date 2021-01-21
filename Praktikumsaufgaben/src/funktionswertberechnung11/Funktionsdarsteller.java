@@ -10,16 +10,16 @@ import javax.swing.JPanel;
  * @author z1300a2k
  *
  */
-public abstract class Ablauf extends JPanel {
+public abstract class Funktionsdarsteller extends JPanel {
 	/**
 	 * Zeichnet Graph in einem Fenster(Dialog)
 	 * @param args
 	 */
 	
 	private Fenster fenster = new Fenster();
-	private MaxMinRechner meinMaxMinRechner = new MaxMinRechner();
+	private Graph meinMaxMinRechner = new Graph();
 	private AchsenVerschiebung meineAchsenVerschiebung = new AchsenVerschiebung();
-	private Point[] punktArray;
+	
 	private JDialog dialog = new JDialog(); //Instanz der Klasse JDialog
 	final private double fensterBreiteUrsprünglich;
 	final private double fensterHöheUrsprünglich;
@@ -29,16 +29,12 @@ public abstract class Ablauf extends JPanel {
 	private double xVerschiebung = 0;
 	private double yVerschiebung = 0;
 
-	protected Ablauf() {
+	protected Funktionsdarsteller() {
 		fensterBreiteUrsprünglich = fenster.getFensterBreiteUrsprünglich();
 		fensterHöheUrsprünglich = fenster.getFensterHöheUrsprünglich();
 		fensterBreite = fensterBreiteUrsprünglich;
 		fensterHöhe = fensterHöheUrsprünglich;
-		punktArray = new Point[(int) (fensterBreite+1)];
 		
-		for (double xNow = -fensterBreiteUrsprünglich/2; xNow <= fensterBreiteUrsprünglich/2; xNow++) {
-			double yNow = f(xNow);
-			punktArray[(int) (xNow+ fensterBreiteUrsprünglich/2)] = new Point(xNow, yNow);
 		}
 		
 		dialog.add(this);

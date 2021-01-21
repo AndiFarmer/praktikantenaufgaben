@@ -1,15 +1,33 @@
 package funktionswertberechnung11;
 
-public class MaxMinRechner {
+public abstract class Graph {
 
+	private Point[] punktArray;
 	private double xMin = 0;
 	private double xMax = 0;
 	private double yMin = 0;
 	private double yMax = 0;
 	
-	public MaxMinRechner() {
+	public Graph(Fenster fenster) {
+		füllePunktArray(fenster);
+		
 		
 	}
+	
+	private void füllePunktArray(Fenster fenster) {
+		
+		double fensterBreiteUrsprünglich = fenster.getFensterBreiteUrsprünglich();
+		punktArray = new Point[(int) (fensterBreiteUrsprünglich+1)];
+		
+		for (double xNow = -fensterBreiteUrsprünglich/2; xNow <= fensterBreiteUrsprünglich/2; xNow++) {
+			double yNow = f(xNow);
+			punktArray[(int) (xNow + fensterBreiteUrsprünglich/2)] = new Point(xNow, yNow);
+		}
+	}
+	
+	abstract double f(double x);
+		
+	
 	
 	public double calcXYMaxMin(Fenster fenster, Point[] punktArray) {
 		
