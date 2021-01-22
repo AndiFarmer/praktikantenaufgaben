@@ -1,8 +1,8 @@
 package funktionswertBerechnung11a;
 
-public class Tangens extends TrigonometrischeFunktion{
+public class TangensFunktion extends TrigonometrischeFunktion{
 
-	public Tangens() {
+	public TangensFunktion() {
 		
 	}
 	

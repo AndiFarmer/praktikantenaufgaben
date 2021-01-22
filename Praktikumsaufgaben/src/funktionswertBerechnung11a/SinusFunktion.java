@@ -1,8 +1,8 @@
 package funktionswertBerechnung11a;
 
-public class Sinus extends TrigonometrischeFunktion{
+public class SinusFunktion extends TrigonometrischeFunktion{
 
-	public Sinus() {
+	public SinusFunktion() {
 		
 	}
 	

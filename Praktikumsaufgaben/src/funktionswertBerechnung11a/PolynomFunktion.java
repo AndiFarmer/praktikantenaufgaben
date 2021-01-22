@@ -1,8 +1,8 @@
 package funktionswertBerechnung11a;
 
-public class Polynom extends QuadratischeFunktion{
+public class PolynomFunktion extends QuadratischeFunktion{
 
-	public Polynom() {
+	public PolynomFunktion() {
 		
 	}
 	

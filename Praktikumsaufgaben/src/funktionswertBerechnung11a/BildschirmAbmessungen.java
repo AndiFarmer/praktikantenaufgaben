@@ -5,8 +5,8 @@ import java.awt.Toolkit;
 
 public class BildschirmAbmessungen {
 
-	private double breite;
-	private double höhe;
+	private int breite;
+	private int höhe;
 	
 	public BildschirmAbmessungen() {
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -14,19 +14,19 @@ public class BildschirmAbmessungen {
 	this.setHöhe(screenSize.height);
 	}
 
-	public double getBreite() {
+	public int getBreite() {
 		return breite;
 	}
 
-	public void setBreite(double breite) {
+	public void setBreite(int breite) {
 		this.breite = breite;
 	}
 
-	public double getHöhe() {
+	public int getHöhe() {
 		return höhe;
 	}
 
-	public void setHöhe(double höhe) {
+	public void setHöhe(int höhe) {
 		this.höhe = höhe;
 	}
 
