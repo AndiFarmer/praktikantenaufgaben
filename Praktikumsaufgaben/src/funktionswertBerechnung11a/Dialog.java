@@ -5,12 +5,16 @@ import javax.swing.JPanel;
 
 public class Dialog extends JDialog {
 
-	public Dialog(JPanel JPanelZeichner) {
-		this.add(JPanelZeichner);
+	public Dialog(JPanel Funktioszeichner) {
+		this.add(Funktioszeichner);
 		this.setTitle("Funktionsgraph");
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.setSize(0, 40);
 		this.setVisible(true);
+	}
+	
+	public void updateDialogGröße(Achsenverschiebung achsenVerschiebung) {
+		this.setSize(achsenVerschiebung.getxVerschiebung(), achsenVerschiebung.getyVerschiebung());
 	}
 
 }

@@ -1,38 +1,58 @@
 package funktionswertBerechnung11a;
 
-import funktionswertberechnung11.Fenster;
-import funktionswertberechnung11.Graph;
+import javax.swing.JDialog;
 
 public class Achsenverschiebung {
 
 	int xVerschiebung;
 	int yVerschiebung;
+	private FunktionsZeichner funktionsZeichner;
 	
-	public Achsenverschiebung() {
-		
+	public Achsenverschiebung(FunktionsZeichner funktionsZeichner) {
+		this.funktionsZeichner = funktionsZeichner;
 	}
 	
-	public void calcXYVerschiebung (MinMax minMax,BildschirmAbmessungen bildschirmAbmessungen, boolean schonAusgeführt) {
-		int xMin = minMax.getxMin();
-		int xMax = minMax.getxMax();
-		int yMin = minMax.getyMin();
-		int yMax = minMax.getyMin();
+	public void calcXYVerschiebung (MinMax minMax, JDialog dialog, boolean schonAusgeführt) {
+		int bildschirmBreiteHälfte = this.funktionsZeichner.getBildschirmAbmessungen().getBreite()/2;
+		int xMinAbstandMittelpunkt = entferneVorzeichen(minMax.getxMin() - bildschirmBreiteHälfte);
+		int xMaxAbstandMittelpunkt = entferneVorzeichen(minMax.getxMax() - bildschirmBreiteHälfte);
+		int yMinAbstandMittelpunkt = entferneVorzeichen(minMax.getyMin());
+		int yMaxAbstandMittelpunkt = entferneVorzeichen(minMax.getyMax());
 		
-		if (schonAusgeführt == false) { // NOCH NICHT KORREKT
-			if(xMin > xMax) {
-				xVerschiebung = xMin;
+		if (schonAusgeführt == false) {
+			if(xMinAbstandMittelpunkt > xMaxAbstandMittelpunkt) {
+				setxVerschiebung(xMinAbstandMittelpunkt);
 			}else {
-				xVerschiebung = xMax;
+				setxVerschiebung(xMaxAbstandMittelpunkt);
 			}
-			if(yMin > yMax) {
-				yVerschiebung = yMin;
+			if(yMinAbstandMittelpunkt > yMaxAbstandMittelpunkt) {
+				setyVerschiebung(yMinAbstandMittelpunkt);
 			}else {
-				yVerschiebung = yMax;
+				setyVerschiebung(yMaxAbstandMittelpunkt);
 			}
 		} else {
-			xVerschiebung = bildschirmAbmessungen.getBreite()/2;
-			yVerschiebung = bildschirmAbmessungen.getBreite()/2;
+			setxVerschiebung(dialog.getWidth()/2);
+			setyVerschiebung(dialog.getHeight()/2);
 		}
-		
+	}
+	
+	private int entferneVorzeichen (double input ) {
+		return (int) Math.pow(Math.pow(input,2), 0.5);
+	}
+
+	public int getxVerschiebung() {
+		return xVerschiebung;
+	}
+
+	public void setxVerschiebung(int xVerschiebung) {
+		this.xVerschiebung = xVerschiebung;
+	}
+
+	public int getyVerschiebung() {
+		return yVerschiebung;
+	}
+
+	public void setyVerschiebung(int yVerschiebung) {
+		this.yVerschiebung = yVerschiebung;
 	}
 }

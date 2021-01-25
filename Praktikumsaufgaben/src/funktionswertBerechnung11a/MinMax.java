@@ -2,10 +2,10 @@ package funktionswertBerechnung11a;
 
 public class MinMax {
 
-	int xMin, xMax, yMin, yMax;
+	private int xMin, xMax, yMin, yMax;
 	
-	public MinMax(double[] yWertArray, BildschirmAbmessungen bildschirmAbmessungen) {
-		calcXYMinMax(yWertArray, bildschirmAbmessungen);
+	public MinMax(double[] yWertArray, FunktionsZeichner funktionsZeichner) {
+		calcXYMinMax(yWertArray, funktionsZeichner.getBildschirmAbmessungen());
 	}
 
 	private void calcXYMinMax(double[] yWertArray, BildschirmAbmessungen bildschirmAbmessungen) {
@@ -14,7 +14,10 @@ public class MinMax {
 		double yNow;
 		int bildschirmBreite = bildschirmAbmessungen.getBreite();
 		int bildschirmHöhe = bildschirmAbmessungen.getHöhe();
-		for (int i = 0; i <= bildschirmBreite/2; i++) {
+		for (int i = 0; i < bildschirmBreite; i++) {
+			
+			System.out.println(yWertArray[i]); ///////////////////////////////////
+			
 			yNow = yWertArray[i];
 			
 			if (yNow < bildschirmHöhe/2 && yNow > -bildschirmHöhe/2 && xMinGesetzt == false) {

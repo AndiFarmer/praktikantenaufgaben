@@ -2,21 +2,28 @@ package funktionswertBerechnung11a;
 
 public class FunktionsWerte {
 
-	double[] yWertArray;
+	private double[] yWertArray;
+	private FunktionsZeichner funktionsZeichner;
 		
-	public FunktionsWerte(int BildschirmBreite) {
-		fillArray(BildschirmBreite);
+	public FunktionsWerte(FunktionsZeichner funktionsZeichner) {
+		this.funktionsZeichner = funktionsZeichner;
 	}
 	
-	private void fillArray(int BildschirmBreite) {
+//	public FunktionsWerte(BildschirmAbmessungen bildschirmAbmessungen) {
+//		fillArray(bildschirmAbmessungen.getBreite());
+//	}
+	
+	private void fillArray() {
 		Funktion funktion = new PolynomFunktion();
-		yWertArray = new double[BildschirmBreite];
-		for(int i = 0; i < BildschirmBreite; i++) {
-			yWertArray[i] = funktion.calcY(i);
+		int bildschirmBreite = this.funktionsZeichner.getBildschirmAbmessungen().getBreite();
+		yWertArray = new double[bildschirmBreite];
+		for(int i = 0; i < bildschirmBreite; i++) {
+			yWertArray[i] = funktion.calcY(i - (bildschirmBreite/2) );
 		}
 	}
 
 	public double[] getyWertArray() {
 		return yWertArray;
 	}
+	
 }
