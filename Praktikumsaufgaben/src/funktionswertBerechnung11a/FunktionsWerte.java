@@ -7,6 +7,7 @@ public class FunktionsWerte {
 		
 	public FunktionsWerte(FunktionsZeichner funktionsZeichner) {
 		this.funktionsZeichner = funktionsZeichner;
+		fillArray();
 	}
 	
 //	public FunktionsWerte(BildschirmAbmessungen bildschirmAbmessungen) {

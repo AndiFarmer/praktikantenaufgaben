@@ -14,7 +14,7 @@ public class Dialog extends JDialog {
 	}
 	
 	public void updateDialogGröße(Achsenverschiebung achsenVerschiebung) {
-		this.setSize(achsenVerschiebung.getxVerschiebung(), achsenVerschiebung.getyVerschiebung());
+		this.setSize(2 * achsenVerschiebung.getxVerschiebung(), 2 * achsenVerschiebung.getyVerschiebung());
 	}
 
 }

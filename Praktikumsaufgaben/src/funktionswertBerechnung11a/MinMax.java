@@ -16,8 +16,6 @@ public class MinMax {
 		int bildschirmHöhe = bildschirmAbmessungen.getHöhe();
 		for (int i = 0; i < bildschirmBreite; i++) {
 			
-			System.out.println(yWertArray[i]); ///////////////////////////////////
-			
 			yNow = yWertArray[i];
 			
 			if (yNow < bildschirmHöhe/2 && yNow > -bildschirmHöhe/2 && xMinGesetzt == false) {
