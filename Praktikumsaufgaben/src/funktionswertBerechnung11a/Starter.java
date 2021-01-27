@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -26,37 +25,37 @@ public class Starter {
 		
 		JButton button;
 		button = new JButton("Graph anzeigen");
+		button.setBackground(Color.LIGHT_GRAY.brighter());
 		button.setBounds(25, 25, 150, 40);
-		button.setFocusPainted(false);
-		button.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		button.setFocusPainted(false); 
+		button.setBorder(BorderFactory.createBevelBorder(1,Color.GRAY,Color.GRAY.brighter()));
 		
 		button.addMouseListener(new MouseListener() {
+			
 			public void mouseEntered(MouseEvent e) {
-				
+				button.setBorder(BorderFactory.createBevelBorder(1,Color.GRAY.brighter(), Color.GRAY));
 			}
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
+				
+			}
+
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				button.setBorder(BorderFactory.createBevelBorder(1,Color.GRAY,Color.GRAY.brighter()));
 				
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
 
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
 		});
 			
@@ -77,7 +76,7 @@ public class Starter {
 	public static void main(String[] args) {
 		
 		new Starter();
-		//
+		
 	}
 
 }
