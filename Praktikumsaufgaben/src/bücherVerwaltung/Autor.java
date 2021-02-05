@@ -14,51 +14,30 @@ public class Autor implements Comparable<Autor>{
 		setNachName(nachName);
 		bücher = new ArrayList<Buch>();
 	}
-
-	public String getVorName() {
-		return vorName;
-	}
-
-	public void setVorName(String vorName) {
-		this.vorName = vorName;
-	}
-
-	public String getNachName() {
-		return nachName;
-	}
-
-	public void setNachName(String nachName) {
-		this.nachName = nachName;
-	}
-
-	public List<Buch> getBücher() {
-		return bücher;
-	}
-
-	public void addBuchToAutor(Buch myBuch) {
-		this.bücher.add(myBuch);
-		myBuch.setAutor(this);
-	}
-
+	
 	
 	@Override
-	public final int compareTo(Autor anotherAutor) {
+	public int compareTo(Autor anotherAutor) {
 
-		if(anotherAutor.equals(this)) { // oder wie bei Angelika Langer another == this?
+		if(anotherAutor == this) {
 			return 0;
 		}
-		if(! anotherAutor.getClass().equals(this.getClass())) {
-			throw new ClassCastException();
+		if(anotherAutor.equals(this)) {
+			return 0;
 		}
-		if(! anotherAutor.nachName.equals(this.nachName)) {
-			return anotherAutor.nachName.compareTo(this.nachName);
+//		Das Folgende ist nicht nötig, da in Parameterliste nur Autoren in Frage kommen.
+//		if(! anotherAutor.getClass().equals(this.getClass())) {
+//			throw new ClassCastException();
+//		}
+		if(! anotherAutor.getNachName().equals(this.getNachName())) {
+			return anotherAutor.getNachName().compareTo(this.getNachName());
 		}
-		return  anotherAutor.vorName.compareTo(this.vorName);
+		return  anotherAutor.getVorName().compareTo(this.getVorName());
 	}
 	
 
 	@Override
-	public final boolean equals(Object anotherAutor) {
+	public boolean equals(Object anotherAutor) {
 		if (this == anotherAutor ) {
 			return true;
 		}
@@ -77,14 +56,47 @@ public class Autor implements Comparable<Autor>{
 	
 	
 	@Override
-	public final int hashCode() {
+	public int hashCode() {
 		int hc = 17;
 		int hashMultiplier = 59;
 		for (int i = 0; i < this.vorName.charAt(0) % 13; i++) {
-			hc = hc * hashMultiplier + this.vorName.charAt(vorName.length() - 1) *
-					this.nachName.charAt(0) + this.nachName.charAt(nachName.length() - 1);
+			hc = hc * hashMultiplier + this.vorName.charAt(this.vorName.length() - 1) *
+					this.nachName.charAt(0) + this.nachName.charAt(this.nachName.length() - 1);
 		}
-		return hc;	
+		return hc;
 	}
+	
+	
+	public String getVorName() {
+		return vorName;
+	}
+
+	
+	public void setVorName(String vorName) {
+		this.vorName = vorName;
+	}
+
+	
+	public String getNachName() {
+		return nachName;
+	}
+
+	
+	public void setNachName(String nachName) {
+		this.nachName = nachName;
+	}
+
+	
+	public List<Buch> getBücher() {
+		return bücher;
+	}
+
+	
+	public void addBuchToAutor(Buch myBuch) {
+		this.bücher.add(myBuch);
+		myBuch.getAutoren().add(this);
+	}
+
+	
 	
 }
