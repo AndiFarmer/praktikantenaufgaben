@@ -1,4 +1,4 @@
-package bücherverwaltung;
+package bücherVerwaltung;
 
 public class BuchTypVerwalter {
 	

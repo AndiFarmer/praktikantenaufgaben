@@ -1,4 +1,4 @@
-package bücherverwaltung;
+package bücherVerwaltung;
 
 import java.util.ArrayList;
 import java.util.List;
