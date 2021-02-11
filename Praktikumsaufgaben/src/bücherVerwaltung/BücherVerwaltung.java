@@ -1,7 +1,9 @@
 package bücherVerwaltung;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class BücherVerwaltung {
 	
@@ -9,11 +11,11 @@ public class BücherVerwaltung {
 	private VerlagVerwalter verlagVerwalter;
 	private BuchTypVerwalter buchTypVerwalter;
 	
-	private List<Buch> bücher;
+	private Set<Buch> bücher;
 	
-	private List<Autor> autoren;
-	private List<Verlag> verläge;
-	private List<BuchTyp> buchTypen;
+	private Set<Autor> autoren;
+	private Set<Verlag> verläge;
+	private Set<BuchTyp> buchTypen;
 	
 	
 	public BücherVerwaltung() {
@@ -21,11 +23,11 @@ public class BücherVerwaltung {
 		verlagVerwalter = new VerlagVerwalter();
 		buchTypVerwalter = new BuchTypVerwalter();
 		
-		bücher = new ArrayList<Buch>();
+		bücher = new HashSet<Buch>();
 		
-		autoren = new ArrayList<Autor>();
-		verläge = new ArrayList<Verlag>();
-		buchTypen = new ArrayList<BuchTyp>();
+		autoren = new HashSet<Autor>();
+		verläge = new HashSet<Verlag>();
+		buchTypen = new HashSet<BuchTyp>();
 	}
 
 
@@ -34,8 +36,18 @@ public class BücherVerwaltung {
 	}
 
 
+	public void setAutorenVerwalter(AutorenVerwalter autorenVerwalter) {
+		this.autorenVerwalter = autorenVerwalter;
+	}
+
+
 	public VerlagVerwalter getVerlagVerwalter() {
 		return verlagVerwalter;
+	}
+
+
+	public void setVerlagVerwalter(VerlagVerwalter verlagVerwalter) {
+		this.verlagVerwalter = verlagVerwalter;
 	}
 
 
@@ -44,22 +56,51 @@ public class BücherVerwaltung {
 	}
 
 
-	public List<Buch> getBücher() {
+	public void setBuchTypVerwalter(BuchTypVerwalter buchTypVerwalter) {
+		this.buchTypVerwalter = buchTypVerwalter;
+	}
+
+
+	public Set<Buch> getBücher() {
 		return bücher;
 	}
 
 
-	public List<Autor> getAutoren() {
+	public void setBücher(Set<Buch> bücher) {
+		this.bücher = bücher;
+	}
+
+
+	public Set<Autor> getAutoren() {
 		return autoren;
 	}
 
 
-	public List<Verlag> getVerläge() {
+	public void setAutoren(Set<Autor> autoren) {
+		this.autoren = autoren;
+	}
+
+
+	public Set<Verlag> getVerläge() {
 		return verläge;
 	}
 
 
-	public List<BuchTyp> getBuchTypen() {
+	public void setVerläge(Set<Verlag> verläge) {
+		this.verläge = verläge;
+	}
+
+
+	public Set<BuchTyp> getBuchTypen() {
 		return buchTypen;
 	}
+
+
+	public void setBuchTypen(Set<BuchTyp> buchTypen) {
+		this.buchTypen = buchTypen;
+	}
+	
+	
+	
+
 }
