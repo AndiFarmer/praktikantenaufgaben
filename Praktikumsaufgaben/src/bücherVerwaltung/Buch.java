@@ -1,5 +1,7 @@
 package bücherVerwaltung;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,14 +10,16 @@ public class Buch implements Comparable<Buch>{
 	private String titel;
 	private String isbn;
 	private int erscheinungsJahr;
-	private Set<Verlag> verläge;
+	private Collection<Verlag> verläge;
 	private BuchTyp buchTyp;
-	private Set<Autor> autoren;
+	private Collection<Autor> autoren;
+	
+	private CollectionAdjuster myCollectionAdjuster;
 	
 	
 	public Buch(String titel, String isbn, int erscheinungsJahr, Set<Verlag> beteiligteVerläge, BuchTyp myBuchTyp, Set<Autor> beteiligteAutoren) {
-		verläge = new HashSet<Verlag>();
-		autoren = new HashSet<Autor>();
+		verläge = new ArrayList<Verlag>();
+		autoren = new ArrayList<Autor>();
 		setTitel(titel);
 		setIsbn(isbn);
 		setErscheinungsJahr(erscheinungsJahr);
@@ -27,15 +31,14 @@ public class Buch implements Comparable<Buch>{
 
 
 	public Buch(String titel, String isbn, int erscheinungsJahr, Verlag verlag, BuchTyp buchTyp, Autor autor) {
-		verläge = new HashSet<Verlag>();
-		autoren = new HashSet<Autor>();
+		verläge = new ArrayList<Verlag>();
+		autoren = new ArrayList<Autor>();
 		setTitel(titel);
 		setIsbn(isbn);
 		setErscheinungsJahr(erscheinungsJahr);
 		verläge.add(verlag);
 		setBuchTyp(buchTyp);
 		autoren.add(autor);
-		
 
 	}
 	
@@ -50,20 +53,23 @@ public class Buch implements Comparable<Buch>{
 	}
 	
 
-	public void adjustAutorenOfVerläge_VerlägeVonDiesemBuch() {
-		for (Verlag verlag : verläge) { // die Verläge dieses Buches durchgehen
-			for (Autor autor : autoren) { // die Autoren von diesem Buch durchgehen
-				if (! verlag.getAutoren().contains(autor)) { // prüfen ob die Autoren im Verlag den aktuellen Autor schon innehaben
-					verlag.getAutoren().add(autor);	
-				}
-			}
-		}
+	public void customizeBuch() {
+		
+	}
+//	public void adjustAutorenOfVerläge_VerlägeVonDiesemBuch() {
+//		for (Verlag verlag : verläge) { // die Verläge dieses Buches durchgehen
+//			for (Autor autor : autoren) { // die Autoren von diesem Buch durchgehen
+//				if (! verlag.getAutoren().contains(autor)) { // prüfen ob die Autoren im Verlag den aktuellen Autor schon innehaben
+//					verlag.getAutoren().add(autor);	
+//				}
+//			}
+//		}
 //		Iterator<Verlag> meinVerlagsIterator = verläge.iterator();
 //		while (meinVerlagsIterator.hasNext()) {
 //			
 //			Verlag aktuellerVerlag = meinVerlagsIterator.next();
 //		}
-	} 
+//	} 
 	
 	
 	@Override
@@ -75,67 +81,78 @@ public class Buch implements Comparable<Buch>{
 		if (anotherBuch.equals(this)) {
 			return 0;
 		}
-		if (! anotherBuch.getTitel().equals(this.getTitel())) {
-			return anotherBuch.getTitel().compareTo(this.getTitel());
+		if (! this.titel.equals(anotherBuch.getTitel())) {
+			return this.titel.compareTo(anotherBuch.getTitel());
 		}
-		if (! anotherBuch.getAutoren().equals(this.getAutoren())) {
-			int zuVergleichendeAutorenAnzahl;
-			if (anotherBuch.getAutoren().size() < this.getAutoren().size()) {
-				zuVergleichendeAutorenAnzahl = this.getAutoren().size(); 
-			} else {
-				zuVergleichendeAutorenAnzahl = anotherBuch.getAutoren().size();
-			}
-			for (int i = 0; i < zuVergleichendeAutorenAnzahl; i++) {
-				if (anotherBuch.getAutoren().get(i) == null) {
-					return 1;
-				}
-				if (this.getAutoren().get(i) == null) {
-					return -1;
-				}
-				if (anotherBuch.getAutoren().get(i).compareTo(this.getAutoren().get(i)) != 0) {
-					return anotherBuch.getAutoren().get(i).compareTo(this.getAutoren().get(i));
-				}
-			}
-			
-		}
-		if (anotherBuch.getErscheinungsJahr() < this.getErscheinungsJahr()) {
+		if (this.erscheinungsJahr < anotherBuch.getErscheinungsJahr()) {
+			return -1;
+		} else if (this.erscheinungsJahr > anotherBuch.getErscheinungsJahr()) {
 			return 1;
 		}
-		if (anotherBuch.getErscheinungsJahr() > this.getErscheinungsJahr()) {
-			return -1;
+		if (! this.autoren.equals(anotherBuch.getAutoren())) {
+			int zuVergleichendeAutorenAnzahl;
+			ArrayList<Autor> anotherBuchAutorenList = new ArrayList<>();
+			ArrayList<Autor> thisBuchAutorenList = new ArrayList<>();
+			
+			anotherBuchAutorenList.addAll(anotherBuch.getAutoren());
+			thisBuchAutorenList.addAll(this.autoren);
+			zuVergleichendeAutorenAnzahl = (anotherBuchAutorenList.size() > thisBuchAutorenList.size() ? anotherBuchAutorenList.size() : thisBuchAutorenList.size());
+			anotherBuchAutorenList.sort(null);
+			thisBuchAutorenList.sort(null);
+			
+			int vergleichErgebnis = 0;
+			for (int i = 0; i < zuVergleichendeAutorenAnzahl; i++) {
+				vergleichErgebnis = thisBuchAutorenList.get(i).compareTo(anotherBuchAutorenList.get(i));
+				if ( vergleichErgebnis != 0) {
+					return vergleichErgebnis;
+				}
+			}
 		}
-		return 0;
+
+		System.out.println("Eigentlich dürfte das Programm nicht bis hierhin kommen. Schauen Sie in den Code von CompareTo von Buch"); 
+		return 0; 
 	}
 	
 
 	@Override
-	public boolean equals(Object otherObject) {
-		if (this == otherObject ) {
+	public boolean equals(Object obj) {
+		if (this == obj)
 			return true;
-		}
-		if (otherObject == null) {
+		if (obj == null)
 			return false;
-		}
-		if (otherObject.getClass().equals(this.getClass())) { //if (inputObject instanceof Autor) -> führt zu Problemen bei Sub- und Superclasses. In diesem Falle wäre es okay gewesen, da keine Superclass existiert.
-			Buch otherBuch = (Buch) otherObject;
-			if (this.getTitel().equals(otherBuch.getTitel()) &&
-					this.getAutoren().equals(otherBuch.getAutoren()) && //wenn die autoren zweier bücher nicht in der gleichen Reihenfolge stehen, dann werden sie nicht als nicht equal gesehen
-						this.getErscheinungsJahr() == otherBuch.getErscheinungsJahr() ) {
-				return true;
-			}
-		}
-		return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Buch other = (Buch) obj;
+		if (autoren == null) {
+			if (other.autoren != null)
+				return false;
+		} else if (!autoren.equals(other.autoren))
+			return false;
+		if (erscheinungsJahr != other.erscheinungsJahr)
+			return false;
+		if (titel == null) {
+			if (other.titel != null)
+				return false;
+		} else if (!titel.equals(other.titel))
+			return false;
+		return true;
 	}
 	
 	
 	@Override
 	public int hashCode() {
-		int hc = 17;
-		int hashMultiplier = 59;
-		for (int i = 0; i < this.erscheinungsJahr * this.titel.length() % 137; i++) { 
-			hc = hc * hashMultiplier + getAutoren().get(0).getVorName().charAt(0) * getAutoren().get(0).getVorName().charAt(getAutoren().get(0).getVorName().length() - 1) -
-					getAutoren().get(0).getNachName().charAt(0) * getAutoren().get(0).getNachName().charAt(getAutoren().get(0).getNachName().length() - 1);
+		int hc = 1;
+		int hashMultiplier = 31;
+		
+		char[] titelArray = titel.toCharArray();
+		int titelAlsZahl = 0;
+		
+		for (char c : titelArray) { 
+			titelAlsZahl += c;
 		}
+		
+		hc = hashMultiplier * hc + titelAlsZahl;
+		hc = hashMultiplier * hc + erscheinungsJahr;
 		return hc;
 	}
 

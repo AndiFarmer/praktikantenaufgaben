@@ -15,7 +15,7 @@ public class AutorenVerwalter {
 			}
 		}
 		return null;
-	}	
+	}
 	
 	
 	public void createAutor(String vorName, String nachName, BücherVerwaltung myBücherVerwaltung) {
