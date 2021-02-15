@@ -3,7 +3,9 @@ package bücherVerwaltung;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Buch implements Comparable<Buch>{
 
@@ -14,10 +16,8 @@ public class Buch implements Comparable<Buch>{
 	private BuchTyp buchTyp;
 	private Collection<Autor> autoren;
 	
-	private CollectionAdjuster myCollectionAdjuster;
 	
-	
-	public Buch(String titel, String isbn, int erscheinungsJahr, Set<Verlag> beteiligteVerläge, BuchTyp myBuchTyp, Set<Autor> beteiligteAutoren) {
+	public Buch(String titel, String isbn, int erscheinungsJahr, Collection<Verlag> beteiligteVerläge, BuchTyp myBuchTyp, Collection<Autor> beteiligteAutoren) {
 		verläge = new ArrayList<Verlag>();
 		autoren = new ArrayList<Autor>();
 		setTitel(titel);
@@ -26,36 +26,19 @@ public class Buch implements Comparable<Buch>{
 		setVerläge(beteiligteVerläge);
 		setBuchTyp(myBuchTyp);
 		setAutoren(beteiligteAutoren);
-
 	}
 
 
-	public Buch(String titel, String isbn, int erscheinungsJahr, Verlag verlag, BuchTyp buchTyp, Autor autor) {
-		verläge = new ArrayList<Verlag>();
-		autoren = new ArrayList<Autor>();
-		setTitel(titel);
-		setIsbn(isbn);
-		setErscheinungsJahr(erscheinungsJahr);
-		verläge.add(verlag);
-		setBuchTyp(buchTyp);
-		autoren.add(autor);
-
-	}
-	
-
-	public void addAutorToBuch(Autor newAutor) {
-	
-	}
-	
-	
-	public void addVerlagToBuch(Verlag newVerlag) {
-
-	}
-	
-
-	public void customizeBuch() {
-		
-	}
+//	public Buch(String titel, String isbn, int erscheinungsJahr, Verlag verlag, BuchTyp buchTyp, Autor autor) {
+//		verläge = new ArrayList<Verlag>();
+//		autoren = new ArrayList<Autor>();
+//		setTitel(titel);
+//		setIsbn(isbn);
+//		setErscheinungsJahr(erscheinungsJahr);
+//		verläge.add(verlag);
+//		setBuchTyp(buchTyp);
+//		autoren.add(autor);
+//	}
 //	public void adjustAutorenOfVerläge_VerlägeVonDiesemBuch() {
 //		for (Verlag verlag : verläge) { // die Verläge dieses Buches durchgehen
 //			for (Autor autor : autoren) { // die Autoren von diesem Buch durchgehen
@@ -74,41 +57,36 @@ public class Buch implements Comparable<Buch>{
 	
 	@Override
 	public int compareTo(Buch anotherBuch) {
-		
 		if (anotherBuch == this) {
 			return 0;
 		}
 		if (anotherBuch.equals(this)) {
 			return 0;
 		}
-		if (! this.titel.equals(anotherBuch.getTitel())) {
-			return this.titel.compareTo(anotherBuch.getTitel());
+		int titelVergleich = this.titel.compareTo(anotherBuch.getTitel());
+		if (titelVergleich != 0) {
+			return titelVergleich;
 		}
-		if (this.erscheinungsJahr < anotherBuch.getErscheinungsJahr()) {
-			return -1;
-		} else if (this.erscheinungsJahr > anotherBuch.getErscheinungsJahr()) {
-			return 1;
+		int erscheinungsJahrVergleich = this.erscheinungsJahr - anotherBuch.getErscheinungsJahr();
+		if (erscheinungsJahrVergleich != 0) {
+			return erscheinungsJahrVergleich;
 		}
 		if (! this.autoren.equals(anotherBuch.getAutoren())) {
-			int zuVergleichendeAutorenAnzahl;
-			ArrayList<Autor> anotherBuchAutorenList = new ArrayList<>();
-			ArrayList<Autor> thisBuchAutorenList = new ArrayList<>();
-			
-			anotherBuchAutorenList.addAll(anotherBuch.getAutoren());
-			thisBuchAutorenList.addAll(this.autoren);
-			zuVergleichendeAutorenAnzahl = (anotherBuchAutorenList.size() > thisBuchAutorenList.size() ? anotherBuchAutorenList.size() : thisBuchAutorenList.size());
-			anotherBuchAutorenList.sort(null);
-			thisBuchAutorenList.sort(null);
-			
-			int vergleichErgebnis = 0;
-			for (int i = 0; i < zuVergleichendeAutorenAnzahl; i++) {
-				vergleichErgebnis = thisBuchAutorenList.get(i).compareTo(anotherBuchAutorenList.get(i));
-				if ( vergleichErgebnis != 0) {
-					return vergleichErgebnis;
+			TreeSet<Autor> anotherBuchAutorenSortiert = new TreeSet<>();
+			TreeSet<Autor> thisBuchAutorenSortiert = new TreeSet<>();
+			anotherBuchAutorenSortiert.addAll(anotherBuch.getAutoren());
+			thisBuchAutorenSortiert.addAll(this.autoren);
+			Iterator<Autor> itThisBuchAutoren = thisBuchAutorenSortiert.iterator();
+			Iterator<Autor> itAnotherBuchAutoren = anotherBuchAutorenSortiert.iterator();
+			int autorenVergleich = 0;
+			while (itThisBuchAutoren.hasNext() && itAnotherBuchAutoren.hasNext()) {
+				autorenVergleich = itThisBuchAutoren.next().compareTo(itAnotherBuchAutoren.next());
+				if (autorenVergleich != 0) {
+					return autorenVergleich;
 				}
 			}
+			return itThisBuchAutoren.hasNext() ? 1 : -1;
 		}
-
 		System.out.println("Eigentlich dürfte das Programm nicht bis hierhin kommen. Schauen Sie in den Code von CompareTo von Buch"); 
 		return 0; 
 	}
@@ -187,13 +165,13 @@ public class Buch implements Comparable<Buch>{
 	}
 
 
-	public Set<Verlag> getVerläge() {
+	public Collection<Verlag> getVerläge() {
 		return verläge;
 	}
 
 
-	public void setVerläge(Set<Verlag> verläge) {
-		this.verläge = verläge;
+	public void setVerläge(Collection<Verlag> beteiligteVerläge) {
+		this.verläge = beteiligteVerläge;
 	}
 
 
@@ -207,12 +185,12 @@ public class Buch implements Comparable<Buch>{
 	}
 
 
-	public Set<Autor> getAutoren() {
+	public Collection<Autor> getAutoren() {
 		return autoren;
 	}
 
 
-	public void setAutoren(Set<Autor> autoren) {
+	public void setAutoren(Collection<Autor> autoren) {
 		this.autoren = autoren;
 	}
 	

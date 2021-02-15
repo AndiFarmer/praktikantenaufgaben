@@ -1,15 +1,17 @@
 package bücherVerwaltung;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 public class Autor implements Comparable<Autor>{ 
 	
+	
 	private String vorName;
 	private String nachName;
-	private List<Buch> bücher;
-	private List<Verlag> verläge;
+	private Collection<Buch> bücher;
+	private Collection<Verlag> verläge;
 
+	
 	public Autor(String vorName, String nachName) {
 		setVorName(vorName);
 		setNachName(nachName);
@@ -20,21 +22,17 @@ public class Autor implements Comparable<Autor>{
 	
 	@Override
 	public int compareTo(Autor otherAutor) {
-
 		if(otherAutor == this) {
 			return 0;
 		}
 		if(otherAutor.equals(this)) {
 			return 0;
 		}
-//		Das Folgende ist nicht nötig, da in Parameterliste nur Autoren in Frage kommen.
-//		if(! anotherAutor.getClass().equals(this.getClass())) {
-//			throw new ClassCastException();
-//		}
-		if(! otherAutor.getNachName().equals(this.getNachName())) {
-			return otherAutor.getNachName().compareTo(this.getNachName());
+		int nachNamenVergleich = this.nachName.compareTo(otherAutor.getNachName());
+		if(nachNamenVergleich != 0) {
+			return nachNamenVergleich;
 		}
-		return  otherAutor.getVorName().compareTo(this.getVorName());
+		return this.vorName.compareTo(otherAutor.getVorName());
 	}
 	
 
@@ -48,8 +46,8 @@ public class Autor implements Comparable<Autor>{
 		}
 		if(otherObject.getClass().equals(this.getClass())) { //if (inputObject instanceof Autor) -> führt zu Problemen bei Sub- und Superclasses. In diesem Falle wäre es okay gewesen, da keine Superclass existiert.
 			Autor otherAutor = (Autor) otherObject;
-			if (this.getVorName().equals(otherAutor.getVorName()) &&
-					this.getNachName().equals(otherAutor.getNachName())) {
+			if (this.vorName.equals(otherAutor.getVorName()) &&
+					this.nachName.equals(otherAutor.getNachName())) {
 				return true;
 			}
 		}
@@ -67,66 +65,44 @@ public class Autor implements Comparable<Autor>{
 		}
 		return hc;
 	}
-	
-	
+
+
 	public String getVorName() {
 		return vorName;
 	}
 
-	
+
 	public void setVorName(String vorName) {
 		this.vorName = vorName;
 	}
 
-	
+
 	public String getNachName() {
 		return nachName;
 	}
 
-	
+
 	public void setNachName(String nachName) {
 		this.nachName = nachName;
 	}
 
-	
-	public List<Buch> getBücher() {
+
+	public Collection<Buch> getBücher() {
 		return bücher;
 	}
 
-	
-	public void setBücher(List<Buch> bücher) {
+
+	public void setBücher(Collection<Buch> bücher) {
 		this.bücher = bücher;
 	}
-	
-	
-//	public void addBuchToAutor(Buch myBuch) {
-//		this.bücher.add(myBuch);
-//		myBuch.getAutoren().add(this);
-//	}
 
-//	for (int i = 0; i < verläge.size(); i++) {
-//		for (int j = 0; j < this.autoren.size(); j++) {
-//			verläge.get(i).getAutoren().add(this.autoren.get(j));
-//		}
-//	}
-//	for (int i = 0; i < autoren.size(); i++) {
-//		for (int j = 0; j < this.verläge.size(); j++) {
-//			autoren.get(i).getVerläge().add(this.verläge.get(j));
-//		}
-//	}
-	
-	public List<Verlag> getVerläge() {
+
+	public Collection<Verlag> getVerläge() {
 		return verläge;
 	}
 
-	
-	public void setVerlag(List<Verlag> verläge) {
+
+	public void setVerläge(Collection<Verlag> verläge) {
 		this.verläge = verläge;
 	}
-	
-	
-//	public void addVerlagToAutor(Verlag myVerlag) {
-//		this.verläge.add(myVerlag);
-//		myVerlag.getAutoren().add(this);
-//	}
 }

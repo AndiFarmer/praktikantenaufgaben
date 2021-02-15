@@ -1,14 +1,15 @@
 package bücherVerwaltung;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 public class Verlag implements Comparable<Verlag> {
 
 	private String name;
-	private String ort; //hier könnte es Redundanzen geben -> evtl. eigene Ortklassen
-	private List<Autor> autoren;
-	private List<Buch> bücher;
+	private String ort; //hier könnte es Redundanzen geben -> evtl. eigene Ortklassen (allerdings irrelevant bez. Zitieren)
+	private Collection<Autor> autoren;
+	private Collection<Buch> bücher;
+	
 	
 	public Verlag(String name, String ort) {
 		setName(name);
@@ -19,9 +20,18 @@ public class Verlag implements Comparable<Verlag> {
 
 	
 	@Override
-	public int compareTo(Verlag o) {
-		
-		return 0;
+	public int compareTo(Verlag otherVerlag) {
+		if (this.equals(otherVerlag)) {
+			return 0;
+		}
+		if (otherVerlag == this) {
+			return 0;
+		}
+		int namenVergleich = this.name.compareTo(otherVerlag.getName());
+		if (namenVergleich != 0) {
+			return namenVergleich;
+		}
+		return this.ort.compareTo(otherVerlag.getOrt());
 	}
 	
 	
@@ -42,46 +52,44 @@ public class Verlag implements Comparable<Verlag> {
 		}
 		return false;
 	}
-	
+
+
 	public String getName() {
 		return name;
 	}
 
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	
+
 	public String getOrt() {
 		return ort;
 	}
 
-	
+
 	public void setOrt(String ort) {
 		this.ort = ort;
 	}
 
 
-	public List<Autor> getAutoren() {
+	public Collection<Autor> getAutoren() {
 		return autoren;
 	}
 
 
-	public void setAutoren(List<Autor> autoren) {
+	public void setAutoren(Collection<Autor> autoren) {
 		this.autoren = autoren;
 	}
 
 
-	public List<Buch> getBücher() {
+	public Collection<Buch> getBücher() {
 		return bücher;
 	}
 
 
-	public void setBücher(List<Buch> bücher) {
+	public void setBücher(Collection<Buch> bücher) {
 		this.bücher = bücher;
 	}
-
-	
-
 }

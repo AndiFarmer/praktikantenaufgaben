@@ -23,16 +23,103 @@ public class BücherVerwaltung {
 		autorenVerwalter = new AutorenVerwalter();
 		verlagVerwalter = new VerlagVerwalter();
 		buchTypVerwalter = new BuchTypVerwalter();
-		
 		collectionAdjuster = new CollectionAdjuster(this);
-		
 		bücher = new ArrayList<Buch>();
-		
-		autoren = new HashSet<Autor>();
-		verläge = new HashSet<Verlag>();
-		buchTypen = new HashSet<BuchTyp>();
+		autoren = new ArrayList<Autor>();
+		verläge = new ArrayList<Verlag>();
+		buchTypen = new ArrayList<BuchTyp>();
 	}
 
 	
+	public void addNewBuch(String titel, String isbn, int erscheinungsJahr, Collection<Verlag> beteiligteVerläge, BuchTyp myBuchTyp, Collection<Autor> beteiligteAutoren) {
+		Buch neuesBuch = new Buch(titel, isbn, erscheinungsJahr, beteiligteVerläge, myBuchTyp, beteiligteAutoren);
+		collectionAdjuster.adjustInvolvedCollections(neuesBuch);
+	}
 
+	
+	public AutorenVerwalter getAutorenVerwalter() {
+		return autorenVerwalter;
+	}
+
+
+	public void setAutorenVerwalter(AutorenVerwalter autorenVerwalter) {
+		this.autorenVerwalter = autorenVerwalter;
+	}
+
+
+	public VerlagVerwalter getVerlagVerwalter() {
+		return verlagVerwalter;
+	}
+
+
+	public void setVerlagVerwalter(VerlagVerwalter verlagVerwalter) {
+		this.verlagVerwalter = verlagVerwalter;
+	}
+
+
+	public BuchTypVerwalter getBuchTypVerwalter() {
+		return buchTypVerwalter;
+	}
+
+
+	public void setBuchTypVerwalter(BuchTypVerwalter buchTypVerwalter) {
+		this.buchTypVerwalter = buchTypVerwalter;
+	}
+
+
+	public CollectionAdjuster getCollectionAdjuster() {
+		return collectionAdjuster;
+	}
+
+
+	public void setCollectionAdjuster(CollectionAdjuster collectionAdjuster) {
+		this.collectionAdjuster = collectionAdjuster;
+	}
+
+
+	public Collection<Buch> getBücher() {
+		return bücher;
+	}
+
+
+	public void setBücher(Collection<Buch> bücher) {
+		this.bücher = bücher;
+	}
+
+
+	public Collection<Autor> getAutoren() {
+		return autoren;
+	}
+
+
+	public void setAutoren(Collection<Autor> autoren) {
+		this.autoren = autoren;
+	}
+
+
+	public Collection<Verlag> getVerläge() {
+		return verläge;
+	}
+
+
+	public void setVerläge(Collection<Verlag> verläge) {
+		this.verläge = verläge;
+	}
+
+
+	public Collection<BuchTyp> getBuchTypen() {
+		return buchTypen;
+	}
+
+
+	public void setBuchTypen(Collection<BuchTyp> buchTypen) {
+		this.buchTypen = buchTypen;
+	}
+
+
+	public Collection<Buch> convertArrayListToHashSet(Collection<Buch> input) {
+		HashSet<Buch> hashSet = new HashSet<>();
+		hashSet.addAll(input);
+		return hashSet;
+	}
 }

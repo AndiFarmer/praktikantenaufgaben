@@ -2,7 +2,9 @@ package bücherVerwaltung;
 
 public class BuchTyp implements Comparable<BuchTyp> {
 
+	
 	String bezeichnung;
+	
 	
 	public BuchTyp(String input) {
 		setBezeichnung(input);
@@ -18,8 +20,8 @@ public class BuchTyp implements Comparable<BuchTyp> {
 			return 0;
 		}
 		return this.getBezeichnung().compareTo(otherBuchTyp.getBezeichnung());
-		
 	}
+	
 	
 	@Override
 	public boolean equals(Object otherObject) {
@@ -50,13 +52,7 @@ public class BuchTyp implements Comparable<BuchTyp> {
 		return hc;
 	}
 	
-	
-	@Override
-	public String toString() {
-		return bezeichnung;
-	}
-	
-	
+
 	public String getBezeichnung() {
 		return bezeichnung;
 	}

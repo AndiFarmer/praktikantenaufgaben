@@ -1,8 +1,8 @@
 package bücherVerwaltung;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 public class Start {
 
@@ -19,11 +19,33 @@ public class Start {
 //		System.out.println(autor1.getVerläge().get(0).getName());
 //		
 
-		Set<String> treeSet = new TreeSet<>();
-		treeSet.
-		String string1 = "";
-		String string2 = "a";
+		String string1 = new String("lol");
+		String string2 = new String();
 		System.out.println(string1.compareTo(string2));
+
+		
+		Collection<Autor> testList1 = new ArrayList<>();
+		Collection<Autor> testList2 = new ArrayList<>();
+		for(int i = 0; i<10; i++) {
+			testList1.add(new Autor(String.valueOf(i) , "Peter"));
+		}
+		for(int i = 0; i<5; i++) {
+			testList2.add(new Autor(String.valueOf(i+1) , "Peter"));
+		}
+		
+		Iterator<Autor> it1 = testList1.iterator();
+		Iterator<Autor> it2 = testList2.iterator();
+		Autor autor1;
+		Autor autor2;
+		Collection<Integer> ergebnisse = new ArrayList<>();
+		
+		while (it1.hasNext() && it2.hasNext()) {
+			autor1 = it1.next();
+			autor2 = it2.next();
+			ergebnisse.add(autor1.compareTo(autor2));
+		}
+		System.out.println(ergebnisse);
+		// return it1.hasNext() ? 1 : -1;
 	}
 
 }
