@@ -61,8 +61,4 @@ public class BuchTyp implements Comparable<BuchTyp> {
 	public void setBezeichnung(String bezeichnung) {
 		this.bezeichnung = bezeichnung;
 	}
-
-
-	
-	
 }

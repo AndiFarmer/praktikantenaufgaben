@@ -3,6 +3,7 @@ package bücherVerwaltung;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class BücherVerwaltung {
 	
@@ -34,6 +35,18 @@ public class BücherVerwaltung {
 	public void addNewBuch(String titel, String isbn, int erscheinungsJahr, Collection<Verlag> beteiligteVerläge, BuchTyp myBuchTyp, Collection<Autor> beteiligteAutoren) {
 		Buch neuesBuch = new Buch(titel, isbn, erscheinungsJahr, beteiligteVerläge, myBuchTyp, beteiligteAutoren);
 		collectionAdjuster.adjustInvolvedCollections(neuesBuch);
+	}
+	
+	
+	public Buch searchBuch(Buch searchedBuch) {
+		Iterator<Buch> buchIt = this.bücher.iterator();
+		while (buchIt.hasNext()) {
+			Buch tempBuch = buchIt.next();
+			if(tempBuch.equals(searchedBuch)) {
+				return searchedBuch;
+			}
+		}
+		return null;
 	}
 
 	
@@ -114,12 +127,5 @@ public class BücherVerwaltung {
 
 	public void setBuchTypen(Collection<BuchTyp> buchTypen) {
 		this.buchTypen = buchTypen;
-	}
-
-
-	public Collection<Buch> convertArrayListToHashSet(Collection<Buch> input) {
-		HashSet<Buch> hashSet = new HashSet<>();
-		hashSet.addAll(input);
-		return hashSet;
 	}
 }

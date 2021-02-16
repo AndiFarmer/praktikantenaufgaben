@@ -2,9 +2,7 @@ package bücherVerwaltung;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
 import java.util.TreeSet;
 
 public class Buch implements Comparable<Buch>{
@@ -28,31 +26,19 @@ public class Buch implements Comparable<Buch>{
 		setAutoren(beteiligteAutoren);
 	}
 
-
-//	public Buch(String titel, String isbn, int erscheinungsJahr, Verlag verlag, BuchTyp buchTyp, Autor autor) {
-//		verläge = new ArrayList<Verlag>();
-//		autoren = new ArrayList<Autor>();
-//		setTitel(titel);
-//		setIsbn(isbn);
-//		setErscheinungsJahr(erscheinungsJahr);
-//		verläge.add(verlag);
-//		setBuchTyp(buchTyp);
-//		autoren.add(autor);
-//	}
-//	public void adjustAutorenOfVerläge_VerlägeVonDiesemBuch() {
-//		for (Verlag verlag : verläge) { // die Verläge dieses Buches durchgehen
-//			for (Autor autor : autoren) { // die Autoren von diesem Buch durchgehen
-//				if (! verlag.getAutoren().contains(autor)) { // prüfen ob die Autoren im Verlag den aktuellen Autor schon innehaben
-//					verlag.getAutoren().add(autor);	
-//				}
-//			}
-//		}
-//		Iterator<Verlag> meinVerlagsIterator = verläge.iterator();
-//		while (meinVerlagsIterator.hasNext()) {
-//			
-//			Verlag aktuellerVerlag = meinVerlagsIterator.next();
-//		}
-//	} 
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		Iterator<Autor> autorenIt = autoren.iterator();
+		while (autorenIt.hasNext()) {
+			Autor autorTmp = autorenIt.next();
+			sb.append(autorTmp.getVorName() + " ");
+			sb.append(autorTmp.getNachName());
+			sb.append((autorenIt.hasNext() ? " & " : ""));
+		}
+		return "Titel: " + "'" + titel + "', " + "Erscheinungsjahr: " + erscheinungsJahr + ", Autor/en: " + sb.toString();
+	}
 	
 	
 	@Override
@@ -124,13 +110,18 @@ public class Buch implements Comparable<Buch>{
 		
 		char[] titelArray = titel.toCharArray();
 		int titelAlsZahl = 0;
+		int verlagAlsZahl = 0;
 		
 		for (char c : titelArray) { 
 			titelAlsZahl += c;
 		}
+		for (Verlag verlag : verläge) {
+			verlagAlsZahl = verlagAlsZahl += verlag.getName().charAt(0);
+		}
 		
 		hc = hashMultiplier * hc + titelAlsZahl;
 		hc = hashMultiplier * hc + erscheinungsJahr;
+		hc = hashMultiplier * hc + verlagAlsZahl;
 		return hc;
 	}
 

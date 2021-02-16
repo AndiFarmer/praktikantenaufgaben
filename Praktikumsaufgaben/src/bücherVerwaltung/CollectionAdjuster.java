@@ -1,6 +1,8 @@
 package bücherVerwaltung;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 
 public class CollectionAdjuster {
@@ -15,24 +17,43 @@ public class CollectionAdjuster {
 
 	
 	public void adjustInvolvedCollections(Buch buch) {
-		bücherVerwaltung.getBücher().addAll(createHelpSet(buch, bücherVerwaltung.getBücher()));
+		bücherVerwaltung.setBücher(createBuchHelpSet(buch, bücherVerwaltung.getBücher()));
+		bücherVerwaltung.getAutoren().addAll(createAutorHelpSet(buch, bücherVerwaltung.getAutoren()));
+		bücherVerwaltung.getVerläge().addAll(createVerlagHelpSet(buch, bücherVerwaltung.getVerläge()));
 		for (Autor autor : buch.getAutoren()) {
-			autor.getBücher().addAll(createHelpSet(buch, autor.getBücher()));
+			autor.getBücher().addAll(createBuchHelpSet(buch, autor.getBücher()));
+			autor.getVerläge().addAll(createVerlagHelpSet(buch, autor.getVerläge()));
 		}
 		for (Verlag verlag : buch.getVerläge()) {
-			verlag.getBücher().addAll(createHelpSet(buch, verlag.getBücher()));
+			verlag.getBücher().addAll(createBuchHelpSet(buch, verlag.getBücher()));
+			verlag.getAutoren().addAll(createAutorHelpSet(buch, verlag.getAutoren()));
 		}
-//		
-//		
-//		Hier mit dem "adjusten" der Autoren und Verläge gegenseitig weitermachen und nicht dier Listen in der Verwaltung vergessen!
-//		
-//		
 	}
 	
-	public Collection<Buch> createHelpSet(Buch inputBuch, Collection<Buch> inputList) {
-		HashSet<Buch> helpSet = new HashSet<>();
-		helpSet.addAll(inputList);
+
+	public Collection<Buch> createBuchHelpSet (Buch inputBuch, Collection<Buch> inputList) {
+		HashSet<Buch> helpSet = new HashSet<>(inputList);
 		helpSet.add(inputBuch);
+		ArrayList<Buch> al = new ArrayList<>(helpSet);
+//		Collections.sort(al);
+//		int i = Collections.binarySearch(al, inputBuch);
+		System.out.println(i);
+		return al;
+	}
+	
+	
+	public Collection<Autor> createAutorHelpSet (Buch inputBuch, Collection<Autor> inputList) {
+		HashSet<Autor> helpSet = new HashSet<>();
+		helpSet.addAll(inputList);
+		helpSet.addAll(inputBuch.getAutoren());
+		return helpSet;
+	}
+	
+	
+	public Collection<Verlag> createVerlagHelpSet (Buch inputBuch, Collection<Verlag> inputList) {
+		HashSet<Verlag> helpSet = new HashSet<>();
+		helpSet.addAll(inputList);
+		helpSet.addAll(inputBuch.getVerläge());
 		return helpSet;
 	}
 }

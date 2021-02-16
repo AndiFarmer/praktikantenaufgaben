@@ -20,6 +20,12 @@ public class Verlag implements Comparable<Verlag> {
 
 	
 	@Override
+	public String toString() {
+		return "Verlagsname: " + name + ", Ort: " + ort;
+	}
+	
+	
+	@Override
 	public int compareTo(Verlag otherVerlag) {
 		if (this.equals(otherVerlag)) {
 			return 0;

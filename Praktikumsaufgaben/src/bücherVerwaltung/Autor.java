@@ -21,6 +21,12 @@ public class Autor implements Comparable<Autor>{
 	
 	
 	@Override
+	public String toString() {
+		return "Vorname: " + vorName + ", Nachname: " + nachName;
+	}
+	
+	
+	@Override
 	public int compareTo(Autor otherAutor) {
 		if(otherAutor == this) {
 			return 0;
