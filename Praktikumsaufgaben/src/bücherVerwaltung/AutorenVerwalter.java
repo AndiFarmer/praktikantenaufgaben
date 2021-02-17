@@ -1,25 +1,22 @@
 package bücherVerwaltung;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class AutorenVerwalter {
 	
-	public AutorenVerwalter() {
-		
-	}
-//
-//	public Autor searchAutor(String vorName, String nachName, BücherVerwaltung myBücherVerwaltung) {
-//		Autor searchedAutor = new Autor(vorName, nachName);
-//
-//		for(int i = 0; i < myBücherVerwaltung.getAutoren().size(); i++) {
-//			if(searchedAutor.equals(myBücherVerwaltung.getAutoren().get(i))) {
-//				return myBücherVerwaltung.getAutoren().get(i);
-//			}
-//		}
-//		return null;
-//	}
-//	
-//	
-//	public void createAutor(String vorName, String nachName, BücherVerwaltung myBücherVerwaltung) {
-//		myBücherVerwaltung.getAutoren().add(new Autor(vorName, nachName));
-//	}
 	
+	BücherVerwaltung bücherVerwaltung;
+	
+	
+	public AutorenVerwalter(BücherVerwaltung myBücherVerwaltung) {
+		this.bücherVerwaltung = myBücherVerwaltung;
+	}
+
+
+	public Autor searchAutor(Autor searchedAutor) {
+		ArrayList<Autor> helpList = new ArrayList<>(bücherVerwaltung.getAutoren()); 
+		helpList.sort(null);
+		return helpList.get(Collections.binarySearch(helpList, searchedAutor));
+	}
 }

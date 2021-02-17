@@ -1,10 +1,5 @@
 package bücherVerwaltung;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-
 public class CollectionAdjuster {
 
 	
@@ -15,45 +10,54 @@ public class CollectionAdjuster {
 		this.bücherVerwaltung = myBücherVerwaltung;
 	}
 
-	
-	public void adjustInvolvedCollections(Buch buch) {
-		bücherVerwaltung.setBücher(createBuchHelpSet(buch, bücherVerwaltung.getBücher()));
-		bücherVerwaltung.getAutoren().addAll(createAutorHelpSet(buch, bücherVerwaltung.getAutoren()));
-		bücherVerwaltung.getVerläge().addAll(createVerlagHelpSet(buch, bücherVerwaltung.getVerläge()));
-		for (Autor autor : buch.getAutoren()) {
-			autor.getBücher().addAll(createBuchHelpSet(buch, autor.getBücher()));
-			autor.getVerläge().addAll(createVerlagHelpSet(buch, autor.getVerläge()));
+	// falls der Benutzer später aus vorhandenen Listen Autoren auswählt dann sind einige add-Funktionen und Referenzanpassungen unnötig
+	public boolean adjustInvolvedCollections(Buch buch) {
+		if (! bücherVerwaltung.getBücher().contains(buch)) {
+			bücherVerwaltung.getBücher().add(buch);
+		} else {
+			return false;
 		}
-		for (Verlag verlag : buch.getVerläge()) {
-			verlag.getBücher().addAll(createBuchHelpSet(buch, verlag.getBücher()));
-			verlag.getAutoren().addAll(createAutorHelpSet(buch, verlag.getAutoren()));
+		
+		adjustBuchTypenCollections(buch); // inkl. ggf. Referenzenanpassung im Buch
+		
+		for (Autor buchAutor : buch.getAutoren()) {
+			if (! bücherVerwaltung.getAutoren().contains(buchAutor)) {
+				bücherVerwaltung.getAutoren().add(buchAutor);
+			}
+			else {
+				buchAutor = bücherVerwaltung.getAutorenVerwalter().searchAutor(buchAutor); // Referenzenanpassung
+			}
+			for (Verlag buchVerlag : buch.getVerläge()) {
+				if (! bücherVerwaltung.getVerläge().contains(buchVerlag)) {
+					bücherVerwaltung.getVerläge().add(buchVerlag);
+				} 
+				else {
+					buchVerlag = bücherVerwaltung.getVerlagVerwalter().searchVerlag(buchVerlag); // Referenzenanpassung
+				}
+				if (! buchVerlag.getAutoren().contains(buchAutor)) {
+					buchVerlag.getAutoren().add(buchAutor);
+				}
+				if (! buchVerlag.getBücher().contains(buch)) {
+					buchVerlag.getBücher().add(buch);
+				}
+				if (! buchAutor.getVerläge().contains(buchVerlag)) {
+					buchAutor.getVerläge().add(buchVerlag);
+				}
+			}
+			if (! buchAutor.getBücher().contains(buch)) {
+				buchAutor.getBücher().add(buch);
+			}
 		}
+		return true;
 	}
-	
 
-	public Collection<Buch> createBuchHelpSet (Buch inputBuch, Collection<Buch> inputList) {
-		HashSet<Buch> helpSet = new HashSet<>(inputList);
-		helpSet.add(inputBuch);
-		ArrayList<Buch> al = new ArrayList<>(helpSet);
-//		Collections.sort(al);
-//		int i = Collections.binarySearch(al, inputBuch);
-		System.out.println(i);
-		return al;
-	}
-	
-	
-	public Collection<Autor> createAutorHelpSet (Buch inputBuch, Collection<Autor> inputList) {
-		HashSet<Autor> helpSet = new HashSet<>();
-		helpSet.addAll(inputList);
-		helpSet.addAll(inputBuch.getAutoren());
-		return helpSet;
-	}
-	
-	
-	public Collection<Verlag> createVerlagHelpSet (Buch inputBuch, Collection<Verlag> inputList) {
-		HashSet<Verlag> helpSet = new HashSet<>();
-		helpSet.addAll(inputList);
-		helpSet.addAll(inputBuch.getVerläge());
-		return helpSet;
+
+	private void adjustBuchTypenCollections(Buch buch) {
+		if (! bücherVerwaltung.getBuchTypen().contains(buch.getBuchTyp())) {
+			bücherVerwaltung.getBuchTypen().add(buch.getBuchTyp());
+		} 
+		else {
+			buch.setBuchTyp(bücherVerwaltung.getBuchTypVerwalter().searchBuchTyp(buch.getBuchTyp())); // Referenzenanpassung
+		}
 	}
 }

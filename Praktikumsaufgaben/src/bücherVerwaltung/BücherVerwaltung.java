@@ -21,9 +21,9 @@ public class BücherVerwaltung {
 	
 	
 	public BücherVerwaltung() {
-		autorenVerwalter = new AutorenVerwalter();
-		verlagVerwalter = new VerlagVerwalter();
-		buchTypVerwalter = new BuchTypVerwalter();
+		autorenVerwalter = new AutorenVerwalter(this);
+		verlagVerwalter = new VerlagVerwalter(this);
+		buchTypVerwalter = new BuchTypVerwalter(this);
 		collectionAdjuster = new CollectionAdjuster(this);
 		bücher = new ArrayList<Buch>();
 		autoren = new ArrayList<Autor>();
@@ -34,7 +34,9 @@ public class BücherVerwaltung {
 	
 	public void addNewBuch(String titel, String isbn, int erscheinungsJahr, Collection<Verlag> beteiligteVerläge, BuchTyp myBuchTyp, Collection<Autor> beteiligteAutoren) {
 		Buch neuesBuch = new Buch(titel, isbn, erscheinungsJahr, beteiligteVerläge, myBuchTyp, beteiligteAutoren);
-		collectionAdjuster.adjustInvolvedCollections(neuesBuch);
+		if (! bücher.contains(neuesBuch)) {
+			collectionAdjuster.adjustInvolvedCollections(neuesBuch);
+		}
 	}
 	
 	

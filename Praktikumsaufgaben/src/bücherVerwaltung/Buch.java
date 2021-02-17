@@ -31,13 +31,23 @@ public class Buch implements Comparable<Buch>{
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		Iterator<Autor> autorenIt = autoren.iterator();
+		Autor autorTmp = new Autor("", "");
 		while (autorenIt.hasNext()) {
-			Autor autorTmp = autorenIt.next();
+			autorTmp = autorenIt.next();
 			sb.append(autorTmp.getVorName() + " ");
 			sb.append(autorTmp.getNachName());
 			sb.append((autorenIt.hasNext() ? " & " : ""));
 		}
-		return "Titel: " + "'" + titel + "', " + "Erscheinungsjahr: " + erscheinungsJahr + ", Autor/en: " + sb.toString();
+		StringBuilder sb2 = new StringBuilder();
+		Iterator<Verlag> verlägeIt2 = verläge.iterator();
+		Verlag verlagTmp2 = new Verlag("", "");
+		while (verlägeIt2.hasNext()) {
+			verlagTmp2 = verlägeIt2.next();
+			sb2.append(verlagTmp2.getName() + " ");
+			sb2.append(verlagTmp2.getOrt());
+			sb2.append((verlägeIt2.hasNext() ? " & " : ""));
+		}
+		return "Titel: " + "'" + titel + "', " + "Erscheinungsjahr: " + erscheinungsJahr + ", Autor/en: " + sb.toString() + sb2.toString();
 	}
 	
 	
