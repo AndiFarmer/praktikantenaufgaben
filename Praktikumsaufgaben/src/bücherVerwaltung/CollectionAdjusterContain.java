@@ -1,25 +1,25 @@
 package bücherVerwaltung;
 
-public class CollectionAdjuster {
+public class CollectionAdjusterContain {
 
 	
 	BücherVerwaltung bücherVerwaltung;
 	
 	
-	public CollectionAdjuster(BücherVerwaltung myBücherVerwaltung) {
+	public CollectionAdjusterContain(BücherVerwaltung myBücherVerwaltung) {
 		this.bücherVerwaltung = myBücherVerwaltung;
 	}
 
 	// falls der Benutzer später aus vorhandenen Listen Autoren auswählt dann sind einige add-Funktionen und Referenzanpassungen unnötig
 	public boolean adjustInvolvedCollections(Buch buch) {
-		if (! bücherVerwaltung.getBücher().contains(buch)) {
-			bücherVerwaltung.getBücher().add(buch);
-		} else {
-			return false;
-		}
-		
+		bücherVerwaltung.getBücher().add(buch); // durch die Kontrolle in der BücherVerwaltung kann ich mir sicher sein, dass buch durch diese Zeile nicht doppelt vorkommt
 		adjustBuchTypenCollections(buch); // inkl. ggf. Referenzenanpassung im Buch
-		
+		adjustCollectionsRest(buch); // inkl. ggf. Referenzanpassungen im Buch
+		return true;
+	}
+
+
+	private void adjustCollectionsRest(Buch buch) {
 		for (Autor buchAutor : buch.getAutoren()) {
 			if (! bücherVerwaltung.getAutoren().contains(buchAutor)) {
 				bücherVerwaltung.getAutoren().add(buchAutor);
@@ -48,9 +48,7 @@ public class CollectionAdjuster {
 				buchAutor.getBücher().add(buch);
 			}
 		}
-		return true;
 	}
-
 
 	private void adjustBuchTypenCollections(Buch buch) {
 		if (! bücherVerwaltung.getBuchTypen().contains(buch.getBuchTyp())) {
@@ -59,5 +57,10 @@ public class CollectionAdjuster {
 		else {
 			buch.setBuchTyp(bücherVerwaltung.getBuchTypVerwalter().searchBuchTyp(buch.getBuchTyp())); // Referenzenanpassung
 		}
+	}
+
+	
+	public void adjustCollectionsEffectedByAutorAdding(Buch buch, Autor newAutor) {
+		
 	}
 }

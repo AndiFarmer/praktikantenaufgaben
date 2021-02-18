@@ -16,21 +16,19 @@ public class Buch implements Comparable<Buch>{
 	
 	
 	public Buch(String titel, String isbn, int erscheinungsJahr, Collection<Verlag> beteiligteVerläge, BuchTyp myBuchTyp, Collection<Autor> beteiligteAutoren) {
-		verläge = new ArrayList<Verlag>();
-		autoren = new ArrayList<Autor>();
-		setTitel(titel);
-		setIsbn(isbn);
-		setErscheinungsJahr(erscheinungsJahr);
-		setVerläge(beteiligteVerläge);
-		setBuchTyp(myBuchTyp);
-		setAutoren(beteiligteAutoren);
+		this.setTitel(titel);
+		this.setIsbn(isbn);
+		this.setErscheinungsJahr(erscheinungsJahr);
+		this.setVerläge(beteiligteVerläge);
+		this.setBuchTyp(myBuchTyp);
+		this.setAutoren(beteiligteAutoren);
 	}
 
 	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		Iterator<Autor> autorenIt = autoren.iterator();
+		Iterator<Autor> autorenIt = this.autoren.iterator();
 		Autor autorTmp = new Autor("", "");
 		while (autorenIt.hasNext()) {
 			autorTmp = autorenIt.next();
@@ -39,7 +37,7 @@ public class Buch implements Comparable<Buch>{
 			sb.append((autorenIt.hasNext() ? " & " : ""));
 		}
 		StringBuilder sb2 = new StringBuilder();
-		Iterator<Verlag> verlägeIt2 = verläge.iterator();
+		Iterator<Verlag> verlägeIt2 = this.verläge.iterator();
 		Verlag verlagTmp2 = new Verlag("", "");
 		while (verlägeIt2.hasNext()) {
 			verlagTmp2 = verlägeIt2.next();
@@ -47,7 +45,7 @@ public class Buch implements Comparable<Buch>{
 			sb2.append(verlagTmp2.getOrt());
 			sb2.append((verlägeIt2.hasNext() ? " & " : ""));
 		}
-		return "Titel: " + "'" + titel + "', " + "Erscheinungsjahr: " + erscheinungsJahr + ", Autor/en: " + sb.toString() + sb2.toString();
+		return "Titel: " + "'" + this.titel + "', " + "Erscheinungsjahr: " + this.erscheinungsJahr + ", Autor/en: " + sb.toString() + ", Verläge: " + sb2.toString();
 	}
 	
 	
@@ -90,25 +88,33 @@ public class Buch implements Comparable<Buch>{
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (this.getClass() != obj.getClass()) {
 			return false;
+		}
 		Buch other = (Buch) obj;
-		if (autoren == null) {
-			if (other.autoren != null)
+		if (this.autoren == null) {
+			if (other.autoren != null) {
 				return false;
-		} else if (!autoren.equals(other.autoren))
+			}
+		} else if (!this.autoren.equals(other.autoren)) {
 			return false;
-		if (erscheinungsJahr != other.erscheinungsJahr)
+		}
+		if (this.erscheinungsJahr != other.erscheinungsJahr) {
 			return false;
-		if (titel == null) {
-			if (other.titel != null)
+		}
+		if (this.titel == null) {
+			if (other.titel != null) {
 				return false;
-		} else if (!titel.equals(other.titel))
+			}
+		} else if (!this.titel.equals(other.titel)) {
 			return false;
+		}
 		return true;
 	}
 	
@@ -118,26 +124,26 @@ public class Buch implements Comparable<Buch>{
 		int hc = 1;
 		int hashMultiplier = 31;
 		
-		char[] titelArray = titel.toCharArray();
+		char[] titelArray = this.titel.toCharArray();
 		int titelAlsZahl = 0;
 		int verlagAlsZahl = 0;
 		
 		for (char c : titelArray) { 
 			titelAlsZahl += c;
 		}
-		for (Verlag verlag : verläge) {
+		for (Verlag verlag : this.verläge) {
 			verlagAlsZahl = verlagAlsZahl += verlag.getName().charAt(0);
 		}
 		
 		hc = hashMultiplier * hc + titelAlsZahl;
-		hc = hashMultiplier * hc + erscheinungsJahr;
+		hc = hashMultiplier * hc + this.erscheinungsJahr;
 		hc = hashMultiplier * hc + verlagAlsZahl;
 		return hc;
 	}
 
 
 	public String getTitel() {
-		return titel;
+		return this.titel;
 	}
 
 
@@ -147,7 +153,7 @@ public class Buch implements Comparable<Buch>{
 
 
 	public String getIsbn() {
-		return isbn;
+		return this.isbn;
 	}
 
 
@@ -157,7 +163,7 @@ public class Buch implements Comparable<Buch>{
 
 
 	public int getErscheinungsJahr() {
-		return erscheinungsJahr;
+		return this.erscheinungsJahr;
 	}
 
 
@@ -167,7 +173,7 @@ public class Buch implements Comparable<Buch>{
 
 
 	public Collection<Verlag> getVerläge() {
-		return verläge;
+		return this.verläge;
 	}
 
 
@@ -177,7 +183,7 @@ public class Buch implements Comparable<Buch>{
 
 
 	public BuchTyp getBuchTyp() {
-		return buchTyp;
+		return this.buchTyp;
 	}
 
 
@@ -187,7 +193,7 @@ public class Buch implements Comparable<Buch>{
 
 
 	public Collection<Autor> getAutoren() {
-		return autoren;
+		return this.autoren;
 	}
 
 

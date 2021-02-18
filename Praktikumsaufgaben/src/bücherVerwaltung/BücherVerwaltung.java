@@ -2,8 +2,10 @@ package bücherVerwaltung;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 public class BücherVerwaltung {
 	
@@ -11,7 +13,12 @@ public class BücherVerwaltung {
 	private VerlagVerwalter verlagVerwalter;
 	private BuchTypVerwalter buchTypVerwalter;
 	
-	private CollectionAdjuster collectionAdjuster;
+	
+	private CollectionAdjusterContain collectionAdjusterContain;
+	private CollectionAdjusterHash collectionAdjusterHash;
+	private CollectionAdjusterContainOhneReferenzAnpassung collectionAdjusterContainOhneReferenzAnpassung;
+	private CollectionAdjusterHashOhneReferenzAnpassung collectionAdjusterHashOhneReferenzAnpassung;
+	
 	
 	private Collection<Buch> bücher;
 	
@@ -21,31 +28,50 @@ public class BücherVerwaltung {
 	
 	
 	public BücherVerwaltung() {
-		autorenVerwalter = new AutorenVerwalter(this);
-		verlagVerwalter = new VerlagVerwalter(this);
-		buchTypVerwalter = new BuchTypVerwalter(this);
-		collectionAdjuster = new CollectionAdjuster(this);
-		bücher = new ArrayList<Buch>();
-		autoren = new ArrayList<Autor>();
-		verläge = new ArrayList<Verlag>();
-		buchTypen = new ArrayList<BuchTyp>();
+		this.autorenVerwalter = new AutorenVerwalter(this);
+		this.verlagVerwalter = new VerlagVerwalter(this);
+		this.buchTypVerwalter = new BuchTypVerwalter(this);
+		this.collectionAdjusterContain = new CollectionAdjusterContain(this);
+		this.collectionAdjusterHash = new CollectionAdjusterHash(this);
+		this.collectionAdjusterContainOhneReferenzAnpassung = new CollectionAdjusterContainOhneReferenzAnpassung(this);
+		this.collectionAdjusterHashOhneReferenzAnpassung = new CollectionAdjusterHashOhneReferenzAnpassung(this);
+		this.bücher = new ArrayList<Buch>();
+		this.autoren = new ArrayList<Autor>();
+		this.verläge = new ArrayList<Verlag>();
+		this.buchTypen = new ArrayList<BuchTyp>();
 	}
 
 	
-	public void addNewBuch(String titel, String isbn, int erscheinungsJahr, Collection<Verlag> beteiligteVerläge, BuchTyp myBuchTyp, Collection<Autor> beteiligteAutoren) {
+	public boolean addNewBuch(String titel, String isbn, int erscheinungsJahr, Collection<Verlag> beteiligteVerläge, BuchTyp myBuchTyp, Collection<Autor> beteiligteAutoren) {
 		Buch neuesBuch = new Buch(titel, isbn, erscheinungsJahr, beteiligteVerläge, myBuchTyp, beteiligteAutoren);
-		if (! bücher.contains(neuesBuch)) {
-			collectionAdjuster.adjustInvolvedCollections(neuesBuch);
+		if (! this.bücher.contains(neuesBuch)) {
+//			collectionAdjusterContain.adjustInvolvedCollections(neuesBuch);
+//			collectionAdjusterHash.adjustInvolvedCollections(neuesBuch);
+			this.collectionAdjusterContainOhneReferenzAnpassung.adjustInvolvedCollections(neuesBuch);
+//			collectionAdjusterHashOhneReferenzAnpassung.adjustInvolvedCollections(neuesBuch);
+			return true;
+		} else {
+			return false;
 		}
 	}
 	
 	
+	public boolean addAutorToBuch(Buch buch, Autor newAutor) {
+		buch = this.searchBuch(buch);
+		if (buch == null) {
+			return false;
+		}
+		this.collectionAdjusterContain.adjustCollectionsEffectedByAutorAdding(buch, newAutor);
+	}
+	
+	
 	public Buch searchBuch(Buch searchedBuch) {
-		Iterator<Buch> buchIt = this.bücher.iterator();
-		while (buchIt.hasNext()) {
-			Buch tempBuch = buchIt.next();
-			if(tempBuch.equals(searchedBuch)) {
-				return searchedBuch;
+//		ArrayList<Buch> helpList = new ArrayList<>(bücher); 
+//		helpList.sort(null);
+//		return helpList.get(Collections.binarySearch(helpList, searchedBuch));
+		for (Buch buch : this.bücher) {
+			if (buch.equals(searchedBuch)) {
+				return buch;
 			}
 		}
 		return null;
@@ -53,7 +79,7 @@ public class BücherVerwaltung {
 
 	
 	public AutorenVerwalter getAutorenVerwalter() {
-		return autorenVerwalter;
+		return this.autorenVerwalter;
 	}
 
 
@@ -63,7 +89,7 @@ public class BücherVerwaltung {
 
 
 	public VerlagVerwalter getVerlagVerwalter() {
-		return verlagVerwalter;
+		return this.verlagVerwalter;
 	}
 
 
@@ -73,7 +99,7 @@ public class BücherVerwaltung {
 
 
 	public BuchTypVerwalter getBuchTypVerwalter() {
-		return buchTypVerwalter;
+		return this.buchTypVerwalter;
 	}
 
 
@@ -82,18 +108,8 @@ public class BücherVerwaltung {
 	}
 
 
-	public CollectionAdjuster getCollectionAdjuster() {
-		return collectionAdjuster;
-	}
-
-
-	public void setCollectionAdjuster(CollectionAdjuster collectionAdjuster) {
-		this.collectionAdjuster = collectionAdjuster;
-	}
-
-
 	public Collection<Buch> getBücher() {
-		return bücher;
+		return this.bücher;
 	}
 
 
@@ -103,7 +119,7 @@ public class BücherVerwaltung {
 
 
 	public Collection<Autor> getAutoren() {
-		return autoren;
+		return this.autoren;
 	}
 
 
@@ -113,7 +129,7 @@ public class BücherVerwaltung {
 
 
 	public Collection<Verlag> getVerläge() {
-		return verläge;
+		return this.verläge;
 	}
 
 
@@ -123,7 +139,7 @@ public class BücherVerwaltung {
 
 
 	public Collection<BuchTyp> getBuchTypen() {
-		return buchTypen;
+		return this.buchTypen;
 	}
 
 
