@@ -22,7 +22,7 @@ public class Start {
 		myBücherVerwaltung.addNewBuch("The Hunger Games", "978-0-439-02352-8", 2008, verläge1, buchTyp1, autoren1);
 		
 		long anfangsZeit = Start.getTime();
-		for (int i = 0; i < 10000; i++) {
+		for (int i = 0; i < 100000; i++) {
 			myBücherVerwaltung.addNewBuch(("The Hunger Games" + i), "978-0-439-02352-8", 2008, verläge1, new BuchTyp(""+ (-i%17)), autoren1);
 		}
 		System.out.println("Zeit: " + (Start.getTime() - anfangsZeit) + "ms");

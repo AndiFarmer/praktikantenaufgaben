@@ -13,12 +13,7 @@ public class BücherVerwaltung {
 	private VerlagVerwalter verlagVerwalter;
 	private BuchTypVerwalter buchTypVerwalter;
 	
-	
-	private CollectionAdjusterContain collectionAdjusterContain;
-	private CollectionAdjusterHash collectionAdjusterHash;
-	private CollectionAdjusterContainOhneReferenzAnpassung collectionAdjusterContainOhneReferenzAnpassung;
-	private CollectionAdjusterHashOhneReferenzAnpassung collectionAdjusterHashOhneReferenzAnpassung;
-	
+	private CollectionAdjuster collectionAdjuster;
 	
 	private Collection<Buch> bücher;
 	
@@ -31,10 +26,7 @@ public class BücherVerwaltung {
 		this.autorenVerwalter = new AutorenVerwalter(this);
 		this.verlagVerwalter = new VerlagVerwalter(this);
 		this.buchTypVerwalter = new BuchTypVerwalter(this);
-		this.collectionAdjusterContain = new CollectionAdjusterContain(this);
-		this.collectionAdjusterHash = new CollectionAdjusterHash(this);
-		this.collectionAdjusterContainOhneReferenzAnpassung = new CollectionAdjusterContainOhneReferenzAnpassung(this);
-		this.collectionAdjusterHashOhneReferenzAnpassung = new CollectionAdjusterHashOhneReferenzAnpassung(this);
+		this.collectionAdjuster = new CollectionAdjuster(this);
 		this.bücher = new ArrayList<Buch>();
 		this.autoren = new ArrayList<Autor>();
 		this.verläge = new ArrayList<Verlag>();
@@ -45,10 +37,7 @@ public class BücherVerwaltung {
 	public boolean addNewBuch(String titel, String isbn, int erscheinungsJahr, Collection<Verlag> beteiligteVerläge, BuchTyp myBuchTyp, Collection<Autor> beteiligteAutoren) {
 		Buch neuesBuch = new Buch(titel, isbn, erscheinungsJahr, beteiligteVerläge, myBuchTyp, beteiligteAutoren);
 		if (! this.bücher.contains(neuesBuch)) {
-//			collectionAdjusterContain.adjustInvolvedCollections(neuesBuch);
-//			collectionAdjusterHash.adjustInvolvedCollections(neuesBuch);
-			this.collectionAdjusterContainOhneReferenzAnpassung.adjustInvolvedCollections(neuesBuch);
-//			collectionAdjusterHashOhneReferenzAnpassung.adjustInvolvedCollections(neuesBuch);
+			this.collectionAdjuster.adjustInvolvedCollections(neuesBuch);
 			return true;
 		} else {
 			return false;
@@ -56,12 +45,8 @@ public class BücherVerwaltung {
 	}
 	
 	
-	public boolean addAutorToBuch(Buch buch, Autor newAutor) {
-		buch = this.searchBuch(buch);
-		if (buch == null) {
-			return false;
-		}
-		this.collectionAdjusterContain.adjustCollectionsEffectedByAutorAdding(buch, newAutor);
+	public void addAutorToBuch(Buch buch, Autor newAutor) {
+		this.collectionAdjuster.adjustCollectionsEffectedByAutorAdding(buch, newAutor);
 	}
 	
 	

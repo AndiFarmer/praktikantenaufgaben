@@ -1,12 +1,12 @@
 package bücherVerwaltung;
 
-public class CollectionAdjusterContain {
+public class CollectionAdjusterContainWithReferenzAnpassung {
 
 	
 	BücherVerwaltung bücherVerwaltung;
 	
 	
-	public CollectionAdjusterContain(BücherVerwaltung myBücherVerwaltung) {
+	public CollectionAdjusterContainWithReferenzAnpassung(BücherVerwaltung myBücherVerwaltung) {
 		this.bücherVerwaltung = myBücherVerwaltung;
 	}
 
