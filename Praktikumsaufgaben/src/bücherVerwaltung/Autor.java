@@ -13,19 +13,19 @@ public class Autor implements Comparable<Autor>{
 
 	
 	public Autor(String vorName, String nachName) {
-		setVorName(vorName);
-		setNachName(nachName);
-		bücher = new ArrayList<Buch>();
-		verläge = new ArrayList<Verlag>();
+		this.setVorName(vorName);
+		this.setNachName(nachName);
+		this.bücher = new ArrayList<Buch>();
+		this.verläge = new ArrayList<Verlag>();
 	}
 	
 	
 	@Override
 	public String toString() {
-		return "Vorname: " + vorName + ", Nachname: " + nachName;
+		return "Autor [vorName=" + this.vorName + ", nachName=" + this.nachName + "]";
 	}
-	
-	
+
+
 	@Override
 	public int compareTo(Autor otherAutor) {
 		if(otherAutor == this) {
@@ -74,7 +74,7 @@ public class Autor implements Comparable<Autor>{
 
 
 	public String getVorName() {
-		return vorName;
+		return this.vorName;
 	}
 
 
@@ -84,7 +84,7 @@ public class Autor implements Comparable<Autor>{
 
 
 	public String getNachName() {
-		return nachName;
+		return this.nachName;
 	}
 
 
@@ -94,7 +94,7 @@ public class Autor implements Comparable<Autor>{
 
 
 	public Collection<Buch> getBücher() {
-		return bücher;
+		return this.bücher;
 	}
 
 
@@ -104,7 +104,7 @@ public class Autor implements Comparable<Autor>{
 
 
 	public Collection<Verlag> getVerläge() {
-		return verläge;
+		return this.verläge;
 	}
 
 

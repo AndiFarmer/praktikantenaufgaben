@@ -45,10 +45,31 @@ public class BücherVerwaltung {
 	}
 	
 	
-	public void addAutorToBuch(Buch buch, Autor newAutor) {
-		this.collectionAdjuster.adjustCollectionsEffectedByAutorAdding(buch, newAutor);
+	public void addAutorToBuch(Buch buch, Autor newAutor, boolean autorSchonvorhanden) {
+		this.collectionAdjuster.adjustCollectionsEffectedByAutorAdding(buch, newAutor, autorSchonvorhanden);
 	}
 	
+	
+	public void addVerlagToBuch(Buch buch, Verlag newVerlag, boolean verlagSchonvorhanden) {
+		this.collectionAdjuster.adjustCollectionsEffectedByVerlagAdding(buch, newVerlag, verlagSchonvorhanden);
+	}
+	
+	
+	public void removeAutorFromBuch(Buch buch, Autor autor) {
+		this.collectionAdjuster.adjustCollectionsEffectedByAutorRemovalFromBuch(buch, autor);
+	}
+	
+	
+	public void removeVerlagFromBuch(Buch buch, Verlag verlag) {
+		this.collectionAdjuster.adjustCollectionsEffectedByVerlagRemovalFromBuch(buch, verlag);
+	}
+	
+	
+	public void changeBuchTyp(Buch buch, BuchTyp newBuchTyp) {
+		BuchTyp oldBuchTyp = buch.getBuchTyp();
+		buch.setBuchTyp(newBuchTyp);
+		this.collectionAdjuster.adjustCollectionsEffectedByBuchTypChange(newBuchTyp, oldBuchTyp);
+	}
 	
 	public Buch searchBuch(Buch searchedBuch) {
 //		ArrayList<Buch> helpList = new ArrayList<>(bücher); 

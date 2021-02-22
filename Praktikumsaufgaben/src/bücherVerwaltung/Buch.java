@@ -25,27 +25,34 @@ public class Buch implements Comparable<Buch>{
 	}
 
 	
+//	@Override
+//	public String toString() {
+//		StringBuilder sb = new StringBuilder();
+//		Iterator<Autor> autorenIt = this.autoren.iterator();
+//		Autor autorTmp = new Autor("", "");
+//		while (autorenIt.hasNext()) {
+//			autorTmp = autorenIt.next();
+//			sb.append(autorTmp.getVorName() + " ");
+//			sb.append(autorTmp.getNachName());
+//			sb.append((autorenIt.hasNext() ? " & " : ""));
+//		}
+//		StringBuilder sb2 = new StringBuilder();
+//		Iterator<Verlag> verlägeIt2 = this.verläge.iterator();
+//		Verlag verlagTmp2 = new Verlag("", "");
+//		while (verlägeIt2.hasNext()) {
+//			verlagTmp2 = verlägeIt2.next();
+//			sb2.append(verlagTmp2.getName() + " ");
+//			sb2.append(verlagTmp2.getOrt());
+//			sb2.append((verlägeIt2.hasNext() ? " & " : ""));
+//		}
+//		return "Titel: " + "'" + this.titel + "', " + "Erscheinungsjahr: " + this.erscheinungsJahr + ", Autor/en: " + sb.toString() + ", Verläge: " + sb2.toString();
+//	}
+	
+	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		Iterator<Autor> autorenIt = this.autoren.iterator();
-		Autor autorTmp = new Autor("", "");
-		while (autorenIt.hasNext()) {
-			autorTmp = autorenIt.next();
-			sb.append(autorTmp.getVorName() + " ");
-			sb.append(autorTmp.getNachName());
-			sb.append((autorenIt.hasNext() ? " & " : ""));
-		}
-		StringBuilder sb2 = new StringBuilder();
-		Iterator<Verlag> verlägeIt2 = this.verläge.iterator();
-		Verlag verlagTmp2 = new Verlag("", "");
-		while (verlägeIt2.hasNext()) {
-			verlagTmp2 = verlägeIt2.next();
-			sb2.append(verlagTmp2.getName() + " ");
-			sb2.append(verlagTmp2.getOrt());
-			sb2.append((verlägeIt2.hasNext() ? " & " : ""));
-		}
-		return "Titel: " + "'" + this.titel + "', " + "Erscheinungsjahr: " + this.erscheinungsJahr + ", Autor/en: " + sb.toString() + ", Verläge: " + sb2.toString();
+		return "Buch [titel=" + this.titel + ", erscheinungsJahr=" + this.erscheinungsJahr + ", verläge=" + this.verläge + ", autoren="
+				+ this.autoren + "]";
 	}
 	
 	
@@ -85,6 +92,7 @@ public class Buch implements Comparable<Buch>{
 		return 0; 
 	}
 	
+
 
 	@Override
 	public boolean equals(Object obj) {

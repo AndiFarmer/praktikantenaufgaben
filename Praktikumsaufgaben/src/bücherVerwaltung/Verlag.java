@@ -12,19 +12,19 @@ public class Verlag implements Comparable<Verlag> {
 	
 	
 	public Verlag(String name, String ort) {
-		setName(name);
-		setOrt(ort);
-		autoren = new ArrayList<Autor>();
-		bücher = new ArrayList<Buch>();
+		this.setName(name);
+		this.setOrt(ort);
+		this.autoren = new ArrayList<Autor>();
+		this.bücher = new ArrayList<Buch>();
 	}
-
+	
 	
 	@Override
 	public String toString() {
-		return "Verlagsname: " + name + ", Ort: " + ort;
+		return "Verlag [name=" + this.name + ", ort=" + this.ort + "]";
 	}
-	
-	
+
+
 	@Override
 	public int compareTo(Verlag otherVerlag) {
 		if (this.equals(otherVerlag)) {
@@ -41,6 +41,7 @@ public class Verlag implements Comparable<Verlag> {
 	}
 	
 	
+
 	@Override
 	public boolean equals(Object otherObject) {
 		if (otherObject == null) {
@@ -61,7 +62,7 @@ public class Verlag implements Comparable<Verlag> {
 
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 
@@ -71,7 +72,7 @@ public class Verlag implements Comparable<Verlag> {
 
 
 	public String getOrt() {
-		return ort;
+		return this.ort;
 	}
 
 
@@ -81,7 +82,7 @@ public class Verlag implements Comparable<Verlag> {
 
 
 	public Collection<Autor> getAutoren() {
-		return autoren;
+		return this.autoren;
 	}
 
 
@@ -91,7 +92,7 @@ public class Verlag implements Comparable<Verlag> {
 
 
 	public Collection<Buch> getBücher() {
-		return bücher;
+		return this.bücher;
 	}
 
 

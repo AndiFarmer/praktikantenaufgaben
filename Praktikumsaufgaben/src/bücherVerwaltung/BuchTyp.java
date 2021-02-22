@@ -7,10 +7,16 @@ public class BuchTyp implements Comparable<BuchTyp> {
 	
 	
 	public BuchTyp(String input) {
-		setBezeichnung(input);
+		this.setBezeichnung(input);
 	}
 
 	
+	@Override
+	public String toString() {
+		return "BuchTyp [bezeichnung=" + this.bezeichnung + "]";
+	}
+
+
 	@Override
 	public int compareTo(BuchTyp otherBuchTyp) {
 		if (otherBuchTyp == this) {
@@ -54,7 +60,7 @@ public class BuchTyp implements Comparable<BuchTyp> {
 	
 
 	public String getBezeichnung() {
-		return bezeichnung;
+		return this.bezeichnung;
 	}
 
 	
