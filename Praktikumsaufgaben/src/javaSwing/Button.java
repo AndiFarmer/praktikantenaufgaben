@@ -1,4 +1,4 @@
-package testPackage2;
+package javaSwing;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

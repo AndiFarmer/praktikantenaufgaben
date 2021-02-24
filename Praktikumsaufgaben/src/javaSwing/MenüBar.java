@@ -1,4 +1,4 @@
-package testPackage2;
+package javaSwing;
 
 import java.awt.Desktop;
 import java.awt.Image;

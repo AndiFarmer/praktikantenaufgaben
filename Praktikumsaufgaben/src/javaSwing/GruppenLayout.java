@@ -1,4 +1,4 @@
-package testPackage2;
+package javaSwing;
 
 import javax.swing.GroupLayout;
 import javax.swing.JComponent;

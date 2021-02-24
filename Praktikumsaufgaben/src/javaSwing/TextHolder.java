@@ -1,4 +1,4 @@
-package testPackage2;
+package javaSwing;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
