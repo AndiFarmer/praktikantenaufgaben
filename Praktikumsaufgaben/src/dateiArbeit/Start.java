@@ -21,14 +21,18 @@ public class Start {
 	static File myFile3 = new File("C:\\Users\\z1300a2k\\Documents\\beispielDateiSchreibenRückwärts.txt");
 	static File myFile4 = new File("C:\\Users\\z1300a2k\\Documents\\beispielDateiSchreibenRückwärtsZeilenweise.txt");
 	static File myFile5 = new File("C:\\Users\\z1300a2k\\Documents\\beispielDateiSchreibenROT13.txt");
+	static File myFile6 = new File("C:\\Users\\z1300a2k\\Documents\\beispielDateiSchreibenWortAustauschen.txt");
 	
 	StringBuffer wholeText; //evtl. noch nützlich
 	
 	public static void main(String[] args) {
-		String str = "   Das ist ein String\n ";
-		System.out.println(str);
-		System.out.println(str.trim());
-		System.out.println(str.trim());
+		char[][] zuordnung = new char[26][2];
+		System.out.println(zuordnung[1].length);
+//			for (int i = 0; i < 26; i++) {
+//				zuordnung[i][]
+//			}
+		
+		
 		Start.einlesenUndSchreibenVonText(Start.myFile, Start.myFile2);
 		System.out.println();
 		Start.einlesenUndBuchstabenweiseRückwärtsSchreiben(Start.myFile2, Start.myFile3);
@@ -37,8 +41,6 @@ public class Start {
 		System.out.println();
 		Start.einlesenUndMitROT13Schreiben(Start.myFile4, Start.myFile5);
 		System.out.println();
-		System.out.println();
-		
 		Start.gebeDateiZeichenweiseAus(Start.myFile);
 		System.out.println();
 		Start.gebeDateiZeichenweiseAus(Start.myFile2);
@@ -56,6 +58,45 @@ public class Start {
 		Start.gebeDateiZeichenweiseAusInDezimal(Start.myFile5);
 		
 		System.exit(0);
+	}
+	
+	private static void einlesenUndSchreibenMitWortaustausch(File readFile, File writeFile) {
+		System.out.println("einlesenUndSchreibenMitWortaustausch");
+		System.out.println(readFile.length() + "-> Länge der Ursprungsdatei");
+		if (readFile.isFile() && readFile.canRead() && writeFile.canWrite()) {
+			
+			BufferedReader in = Start.generateBufferdReader(readFile);
+			String zeile = "";
+			StringBuffer wholeTextBackward =  new StringBuffer();
+			PrintWriter pw = Start.generatePrintWriter(writeFile);
+			System.out.println(in.lines());
+			try {
+				while ((zeile = in.readLine()) != null) { //falls am Ende der Datei noch Newlines sind, dann werden diese gekürzt
+					for (int i = (zeile.length()-1); i >= 0; i--) {
+						wholeTextBackward.append(zeile.charAt(i));
+					}
+//					in.mark(100); //Wenn Zeile länger dann Problem
+//					if (in.readLine() != null) {
+						wholeTextBackward.append(System.lineSeparator());
+//					}
+//					in.reset();
+				}
+				if(wholeTextBackward.length() > 0  ) {
+					wholeTextBackward.delete(wholeTextBackward.length()-2, wholeTextBackward.length()); // löscht das letzte NewLine
+				}
+				System.out.println(wholeTextBackward.length() + "-> Länge des zu Schreibenden Textes");
+				pw.print(wholeTextBackward);
+				pw.flush();
+				System.out.println(writeFile.length() + "-> Länge der beschriebenen Datei");
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			finally {
+				Start.closeReader(in);
+				Start.closeWriter(pw);
+			}
+		}
 	}
 	
 	private static void einlesenUndMitROT13Schreiben(File readFile, File writeFile) {
@@ -142,11 +183,7 @@ public class Start {
 			PrintWriter pw = Start.generatePrintWriter(writeFile);
 			
 			try {
-				in.mark(100);
-				System.out.println(in.readLine() + "" + in.readLine());
-				in.reset();
-				while ((zeile = in.readLine()) != null) {
-					System.out.println(zeile.trim());
+				while ((zeile = in.readLine()) != null) { //falls am Ende der Datei noch Newlines sind, dann werden diese gekürzt
 					for (int i = (zeile.length()-1); i >= 0; i--) {
 						wholeTextBackward.append(zeile.charAt(i));
 					}
@@ -157,7 +194,7 @@ public class Start {
 //					in.reset();
 				}
 				if(wholeTextBackward.length() > 0  ) {
-					wholeTextBackward.delete(wholeTextBackward.length()-2, wholeTextBackward.length()); // löscht das letzte NewLine
+//					wholeTextBackward.delete(wholeTextBackward.length()-2, wholeTextBackward.length()); // löscht das letzte NewLine
 				}
 				System.out.println(wholeTextBackward.length() + "-> Länge des zu Schreibenden Textes");
 				pw.print(wholeTextBackward);
