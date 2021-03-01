@@ -23,39 +23,34 @@ public class Start {
 	static File myFile5 = new File("C:\\Users\\z1300a2k\\Documents\\beispielDateiSchreibenROT13.txt");
 	static File myFile6 = new File("C:\\Users\\z1300a2k\\Documents\\beispielDateiSchreibenWortAustauschen.txt");
 	
-	StringBuffer wholeText; //evtl. noch nützlich
-	
 	public static void main(String[] args) {
-		char[][] zuordnung = new char[26][2];
-		System.out.println(zuordnung[1].length);
-//			for (int i = 0; i < 26; i++) {
-//				zuordnung[i][]
-//			}
+//		Start.einlesenUndSchreibenVonText(Start.myFile, Start.myFile2);
+//		System.out.println();
+//		Start.einlesenUndBuchstabenweiseRückwärtsSchreiben(Start.myFile2, Start.myFile3);
+//		System.out.println();
+//		Start.einlesenUndZeilenweiseRückwärtsSchreiben(Start.myFile3, Start.myFile4);
+//		System.out.println();
 		
+		FileChanger myFileTextEditor = new FileChanger();
+		myFileTextEditor.ReadFileAndWriteWithROT13(Start.myFile, Start.myFile5);
+//		Start.einlesenUndMitROT13Schreiben(Start.myFile4, Start.myFile5);
+//		System.out.println();
 		
-		Start.einlesenUndSchreibenVonText(Start.myFile, Start.myFile2);
-		System.out.println();
-		Start.einlesenUndBuchstabenweiseRückwärtsSchreiben(Start.myFile2, Start.myFile3);
-		System.out.println();
-		Start.einlesenUndZeilenweiseRückwärtsSchreiben(Start.myFile3, Start.myFile4);
-		System.out.println();
-		Start.einlesenUndMitROT13Schreiben(Start.myFile4, Start.myFile5);
-		System.out.println();
 		Start.gebeDateiZeichenweiseAus(Start.myFile);
-		System.out.println();
-		Start.gebeDateiZeichenweiseAus(Start.myFile2);
-		System.out.println();
-		Start.gebeDateiZeichenweiseAus(Start.myFile3);
-		System.out.println();
-		Start.gebeDateiZeichenweiseAus(Start.myFile4);
-		System.out.println();
+//		System.out.println();
+//		Start.gebeDateiZeichenweiseAus(Start.myFile2);
+//		System.out.println();
+//		Start.gebeDateiZeichenweiseAus(Start.myFile3);
+//		System.out.println();
+//		Start.gebeDateiZeichenweiseAus(Start.myFile4);
+//		System.out.println();
 		Start.gebeDateiZeichenweiseAus(Start.myFile5);
-		System.out.println();
-		Start.gebeDateiROT13DecryptedAus(Start.myFile5);
-		System.out.println();
-		Start.gebeDateiZeichenweiseAusInDezimal(Start.myFile4);
-		System.out.println();
-		Start.gebeDateiZeichenweiseAusInDezimal(Start.myFile5);
+//		System.out.println();
+//		Start.gebeDateiROT13DecryptedAus(Start.myFile5);
+//		System.out.println();
+//		Start.gebeDateiZeichenweiseAusInDezimal(Start.myFile4);
+//		System.out.println();
+//		Start.gebeDateiZeichenweiseAusInDezimal(Start.myFile5);
 		
 		System.exit(0);
 	}
@@ -65,7 +60,7 @@ public class Start {
 		System.out.println(readFile.length() + "-> Länge der Ursprungsdatei");
 		if (readFile.isFile() && readFile.canRead() && writeFile.canWrite()) {
 			
-			BufferedReader in = Start.generateBufferdReader(readFile);
+			BufferedReader in = Start.generateBufferedReader(readFile);
 			String zeile = "";
 			StringBuffer wholeTextBackward =  new StringBuffer();
 			PrintWriter pw = Start.generatePrintWriter(writeFile);
@@ -104,7 +99,7 @@ public class Start {
 			
 			System.out.println("EinlesenUndMitROT13Schreiben");
 			System.out.println(readFile.length() + "-> Länge der Ursprungsdatei");
-			BufferedReader in = Start.generateBufferdReader(readFile);
+			BufferedReader in = Start.generateBufferedReader(readFile);
 			char c = 0;
 			StringBuffer wholeTextRot13 =  new StringBuffer();
 			PrintWriter pw = Start.generatePrintWriter(writeFile);
@@ -137,7 +132,7 @@ public class Start {
 			
 			System.out.println("EinlesenUndZeilenweiseRückwärtsSchreiben");
 			System.out.println(readFile.length() + "-> Länge der Ursprungsdatei");
-			BufferedReader in = Start.generateBufferdReader(readFile);
+			BufferedReader in = Start.generateBufferedReader(readFile);
 			String zeile = "";
 			ArrayList<String> lineArray = new ArrayList<>();
 			StringBuffer linesBackward =  new StringBuffer();
@@ -177,7 +172,7 @@ public class Start {
 		System.out.println(readFile.length() + "-> Länge der Ursprungsdatei");
 		if (readFile.isFile() && readFile.canRead() && writeFile.canWrite()) {
 			
-			BufferedReader in = Start.generateBufferdReader(readFile);
+			BufferedReader in = Start.generateBufferedReader(readFile);
 			String zeile = "";
 			StringBuffer wholeTextBackward =  new StringBuffer();
 			PrintWriter pw = Start.generatePrintWriter(writeFile);
@@ -249,7 +244,7 @@ public class Start {
 		}
 	}
 
-	private static BufferedReader generateBufferdReader(File inputFile) {
+	private static BufferedReader generateBufferedReader(File inputFile) {
 		BufferedReader in = null;
 		try {
 			in = new BufferedReader(new FileReader(inputFile));
@@ -299,7 +294,7 @@ public class Start {
 	public static void gebeDateiZeilenweiseAus(File inputFile) {
 		System.out.println("Zeilenweise Ausgabe von: " + inputFile);
 		if (inputFile.isFile() && inputFile.canRead()) {
-			BufferedReader in = Start.generateBufferdReader(inputFile);
+			BufferedReader in = Start.generateBufferedReader(inputFile);
 			String zeile = null;
 			try {
 				while ((zeile = in.readLine()) != null) {
