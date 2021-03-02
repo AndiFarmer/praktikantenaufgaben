@@ -12,6 +12,9 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+
+import javax.xml.soap.Text;
 
 
 public class Start {
@@ -24,33 +27,14 @@ public class Start {
 	static File myFile6 = new File("C:\\Users\\z1300a2k\\Documents\\beispielDateiSchreibenWortAustauschen.txt");
 	
 	public static void main(String[] args) {
-//		Start.einlesenUndSchreibenVonText(Start.myFile, Start.myFile2);
-//		System.out.println();
-//		Start.einlesenUndBuchstabenweiseRückwärtsSchreiben(Start.myFile2, Start.myFile3);
-//		System.out.println();
-//		Start.einlesenUndZeilenweiseRückwärtsSchreiben(Start.myFile3, Start.myFile4);
-//		System.out.println();
-		
 		FileChanger myFileTextEditor = new FileChanger();
 		myFileTextEditor.ReadFileAndWriteWithROT13(Start.myFile, Start.myFile5);
-//		Start.einlesenUndMitROT13Schreiben(Start.myFile4, Start.myFile5);
-//		System.out.println();
-		
+		myFileTextEditor.ReadFileAndReplaceWord(Start.myFile, Start.myFile6, "$", "\\");
 		Start.gebeDateiZeichenweiseAus(Start.myFile);
-//		System.out.println();
-//		Start.gebeDateiZeichenweiseAus(Start.myFile2);
-//		System.out.println();
-//		Start.gebeDateiZeichenweiseAus(Start.myFile3);
-//		System.out.println();
-//		Start.gebeDateiZeichenweiseAus(Start.myFile4);
-//		System.out.println();
+		System.out.println();
 		Start.gebeDateiZeichenweiseAus(Start.myFile5);
-//		System.out.println();
-//		Start.gebeDateiROT13DecryptedAus(Start.myFile5);
-//		System.out.println();
-//		Start.gebeDateiZeichenweiseAusInDezimal(Start.myFile4);
-//		System.out.println();
-//		Start.gebeDateiZeichenweiseAusInDezimal(Start.myFile5);
+		System.out.println();
+		Start.gebeDateiZeichenweiseAus(Start.myFile6);
 		
 		System.exit(0);
 	}

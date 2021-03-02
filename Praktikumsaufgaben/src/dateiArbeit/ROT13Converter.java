@@ -1,42 +1,53 @@
 package dateiArbeit;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ROT13Converter {
 
-	private char[] lowercaseAlphabet = new char[26]; //Ohne Umlaute
-	private char[] uppercaseAlphabet = new char[26]; //Ohne Umlaute
+	private static char[] lowercaseAlphabet = new char[26]; //Ohne Umlaute
+	private static char[] uppercaseAlphabet = new char[26]; //Ohne Umlaute
 	
-	private HashMap<Character,Character> buchstabenZuordnung = new HashMap<>();
+	private static HashMap<Character,Character> buchstabenZuordnung = new HashMap<>();
 	
-	private char[][] buchstabenZuordnungArr = new char[26][2];
+	private static char[][] buchstabenZuordnungArr = new char[26][2];
 	
-	public ROT13Converter() {
+	private static ROT13Converter singleton = null;
+	
+	static { // ausgeführt wenn das erste mal ausgeführt -> static initializer
+		
+	}
+	
+	private ROT13Converter() {
 		for (char c = 'a'; c <= 'z'; c++) {
-			this.lowercaseAlphabet[c - 'a'] = c;
+			ROT13Converter.lowercaseAlphabet[c - 'a'] = c;
 		}
 		for (char c = 'A'; c <= 'Z'; c++) {
-			this.uppercaseAlphabet[c - 'A'] = c;
+			ROT13Converter.uppercaseAlphabet[c - 'A'] = c;
 		}
 		
 		////////////////////////////////
 		for (char c = 'a'; c <= 'z'; c++) {
-			this.buchstabenZuordnung.put(c, this.lowercaseAlphabet[((c - 'a') + 13) % 26]);
+			ROT13Converter.buchstabenZuordnung.put(c, ROT13Converter.lowercaseAlphabet[((c - 'a') + 13) % 26]);
 		}
 		for (char c = 'A'; c <= 'Z'; c++) {
-			this.buchstabenZuordnung.put(c, this.uppercaseAlphabet[((c - 'A') + 13) % 26]);
+			ROT13Converter.buchstabenZuordnung.put(c, ROT13Converter.uppercaseAlphabet[((c - 'A') + 13) % 26]);
 		}
 		////////////////////////////////
-//		int indexBuchstabenZuordnungArr = 0;
 		for (int c = 'a', indexBuchstabenZuordnungArr = 0; c <= 'm'; c++, indexBuchstabenZuordnungArr++) {
-			buchstabenZuordnungArr[indexBuchstabenZuordnungArr][0] = (char) c;
-			buchstabenZuordnungArr[indexBuchstabenZuordnungArr][1] = this.lowercaseAlphabet[((c - 'a') + 13) % 26];
+			ROT13Converter.buchstabenZuordnungArr[indexBuchstabenZuordnungArr][0] = (char) c;
+			ROT13Converter.buchstabenZuordnungArr[indexBuchstabenZuordnungArr][1] = ROT13Converter.lowercaseAlphabet[((c - 'a') + 13) % 26];
 		}
 		for (int c = 'A', indexBuchstabenZuordnungArr = 13; c <= 'M'; c++, indexBuchstabenZuordnungArr++) {
-			buchstabenZuordnungArr[indexBuchstabenZuordnungArr][0] = (char) c;
-			buchstabenZuordnungArr[indexBuchstabenZuordnungArr][1] = this.uppercaseAlphabet[((c - 'A') + 13) % 26];
+			ROT13Converter.buchstabenZuordnungArr[indexBuchstabenZuordnungArr][0] = (char) c;
+			ROT13Converter.buchstabenZuordnungArr[indexBuchstabenZuordnungArr][1] = ROT13Converter.uppercaseAlphabet[((c - 'A') + 13) % 26];
 		}
+	}
+	
+	public static ROT13Converter getInstance() {
+		if (ROT13Converter.singleton == null) {
+			ROT13Converter.singleton = new ROT13Converter();
+		}
+		return ROT13Converter.singleton;
 	}
 	
 //	public String convert(String input) {
@@ -56,35 +67,39 @@ public class ROT13Converter {
 //		return sb.toString();
 //	}
 	
-//	public String convert(String input) {
-//		StringBuffer sb = new StringBuffer();
-//		for (int i = 0; i < input.length(); i++) {
-//			char c = input.charAt(i);
-//			c = this.buchstabenZuordnung.containsKey(c) ? this.buchstabenZuordnung.get(input.charAt(i)) : c ;
-//			sb.append(c);
-//		}
-//		return sb.toString();
-//	}
-	
-	public String convert(String input) {
+	public String convert(String input) throws IllegalArgumentException {
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < input.length(); i++) {
-			char c = input.charAt(i);
-			c = this.searchPartnerLetter(c);
+			Character c = input.charAt(i);
+//			c = ROT13Converter.buchstabenZuordnung.containsKey(c) ? ROT13Converter.buchstabenZuordnung.get(input.charAt(i)) : c ;
+			c = ROT13Converter.buchstabenZuordnung.get(input.charAt(i));
+			if (c == null) {
+				throw new IllegalArgumentException("ungültiger Buchstabe '" + input.charAt(i) + "'");
+			}
 			sb.append(c);
 		}
 		return sb.toString();
 	}
 	
-	public char searchPartnerLetter(char cInput) {
-		for (int i = 0; i < this.buchstabenZuordnungArr.length; i++) {
-			for (int j = 0; j < this.buchstabenZuordnungArr[i].length; j++) {
-				if (this.buchstabenZuordnungArr[i][j] == cInput) {
-					return j == 0 ? this.buchstabenZuordnungArr[i][1] : this.buchstabenZuordnungArr[i][0];
-				}
-			}
-		}
-		return cInput;
-	}
+//	public String convert(String input) {
+//		StringBuffer sb = new StringBuffer();
+//		for (int i = 0; i < input.length(); i++) {
+//			char c = input.charAt(i);
+//			c = this.searchPartnerLetter(c);
+//			sb.append(c);
+//		}
+//		return sb.toString();
+//	}
+//	
+//	private char searchPartnerLetter(char cInput) {
+//		for (int i = 0; i < ROT13Converter.buchstabenZuordnungArr.length; i++) {
+//			for (int j = 0; j < ROT13Converter.buchstabenZuordnungArr[i].length; j++) {
+//				if (ROT13Converter.buchstabenZuordnungArr[i][j] == cInput) {
+//					return j == 0 ? ROT13Converter.buchstabenZuordnungArr[i][1] : ROT13Converter.buchstabenZuordnungArr[i][0];
+//				}
+//			}
+//		}
+//		return cInput;
+//	}
 	
 }
