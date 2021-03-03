@@ -9,7 +9,9 @@ import java.io.Writer;
 
 public class DateiSchreiber {
 
-	public DateiSchreiber() {
+	private static DateiSchreiber singleton = null;
+
+	private DateiSchreiber() {
 	}
 
 	public void writeTextFile(File destination, String inputString) {
@@ -36,5 +38,12 @@ public class DateiSchreiber {
 		if (w != null) {
 			try { w.close(); } catch (IOException e) {	e.printStackTrace(); }
 		}
+	}
+
+	public static DateiSchreiber getInstance() {
+		if (DateiSchreiber.singleton == null) {
+			DateiSchreiber.singleton  = new DateiSchreiber();
+		}
+		return DateiSchreiber.singleton;
 	}
 }

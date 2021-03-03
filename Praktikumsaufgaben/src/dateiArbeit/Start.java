@@ -25,9 +25,11 @@ public class Start {
 	static File myFile4 = new File("C:\\Users\\z1300a2k\\Documents\\beispielDateiSchreibenRückwärtsZeilenweise.txt");
 	static File myFile5 = new File("C:\\Users\\z1300a2k\\Documents\\beispielDateiSchreibenROT13.txt");
 	static File myFile6 = new File("C:\\Users\\z1300a2k\\Documents\\beispielDateiSchreibenWortAustauschen.txt");
+	static File myFile7 = new File("C:\\Users\\z1300a2k\\Documents\\ReadFileEncoding8859_1AndWriteEncodingUTF_8.txt");
 	
 	public static void main(String[] args) {
 		FileChanger myFileTextEditor = new FileChanger();
+		myFileTextEditor.ReadFileEncoding8859_1AndWriteEncodingUTF_8(Start.myFile, Start.myFile7);
 		myFileTextEditor.ReadFileAndWriteWithROT13(Start.myFile, Start.myFile5);
 		myFileTextEditor.ReadFileAndReplaceWord(Start.myFile, Start.myFile6, "$", "\\");
 		Start.gebeDateiZeichenweiseAus(Start.myFile);

@@ -71,11 +71,16 @@ public class ROT13Converter {
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < input.length(); i++) {
 			Character c = input.charAt(i);
+			Character cAusHashMap;
 //			c = ROT13Converter.buchstabenZuordnung.containsKey(c) ? ROT13Converter.buchstabenZuordnung.get(input.charAt(i)) : c ;
-			c = ROT13Converter.buchstabenZuordnung.get(input.charAt(i));
-			if (c == null) {
-				throw new IllegalArgumentException("ungültiger Buchstabe '" + input.charAt(i) + "'");
+			cAusHashMap = ROT13Converter.buchstabenZuordnung.get(c);
+			if (cAusHashMap != null) {
+				c = cAusHashMap;
 			}
+//			c = ROT13Converter.buchstabenZuordnung.get(input.charAt(i));
+//			if (c == null) {
+//				throw new IllegalArgumentException("ungültiger Buchstabe '" + input.charAt(i) + "'");
+//			}
 			sb.append(c);
 		}
 		return sb.toString();

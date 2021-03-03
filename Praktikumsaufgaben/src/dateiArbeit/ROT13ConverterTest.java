@@ -26,17 +26,17 @@ class ROT13ConverterTest {
 		Assertions.assertDoesNotThrow(() -> {String editedFileContent = this.testROT13Converter.convert("abc");}); // lambda ausdruck
 	}
 
-	@Test
-	void testConvert4() {
-		String editedFileContent;
-		try {
-			editedFileContent = this.testROT13Converter.convert("1");
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-			Assertions.assertTrue(false, "Laufzeitfehler aufgetreten");
-		}
-		Assertions.assertTrue(true);
-	}
+//	@Test
+//	void testConvert4() {
+//		String editedFileContent;
+//		try {
+//			editedFileContent = this.testROT13Converter.convert("1");
+//		} catch (IllegalArgumentException e) {
+//			e.printStackTrace();
+//			Assertions.assertTrue(false, "Laufzeitfehler aufgetreten");
+//		}
+//		Assertions.assertTrue(true);
+//	}
 	
 	@BeforeEach
 	public void getConverter() { // vor jeder anderen Methode ausgeführt
