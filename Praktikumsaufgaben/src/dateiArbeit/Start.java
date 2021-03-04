@@ -25,18 +25,21 @@ public class Start {
 	static File myFile4 = new File("C:\\Users\\z1300a2k\\Documents\\beispielDateiSchreibenRückwärtsZeilenweise.txt");
 	static File myFile5 = new File("C:\\Users\\z1300a2k\\Documents\\beispielDateiSchreibenROT13.txt");
 	static File myFile6 = new File("C:\\Users\\z1300a2k\\Documents\\beispielDateiSchreibenWortAustauschen.txt");
-	static File myFile7 = new File("C:\\Users\\z1300a2k\\Documents\\ReadFileEncoding8859_1AndWriteEncodingUTF_8.txt");
+	static File myFile7 = new File("C:\\Users\\z1300a2k\\Documents\\ReadFileEncoding8859_1AndWriteEncodingUTF_8Lesen.txt");
+	static File myFile8 = new File("C:\\Users\\z1300a2k\\Documents\\ReadFileEncoding8859_1AndWriteEncodingUTF_8Schreiben.txt");
 	
 	public static void main(String[] args) {
 		FileChanger myFileTextEditor = new FileChanger();
-		myFileTextEditor.ReadFileEncoding8859_1AndWriteEncodingUTF_8(Start.myFile, Start.myFile7);
-		myFileTextEditor.ReadFileAndWriteWithROT13(Start.myFile, Start.myFile5);
-		myFileTextEditor.ReadFileAndReplaceWord(Start.myFile, Start.myFile6, "$", "\\");
-		Start.gebeDateiZeichenweiseAus(Start.myFile);
+//		myFileTextEditor.ReadFileEncoding8859_1AndWriteEncodingUTF_8(Start.myFile7, Start.myFile8);
+		Start.gebeDateiZeichenweiseAus(Start.myFile7);
 		System.out.println();
-		Start.gebeDateiZeichenweiseAus(Start.myFile5);
+		Start.gebeDateiZeichenweiseAusInHexa(Start.myFile7);
 		System.out.println();
-		Start.gebeDateiZeichenweiseAus(Start.myFile6);
+		Start.einlesenUndSchreibenVonText(Start.myFile7, Start.myFile8);
+		Start.gebeDateiZeichenweiseAusInHexa(Start.myFile8);
+//		Start.gebeDateiZeichenweiseAus(Start.myFile8);
+//		System.out.println();
+//		Start.gebeDateiZeichenweiseAusInHexa(Start.myFile8);
 		
 		System.exit(0);
 	}
@@ -265,7 +268,7 @@ public class Start {
 		System.out.println(inputFile.length());
 		if (inputFile.isFile() && inputFile.canRead()) {
 			FileReader fr = Start.generateFileReader(inputFile);
-			for (int i = 0; i < inputFile.length(); i++) {
+			for (int i = 0; i < inputFile.length(); i++) { //inputFile.length()
 				try {
 					char c = (char)fr.read();
 					System.out.print(c);
@@ -346,7 +349,7 @@ public class Start {
 		System.out.println(inputFile.length());
 		if (inputFile.isFile() && inputFile.canRead()) {
 			FileReader fr = Start.generateFileReader(inputFile);
-			for (int i = 0; i < inputFile.length(); i++) {
+			for (int i = 0; i < inputFile.length(); i++) { //inputFile.length()
 				try {
 					char c = (char)fr.read();
 					System.out.print(Integer.toHexString(c) + " ");

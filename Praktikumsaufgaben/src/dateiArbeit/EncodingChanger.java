@@ -10,34 +10,35 @@ import javax.sound.sampled.AudioFormat.Encoding;
 
 public class EncodingChanger {
 
-	private static EncodingChanger singleton = null;
+	private static EncodingChanger singleton = null; //
 	
-	static {
-		
-	}
 	private EncodingChanger() {
 		
 	}
 	
-	public String ReadFileEncoding8859_1AndWriteEncodingUTF_8(File readFile) {
-		if (! (readFile.isFile() && readFile.canRead())) {
-			System.err.println("Datei kann nicht gelesen werden");
-			return null;
-		}
-		StringBuffer sb = new StringBuffer();
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(readFile), "ISO-8859-1"))) {
-			char zeichen = 0;
+	public void ReadFileAndWrite(File readFile, File writeFile, DateiLeser dateiLeser, DateiSchreiber dateiSchreiber, String readEncoding, String writeEncoding) {
+		try {
+			dateiLeser.initializeReader(readFile, readEncoding);
+			dateiSchreiber.initializeWriter(writeFile, writeEncoding);
+			char c;
 			char abbruch = (char) -1;
-			while ((zeichen = (char) reader.read()) != abbruch) {
-				sb.append(zeichen);
+			StringBuffer sb = new StringBuffer();
+			int zähler = 0;
+			while ((c = (char) dateiLeser.readChar()) != abbruch) {
+				dateiSchreiber.writeChar(c);
+				System.out.print(Integer.toHexString(c) + " ");
+				sb.append(c);
+				zähler++;
 			}
-			reader.close();
-			return sb.toString();
+			System.out.println(" als Zeichen(Anzahl " +zähler+ "): " + sb.toString());
+			System.out.println();
+			dateiLeser.reset();
+			dateiSchreiber.reset();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
 	}
+	
 	public static EncodingChanger getInstance() {
 		if (EncodingChanger.singleton == null) {
 			EncodingChanger.singleton = new EncodingChanger();

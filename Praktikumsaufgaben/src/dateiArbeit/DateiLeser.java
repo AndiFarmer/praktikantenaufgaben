@@ -15,20 +15,21 @@ public class DateiLeser {
 	File file = null;
 	BufferedReader reader = null;
 	
-	private DateiLeser() {
+	public DateiLeser() {
+		
 	}
 	
-	public Integer readCharByChar() {
+	public int readChar() {
 		try {
-			return this.reader.read();
+			return this.getReader().read();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return -1;
 	}
 	
-	public void initializeReader(File inputFile, String encoding) throws IllegalAccessException {
-		if (this.reader == null) {
+	public void initializeReader(File inputFile, String encoding) throws Exception {
+		if (this.getReader() == null) {
 			if (! (inputFile.isFile() && inputFile.canRead())) {
 				System.err.println("Datei kann nicht gelesen werden");
 				return;
@@ -41,36 +42,19 @@ public class DateiLeser {
 				e.printStackTrace();
 			}
 		} else {
-			throw new IllegalAccessException("Der Reader wurde in der letzten Benutzung nicht geschlossen/resettet");
+			throw new Exception("Der Leser wurde in der letzten Benutzung nicht resetted");
 		}
 	}
 	
-	public void resetReader() {
+	public void reset() {
 		try {
 			this.reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.reader = null;
+		this.setReader(null);
+		this.setFile(null);
 	}
-//	if (! (readFile.isFile() && readFile.canRead())) {
-//		System.err.println("Datei kann nicht gelesen werden");
-//		return null;
-//	}
-//	StringBuffer sb = new StringBuffer();
-//	try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(readFile), "ISO-8859-1"))) {
-//		char zeichen = 0;
-//		char abbruch = (char) -1;
-//		while ((zeichen = (char) reader.read()) != abbruch) {
-//			sb.append(zeichen);
-//		}
-//		reader.close();
-//		return sb.toString();
-//	} catch (Exception e) {
-//		e.printStackTrace();
-//	}
-//	return null;
-
 	
 	public String readTextFile(File file) {
 		StringBuffer sb = new StringBuffer();
