@@ -16,22 +16,21 @@ public class EncodingChanger {
 		
 	}
 	
-	public void ReadFileAndWrite(File readFile, File writeFile, DateiLeser dateiLeser, DateiSchreiber dateiSchreiber, String readEncoding, String writeEncoding) {
+	public void readAndWriteWithCertainEncodings(File readFile, File writeFile, DateiLeser dateiLeser, DateiSchreiber dateiSchreiber, String readEncoding, String writeEncoding) {
 		try {
 			dateiLeser.initializeReader(readFile, readEncoding);
 			dateiSchreiber.initializeWriter(writeFile, writeEncoding);
 			char c;
 			char abbruch = (char) -1;
 			StringBuffer sb = new StringBuffer();
-			int zähler = 0;
+			System.out.println("Ausgabe im Encoding " + readEncoding + " (während des Lesens): ");
 			while ((c = (char) dateiLeser.readChar()) != abbruch) {
-				dateiSchreiber.writeChar(c);
 				System.out.print(Integer.toHexString(c) + " ");
+				dateiSchreiber.writeChar(c);
 				sb.append(c);
-				zähler++;
 			}
-			System.out.println(" als Zeichen(Anzahl " +zähler+ "): " + sb.toString());
 			System.out.println();
+			System.out.println(sb.toString());
 			dateiLeser.reset();
 			dateiSchreiber.reset();
 		} catch (Exception e) {

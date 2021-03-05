@@ -1,6 +1,7 @@
 package bücherVerwaltung;
 
 import java.awt.Color;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -31,6 +32,9 @@ public class Start {
 //		System.out.println(helpList.get(9));
 //		System.out.println(helpList.get(1).equals(helpList.get(0)));
 //		
+//		//Test des Speicherns von einem Buch
+		Buch buch = myBücherVerwaltung.searchBuch(new Buch("The Hunger Games", "978-0-439-02352-8", 2008, verläge1, buchTyp1, autoren1));
+		myBücherVerwaltung.saveBuch(buch, new File("C:\\Users\\z1300a2k\\Documents\\Bücherverwaltung\\Bücher\\meinErstesGespeichertesBuch.bu"));
 //		// Test des Veränderns eines Autors und ob dieser auch für alle verändert wurde
 //		Iterator<Autor> it = helpList.get(9).getAutoren().iterator();
 //		if (it.hasNext()) {

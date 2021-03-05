@@ -49,6 +49,26 @@ public class DateiSchreiber {
 		}
 	}
 	
+	public void initializeWriter(File inputFile) throws Exception {
+		if (this.getWriter() == null) {
+			this.setFile(inputFile);
+			try {
+				this.setWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(this.getFile()))));
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			if (! (inputFile.canWrite())) {
+				System.err.println("Datei kann nicht beschrieben werden");
+				this.reset();
+				return;
+			}
+			
+		} else {
+			throw new Exception("Der Schreiber wurde in der letzten Benutzung nicht resetted");
+		}
+	}
+	
 	public void reset() {
 		try {
 			this.writer.close();

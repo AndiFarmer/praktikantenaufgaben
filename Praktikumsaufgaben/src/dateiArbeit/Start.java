@@ -27,26 +27,31 @@ public class Start {
 	static File myFile6 = new File("C:\\Users\\z1300a2k\\Documents\\beispielDateiSchreibenWortAustauschen.txt");
 	static File myFile7 = new File("C:\\Users\\z1300a2k\\Documents\\ReadFileEncoding8859_1AndWriteEncodingUTF_8Lesen.txt");
 	static File myFile8 = new File("C:\\Users\\z1300a2k\\Documents\\ReadFileEncoding8859_1AndWriteEncodingUTF_8Schreiben.txt");
+	static File myFile9 = new File("C:\\Users\\z1300a2k\\Documents\\vergleichMethodenTextLesenUndSchreibenLesen.txt");
+	static File myFile10 = new File("C:\\Users\\z1300a2k\\Documents\\vergleichMethodenTextLesenUndSchreibenSchreiben.txt");
 	
 	public static void main(String[] args) {
-		FileChanger myFileTextEditor = new FileChanger();
-//		myFileTextEditor.ReadFileEncoding8859_1AndWriteEncodingUTF_8(Start.myFile7, Start.myFile8);
-		Start.gebeDateiZeichenweiseAus(Start.myFile7);
-		System.out.println();
-		Start.gebeDateiZeichenweiseAusInHexa(Start.myFile7);
-		System.out.println();
-		Start.einlesenUndSchreibenVonText(Start.myFile7, Start.myFile8);
-		Start.gebeDateiZeichenweiseAusInHexa(Start.myFile8);
-//		Start.gebeDateiZeichenweiseAus(Start.myFile8);
-//		System.out.println();
-//		Start.gebeDateiZeichenweiseAusInHexa(Start.myFile8);
-		
-		System.exit(0);
+		try {
+			FileChanger myFileTextEditor = new FileChanger();
+//			Start.gebeDateiZeichenweiseAus(Start.myFile7);
+//			System.out.println();
+//			Start.gebeDateiZeichenweiseAusInHexa(Start.myFile7);
+//			System.out.println();
+//			myFileTextEditor.readFileEncoding8859_1AndWriteEncodingUTF_8(Start.myFile7, Start.myFile8);
+//			Start.gebeDateiZeichenweiseAus(Start.myFile8);
+//			System.out.println();
+//			Start.gebeDateiZeichenweiseAusInHexa(Start.myFile8);
+			myFileTextEditor.vergleichMethodenTextLesenUndSchreiben(Start.myFile9, Start.myFile10);
+			System.exit(0);
+		} catch (Throwable t) {
+			// write stackTrace in log
+			System.exit(8); // bis 4 -> Warnung
+		}
 	}
 	
 	private static void einlesenUndSchreibenMitWortaustausch(File readFile, File writeFile) {
 		System.out.println("einlesenUndSchreibenMitWortaustausch");
-		System.out.println(readFile.length() + "-> Länge der Ursprungsdatei");
+		System.out.println("Größe der Datei in Byte: " + readFile.length());
 		if (readFile.isFile() && readFile.canRead() && writeFile.canWrite()) {
 			
 			BufferedReader in = Start.generateBufferedReader(readFile);
@@ -87,7 +92,7 @@ public class Start {
 		if (readFile.isFile() && readFile.canRead() && writeFile.canWrite()) {
 			
 			System.out.println("EinlesenUndMitROT13Schreiben");
-			System.out.println(readFile.length() + "-> Länge der Ursprungsdatei");
+			System.out.println("Größe der Datei in Byte: " + readFile.length());
 			BufferedReader in = Start.generateBufferedReader(readFile);
 			char c = 0;
 			StringBuffer wholeTextRot13 =  new StringBuffer();
@@ -98,14 +103,6 @@ public class Start {
 					char cEncrypted = (char) (c + 13);
 					wholeTextRot13.append(cEncrypted);
 				}
-				
-				////////// HIER WERDEN ZWEI ZEICHEN ANGEHÄGT /////////
-				System.out.println(wholeTextRot13.length() + "-> Länge des zu Schreibenden Textes");
-				pw.print(wholeTextRot13);
-//				pw.write(wholeTextRot13.toString()); -> ändert nichts an der Zeichenanzahl in Datei
-				pw.flush();
-				System.out.println(writeFile.length() + "-> Länge der beschriebenen Datei");
-				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -120,7 +117,7 @@ public class Start {
 		if (readFile.isFile() && readFile.canRead() && writeFile.canWrite()) {
 			
 			System.out.println("EinlesenUndZeilenweiseRückwärtsSchreiben");
-			System.out.println(readFile.length() + "-> Länge der Ursprungsdatei");
+			System.out.println("Größe der Datei in Byte: " + readFile.length());
 			BufferedReader in = Start.generateBufferedReader(readFile);
 			String zeile = "";
 			ArrayList<String> lineArray = new ArrayList<>();
@@ -138,14 +135,6 @@ public class Start {
 				if(linesBackward.length() > 0) {
 					linesBackward.delete(linesBackward.length()-2, linesBackward.length()); // löscht das letzte NewLine
 				}
-				
-				
-				//////// HIER WERDEN KEINE ZEICHEN ANGEHÄGT /////////
-				System.out.println(linesBackward.length() + "-> Länge des zu Schreibenden Textes");
-				pw.print(linesBackward);
-				pw.flush();
-				System.out.println(writeFile.length() + "-> Länge der beschriebenen Datei");
-				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -158,7 +147,7 @@ public class Start {
 	
 	private static void einlesenUndBuchstabenweiseRückwärtsSchreiben(File readFile, File writeFile) {
 		System.out.println("EinlesenUndBuchstabenweiseRückwärtsSchreiben");
-		System.out.println(readFile.length() + "-> Länge der Ursprungsdatei");
+		System.out.println("Größe der Datei in Byte: " + readFile.length());
 		if (readFile.isFile() && readFile.canRead() && writeFile.canWrite()) {
 			
 			BufferedReader in = Start.generateBufferedReader(readFile);
@@ -197,7 +186,7 @@ public class Start {
 
 	public static void einlesenUndSchreibenVonText(File readFile, File writeFile) {
 		System.out.println("EinlesenUndSchreibenVonText");	
-		System.out.println(readFile.length() + "-> Länge der Ursprungsdatei");
+		System.out.println("Größe der Datei in Byte: " + readFile.length());
 		FileReader fr = Start.generateFileReader(readFile);
 		PrintWriter fw = Start.generatePrintWriter(writeFile);
 		if (readFile.isFile() && readFile.canRead() && writeFile.canWrite()) {
@@ -265,16 +254,17 @@ public class Start {
 
 	public static void gebeDateiZeichenweiseAus(File inputFile) {
 		System.out.println("Zeichenweise Ausgabe von: " + inputFile);
-		System.out.println(inputFile.length());
+		System.out.println("Größe der Datei in Byte: " + inputFile.length());
 		if (inputFile.isFile() && inputFile.canRead()) {
 			FileReader fr = Start.generateFileReader(inputFile);
-			for (int i = 0; i < inputFile.length(); i++) { //inputFile.length()
-				try {
-					char c = (char)fr.read();
+			try {
+				char c;
+				char abbruch = (char) -1;
+				while ((c = (char) fr.read()) != abbruch) {
 					System.out.print(c);
-				} catch (IOException e) {
-					e.printStackTrace();
 				}
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 			Start.closeReader(fr);
 		}
@@ -330,32 +320,37 @@ public class Start {
 		System.out.println("ROT13 Decrypted von: " + inputFile);
 		if (inputFile.isFile() && inputFile.canRead()) {
 			FileReader fr = Start.generateFileReader(inputFile);
-			System.out.println(inputFile.length());
-			for (int i = 0; i < inputFile.length(); i++) {
+			
+			System.out.println(inputFile.length()); // gibt die Byteanzahl in Datei aus, 
+													// aber nicht die Anzahl der Buchstaben, 
+													// die über mehrere Bytes codiert sein können
 				try {
-					char c = (char)fr.read();
-					char cDecrypted = (char) (c-13);
-					System.out.print(cDecrypted);
+					char c;
+					char abbruch = (char) -1;
+					while ((c = (char) fr.read()) != abbruch) { 
+						char cDecrypted = (char) (c-13);
+						System.out.print(cDecrypted);
+					}
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			}
 			Start.closeReader(fr);
 		} 
 	}
 	
 	public static void gebeDateiZeichenweiseAusInHexa(File inputFile) {
 		System.out.println("Zeichenweise Ausgabe als Hexadezimalzahl von: " + inputFile);
-		System.out.println(inputFile.length());
+		System.out.println("Größe der Datei in Byte: " + inputFile.length());
 		if (inputFile.isFile() && inputFile.canRead()) {
 			FileReader fr = Start.generateFileReader(inputFile);
-			for (int i = 0; i < inputFile.length(); i++) { //inputFile.length()
-				try {
-					char c = (char)fr.read();
+			char c;
+			char abbruch = (char) -1;
+			try {
+				while ((c = (char) fr.read()) != abbruch) {
 					System.out.print(Integer.toHexString(c) + " ");
-				} catch (IOException e) {
-					e.printStackTrace();
 				}
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 			Start.closeReader(fr);
 		}
@@ -363,19 +358,21 @@ public class Start {
 	
 	private static void gebeDateiZeichenweiseAusInDezimal(File inputFile) {
 		System.out.println("Zeichenweise Ausgabe als Dezimalzahl von: " + inputFile);
-		System.out.println(inputFile.length());
+		System.out.println("Größe der Datei in Byte: " + inputFile.length());
 		if (inputFile.isFile() && inputFile.canRead()) {
 			FileReader fr = Start.generateFileReader(inputFile);
-			for (int i = 0; i < inputFile.length(); i++) {
+			char c;
+			char abbruch = (char) -1;
 				try {
-					char c = (char)fr.read();
-					System.out.print((int) c + " ");
+					while ((c = (char) fr.read()) != abbruch) {
+						System.out.print((int) c + " ");
+					}
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			}
 			Start.closeReader(fr);
 		}
 	}
-
+	
+	
 }

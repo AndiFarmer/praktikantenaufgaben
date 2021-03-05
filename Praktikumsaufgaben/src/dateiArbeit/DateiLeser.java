@@ -46,6 +46,26 @@ public class DateiLeser {
 		}
 	}
 	
+	public void initializeReader(File inputFile) throws DateiArbeitException {
+		if (this.getReader() == null) {
+			if (! (inputFile.isFile() && inputFile.canRead())) {
+				DateiArbeitException e = new DateiArbeitException("Datei: " + inputFile.getAbsolutePath() + " kann nicht gelesen werden");
+				e.printStackTrace();
+				throw e;
+			}
+			this.setFile(inputFile);
+			try {
+				this.setReader(new BufferedReader(new InputStreamReader(new FileInputStream(this.getFile()))));
+			}
+			catch (Exception e) {
+				e.printStackTrace(); //loggen -> System.err
+				throw new DateiArbeitException("Reader konnte nicht initialisiert werden.", e);
+			}
+		} else {
+			throw new DateiArbeitException("Der Leser wurde in der letzten Benutzung nicht resetted");
+		}
+	}
+	
 	public void reset() {
 		try {
 			this.reader.close();

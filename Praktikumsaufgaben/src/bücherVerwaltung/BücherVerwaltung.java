@@ -1,5 +1,8 @@
 package bücherVerwaltung;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -83,6 +86,22 @@ public class BücherVerwaltung {
 		return null;
 	}
 
+	
+	public void saveBuch(Buch buch, File targetFile) {
+		try {
+			FileOutputStream fos = new FileOutputStream(targetFile);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(buch);
+			oos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void loadBuch() {
+		
+	}
+	
 	
 	public AutorenVerwalter getAutorenVerwalter() {
 		return this.autorenVerwalter;

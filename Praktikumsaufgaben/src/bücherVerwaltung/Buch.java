@@ -1,12 +1,17 @@
 package bücherVerwaltung;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.TreeSet;
 
-public class Buch implements Comparable<Buch>{
+public class Buch implements Comparable<Buch>, Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1371793923681604058L;
 	private String titel;
 	private String isbn;
 	private int erscheinungsJahr;
