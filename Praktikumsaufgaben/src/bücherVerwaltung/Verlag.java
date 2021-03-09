@@ -1,10 +1,15 @@
 package bücherVerwaltung;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Verlag implements Comparable<Verlag> {
+public class Verlag implements Comparable<Verlag>, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1211381550724681446L;
 	private String name;
 	private String ort; //hier könnte es Redundanzen geben -> evtl. eigene Ortklassen (allerdings irrelevant bez. Zitieren)
 	private Collection<Autor> autoren;

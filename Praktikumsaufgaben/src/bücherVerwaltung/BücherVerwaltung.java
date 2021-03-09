@@ -1,22 +1,20 @@
 package bücherVerwaltung;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
 
-public class BücherVerwaltung {
+public class BücherVerwaltung implements Serializable{
 	
-	private AutorenVerwalter autorenVerwalter;
-	private VerlagVerwalter verlagVerwalter;
-	private BuchTypVerwalter buchTypVerwalter;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2151384285086266694L;
+	private transient AutorenVerwalter autorenVerwalter;
+	private transient VerlagVerwalter verlagVerwalter;
+	private transient BuchTypVerwalter buchTypVerwalter;
 	
-	private CollectionAdjuster collectionAdjuster;
+	private transient CollectionAdjuster collectionAdjuster;
 	
 	private Collection<Buch> bücher;
 	
@@ -86,22 +84,6 @@ public class BücherVerwaltung {
 		return null;
 	}
 
-	
-	public void saveBuch(Buch buch, File targetFile) {
-		try {
-			FileOutputStream fos = new FileOutputStream(targetFile);
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(buch);
-			oos.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void loadBuch() {
-		
-	}
-	
 	
 	public AutorenVerwalter getAutorenVerwalter() {
 		return this.autorenVerwalter;

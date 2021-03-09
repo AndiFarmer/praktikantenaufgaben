@@ -1,11 +1,16 @@
 package bücherVerwaltung;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Autor implements Comparable<Autor>{ 
+public class Autor implements Comparable<Autor>, Serializable{ 
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1801346095935276759L;
 	private String vorName;
 	private String nachName;
 	private Collection<Buch> bücher;

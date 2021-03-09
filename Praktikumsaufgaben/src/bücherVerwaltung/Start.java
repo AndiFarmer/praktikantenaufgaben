@@ -21,6 +21,9 @@ public class Start {
 		autoren1.add(new Autor("Suzanne", "Collins"));
 		myBücherVerwaltung.addNewBuch("The Hunger Games", "978-0-439-02352-8", 2008, verläge1, buchTyp1, autoren1);
 		
+		DateiArbeiter myArbeiter = new DateiArbeiter();
+		myArbeiter.saveStatus(myBücherVerwaltung, new File ("C:\\Users\\z1300a2k\\Documents\\Bücherverwaltung\\Instanz"));
+		myArbeiter.reconstructStatus(new File ("C:\\Users\\z1300a2k\\Documents\\Bücherverwaltung\\Instanz"));
 //		long anfangsZeit = Start.getTime();
 //		for (int i = 0; i < 15; i++) {
 //			myBücherVerwaltung.addNewBuch(("The Hunger Games" + i), "978-0-439-02352-8", 2008, verläge1, new BuchTyp(""+ (-i%17)), autoren1);
@@ -32,9 +35,7 @@ public class Start {
 //		System.out.println(helpList.get(9));
 //		System.out.println(helpList.get(1).equals(helpList.get(0)));
 //		
-//		//Test des Speicherns von einem Buch
-		Buch buch = myBücherVerwaltung.searchBuch(new Buch("The Hunger Games", "978-0-439-02352-8", 2008, verläge1, buchTyp1, autoren1));
-		myBücherVerwaltung.saveBuch(buch, new File("C:\\Users\\z1300a2k\\Documents\\Bücherverwaltung\\Bücher\\meinErstesGespeichertesBuch.bu"));
+		
 //		// Test des Veränderns eines Autors und ob dieser auch für alle verändert wurde
 //		Iterator<Autor> it = helpList.get(9).getAutoren().iterator();
 //		if (it.hasNext()) {

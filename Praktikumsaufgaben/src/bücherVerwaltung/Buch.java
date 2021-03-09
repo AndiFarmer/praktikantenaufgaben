@@ -1,13 +1,17 @@
 package bücherVerwaltung;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.TreeSet;
 
-public class Buch implements Comparable<Buch>, Serializable{
-
+public class Buch implements Comparable<Buch>, Serializable {
+	
 	/**
 	 * 
 	 */
@@ -213,5 +217,4 @@ public class Buch implements Comparable<Buch>, Serializable{
 	public void setAutoren(Collection<Autor> autoren) {
 		this.autoren = autoren;
 	}
-	
 }
