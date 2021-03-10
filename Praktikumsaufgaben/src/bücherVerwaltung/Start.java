@@ -19,11 +19,32 @@ public class Start {
 		BuchTyp buchTyp1 = new BuchTyp("Hardcover");
 		Collection<Autor> autoren1 = new ArrayList<>();
 		autoren1.add(new Autor("Suzanne", "Collins"));
-		myBücherVerwaltung.addNewBuch("The Hunger Games", "978-0-439-02352-8", 2008, verläge1, buchTyp1, autoren1);
+		Buch buch = new Buch("The Hunger Games", "978-0-439-02352-8", 2008, verläge1, buchTyp1, autoren1);
+		myBücherVerwaltung.addNewBuch(buch);
+		Collection<Verlag> verläge2 = new ArrayList<>();
+		verläge2.add(new Verlag("Verlagname", "Verlagort"));
+		BuchTyp buchTyp2 = new BuchTyp("Online");
+		Collection<Autor> autoren2 = new ArrayList<>();
+		autoren2.add(new Autor("Vorname2", "Nachname2"));
+		Buch buch2 = new Buch("Buch Zwei", "DiesIstISBN", 2021, verläge2, buchTyp2, autoren2);
+		myBücherVerwaltung.addNewBuch(buch2);
 		
-		DateiArbeiter myArbeiter = new DateiArbeiter();
-		myArbeiter.saveStatus(myBücherVerwaltung, new File ("C:\\Users\\z1300a2k\\Documents\\Bücherverwaltung\\Instanz"));
-		myArbeiter.reconstructStatus(new File ("C:\\Users\\z1300a2k\\Documents\\Bücherverwaltung\\Instanz"));
+		
+		// Test des Speicherns und Ladens der Bücherverwaltung
+		try {
+			myBücherVerwaltung.save(new File ("C:\\Users\\z1300a2k\\Documents\\Bücherverwaltung\\myBücherVerwaltung"));
+		} catch (BücherVerwaltungException e) {
+			e.printStackTrace();
+		}
+		myBücherVerwaltung = new BücherVerwaltung(); // Auf "Null" setzen -> Alle Listen leer
+		System.out.println(myBücherVerwaltung.getAutoren());
+		try {
+			myBücherVerwaltung.load(new File ("C:\\Users\\z1300a2k\\Documents\\Bücherverwaltung\\myBücherVerwaltung"));
+		} catch (BücherVerwaltungException e) {
+			e.printStackTrace();
+		}
+		System.out.println(myBücherVerwaltung.getAutoren());
+		
 //		long anfangsZeit = Start.getTime();
 //		for (int i = 0; i < 15; i++) {
 //			myBücherVerwaltung.addNewBuch(("The Hunger Games" + i), "978-0-439-02352-8", 2008, verläge1, new BuchTyp(""+ (-i%17)), autoren1);
@@ -35,7 +56,20 @@ public class Start {
 //		System.out.println(helpList.get(9));
 //		System.out.println(helpList.get(1).equals(helpList.get(0)));
 //		
-		
+//		
+//		// Test des Löschens eines Buches und ob auch alles damit verbundene angepasst wurde (nicht sämtliche Test abgebildet)
+//		System.out.println("Vor der Buchlöschung:");
+//		System.out.println(myBücherVerwaltung.getBücher());
+//		System.out.println(myBücherVerwaltung.getAutoren());
+//		System.out.println(myBücherVerwaltung.getVerläge());
+//		System.out.println(myBücherVerwaltung.getBuchTypen());
+//		myBücherVerwaltung.deleteBuch(deletionBuch);
+//		System.out.println("\nNach der Buchlöschung:");
+//		System.out.println(myBücherVerwaltung.getBücher());
+//		System.out.println(myBücherVerwaltung.getAutoren());
+//		System.out.println(myBücherVerwaltung.getVerläge());
+//		System.out.println(myBücherVerwaltung.getBuchTypen());
+//		
 //		// Test des Veränderns eines Autors und ob dieser auch für alle verändert wurde
 //		Iterator<Autor> it = helpList.get(9).getAutoren().iterator();
 //		if (it.hasNext()) {

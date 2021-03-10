@@ -1,5 +1,13 @@
 package bücherVerwaltung;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,13 +43,24 @@ public class BücherVerwaltung implements Serializable{
 	}
 
 	
-	public boolean addNewBuch(String titel, String isbn, int erscheinungsJahr, Collection<Verlag> beteiligteVerläge, BuchTyp myBuchTyp, Collection<Autor> beteiligteAutoren) {
-		Buch neuesBuch = new Buch(titel, isbn, erscheinungsJahr, beteiligteVerläge, myBuchTyp, beteiligteAutoren);
+	public boolean addNewBuch(Buch neuesBuch) { // String titel, String isbn, int erscheinungsJahr, Collection<Verlag> beteiligteVerläge, BuchTyp myBuchTyp, Collection<Autor> beteiligteAutoren
+//		Buch neuesBuch = new Buch(titel, isbn, erscheinungsJahr, beteiligteVerläge, myBuchTyp, beteiligteAutoren);
 		if (! this.bücher.contains(neuesBuch)) {
-			this.collectionAdjuster.adjustInvolvedCollections(neuesBuch);
+			this.collectionAdjuster.adjustCollectionsEffectedByBuchAdding(neuesBuch);
 			return true;
 		} else {
 			return false;
+		}
+	}
+	
+	
+	public boolean deleteBuch(Buch buch) {
+//		Buch buch = new Buch(titel, isbn, erscheinungsJahr, beteiligteVerläge, myBuchTyp, beteiligteAutoren);
+		if (! this.bücher.contains(buch)) {
+			return false;
+		} else {
+			this.collectionAdjuster.adjustCollectionsEffectedByBuchDeletion(buch);
+			return true;
 		}
 	}
 	
@@ -84,6 +103,33 @@ public class BücherVerwaltung implements Serializable{
 		return null;
 	}
 
+	
+	public void save(File file) throws BücherVerwaltungException {
+		FileOutputStream fos;
+		try {
+			fos = new FileOutputStream(file);
+			BufferedOutputStream bos = new BufferedOutputStream(fos);
+			ObjectOutputStream oos = new ObjectOutputStream(bos);
+			oos.writeObject(this);
+			oos.close();
+		} catch (IOException e) {
+			throw new BücherVerwaltungException("Das Speichern des Buches ist fehlgeschlagen");
+		}
+	}
+	
+	
+	public void load(File file) throws BücherVerwaltungException {
+		try {
+			FileInputStream fis = new FileInputStream(file); /* kein file.canRead() bzw. file.isFile() nötig, 
+																da in dieser Zeile indirekt behandelt*/
+			BufferedInputStream bis = new BufferedInputStream(fis);
+			ObjectInputStream ois = new ObjectInputStream(bis);
+			this = (BücherVerwaltung) ois.readObject();
+			ois.close();
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public AutorenVerwalter getAutorenVerwalter() {
 		return this.autorenVerwalter;

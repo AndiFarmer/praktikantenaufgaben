@@ -3,6 +3,7 @@ package dateiArbeit;
 public class DateiArbeitException extends Exception {
 
 	public DateiArbeitException() {
+		super();
 	}
 
 	public DateiArbeitException(String message) {
