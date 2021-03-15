@@ -30,20 +30,29 @@ public class Start {
 		myBücherVerwaltung.addNewBuch(buch2);
 		
 		
-		// Test des Speicherns und Ladens der Bücherverwaltung
-		try {
-			myBücherVerwaltung.save(new File ("C:\\Users\\z1300a2k\\Documents\\Bücherverwaltung\\myBücherVerwaltung"));
-		} catch (BücherVerwaltungException e) {
-			e.printStackTrace();
-		}
-		myBücherVerwaltung = new BücherVerwaltung(); // Auf "Null" setzen -> Alle Listen leer
-		System.out.println(myBücherVerwaltung.getAutoren());
-		try {
-			myBücherVerwaltung.load(new File ("C:\\Users\\z1300a2k\\Documents\\Bücherverwaltung\\myBücherVerwaltung"));
-		} catch (BücherVerwaltungException e) {
-			e.printStackTrace();
-		}
-		System.out.println(myBücherVerwaltung.getAutoren());
+//		// Test des Speicherns und Ladens der Bücherverwaltung
+//		try {
+//			myBücherVerwaltung.save(new File ("C:\\Users\\z1300a2k\\Documents\\Bücherverwaltung\\myBücherVerwaltung"));
+//		} catch (BücherVerwaltungException e) {
+//			e.printStackTrace();
+//		}
+//		myBücherVerwaltung = new BücherVerwaltung(); // Auf "Null" setzen -> Alle Listen leer
+//		System.out.println(myBücherVerwaltung.getBücher());
+//		System.out.println(myBücherVerwaltung.getAutoren());
+//		System.out.println(myBücherVerwaltung.getVerläge());
+//		System.out.println(myBücherVerwaltung.getBuchTypen());
+//		myBücherVerwaltung = myBücherVerwaltung.load(new File ("C:\\Users\\z1300a2k\\Documents\\Bücherverwaltung\\myBücherVerwaltung"));
+//		System.out.println(myBücherVerwaltung.getBücher());
+//		System.out.println(myBücherVerwaltung.getAutoren());
+//		System.out.println(myBücherVerwaltung.getVerläge());
+//		System.out.println(myBücherVerwaltung.getBuchTypen());
+//		System.out.println(myBücherVerwaltung.getAutoren().iterator().next().getBücher());
+//		System.out.println(myBücherVerwaltung.getAutoren().iterator().next().getVerläge());
+//		System.out.println(myBücherVerwaltung.getVerläge().iterator().next().getBücher());
+//		System.out.println(myBücherVerwaltung.getVerläge().iterator().next().getAutoren());
+//		System.out.println(myBücherVerwaltung.getBücher().iterator().next().getBuchTyp());
+//		System.out.println(myBücherVerwaltung.getBücher().iterator().next().getVerläge());
+//		System.out.println(myBücherVerwaltung.getBücher().iterator().next().getAutoren());
 		
 //		long anfangsZeit = Start.getTime();
 //		for (int i = 0; i < 15; i++) {

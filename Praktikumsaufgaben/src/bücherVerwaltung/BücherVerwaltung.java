@@ -118,17 +118,24 @@ public class BücherVerwaltung implements Serializable{
 	}
 	
 	
-	public void load(File file) throws BücherVerwaltungException {
+	public BücherVerwaltung load(File file) { //  throws BücherVerwaltungException
 		try {
 			FileInputStream fis = new FileInputStream(file); /* kein file.canRead() bzw. file.isFile() nötig, 
 																da in dieser Zeile indirekt behandelt*/
 			BufferedInputStream bis = new BufferedInputStream(fis);
 			ObjectInputStream ois = new ObjectInputStream(bis);
-			this = (BücherVerwaltung) ois.readObject();
+			BücherVerwaltung output = (BücherVerwaltung) ois.readObject();
 			ois.close();
-		} catch (IOException | ClassNotFoundException e) {
+			return output;
+		} catch (IOException e) {
 			e.printStackTrace();
+			System.err.println("Die BücherVerwaltung konnte nicht geladen werden, weil die Datei nicht existiert oder nicht gelesen werden kann");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			System.err.println("Die BücherVerwaltung konnte nicht geladen werden, weil die UID der Datei mit keiner aus dem Programm übereinstimmt");
 		}
+		return null;
+		
 	}
 	
 	public AutorenVerwalter getAutorenVerwalter() {
