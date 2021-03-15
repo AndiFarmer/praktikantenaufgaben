@@ -29,19 +29,81 @@ public class Start {
 		Buch buch2 = new Buch("Buch Zwei", "DiesIstISBN", 2021, verläge2, buchTyp2, autoren2);
 		myBücherVerwaltung.addNewBuch(buch2);
 		
+		int anzahlNeuerBücher = 20000;
+		long anfangsZeit = Start.getTime();
+		for (int i = 0; i < anzahlNeuerBücher; i++) {
+			myBücherVerwaltung.addNewBuch(new Buch(("The Hunger Games" + i), "978-0-439-02352-8", 2008, verläge1, new BuchTyp(""+ (-i%17)), autoren1));
+		}
+		System.out.println("Zeit Adden von "+ anzahlNeuerBücher + " Büchern: " + (Start.getTime() - anfangsZeit) + "ms");
 		
-//		// Test des Speicherns und Ladens der Bücherverwaltung
+//		ArrayList<Buch> helpList = new ArrayList<>();
+//		helpList.addAll(myBücherVerwaltung.getBücher());
+//		System.out.println(helpList.get(9));
+//		System.out.println(helpList.get(1).equals(helpList.get(0)));
+		
+//		// Test des Speicherns und Ladens der Bücher, Autoren, Verläge und BuchTypen
+//		File fileSpeichernBücher2 = new File("C:\\Users\\z1300a2k\\Documents\\Bücherverwaltung\\Bücher2.ser");
+//		File fileSpeichernAutoren = new File("C:\\Users\\z1300a2k\\Documents\\Bücherverwaltung\\Autoren.ser");
+//		File fileSpeichernVerläge = new File("C:\\Users\\z1300a2k\\Documents\\Bücherverwaltung\\Verläge.ser");
+//		File fileSpeichernBuchTypen = new File("C:\\Users\\z1300a2k\\Documents\\Bücherverwaltung\\BuchTypen.ser");
+//		anfangsZeit = Start.getTime();
 //		try {
-//			myBücherVerwaltung.save(new File ("C:\\Users\\z1300a2k\\Documents\\Bücherverwaltung\\myBücherVerwaltung"));
+//			myBücherVerwaltung.saveBücherAutorenVerlägeBuchTypen(fileSpeichernBücher2, fileSpeichernAutoren, 
+//					fileSpeichernVerläge, fileSpeichernBuchTypen);
+//		} catch (BücherVerwaltungException e1) {
+//			e1.printStackTrace();
+//		}
+//		System.out.println("\nZeit Speichern Bücher, Autoren, Verläge und BuchTypen: " + (Start.getTime() - anfangsZeit) + "ms");
+//		myBücherVerwaltung = new BücherVerwaltung();
+//		anfangsZeit = Start.getTime();
+//		myBücherVerwaltung.loadBücherAutorenVerlägeBuchTypen(fileSpeichernBücher2, fileSpeichernAutoren, 
+//				fileSpeichernVerläge, fileSpeichernBuchTypen);
+//		System.out.println("Zeit Laden Bücher, Autoren, Verläge und BuchTypen: " + (Start.getTime() - anfangsZeit) + "ms");
+//		float BücherLength = fileSpeichernBücher2.length();
+//		float AutorenLength = fileSpeichernAutoren.length();
+//		float VerlägeLength = fileSpeichernVerläge.length();
+//		float BuchTypenLength = fileSpeichernBuchTypen.length();
+//		System.out.println("Länge der Dateien:\n-Bücher: " + BücherLength / 1024 + "KB\n-Autoren: " 
+//		+ AutorenLength / 1024 + "KB\n-Verläge: " + VerlägeLength / 1024 + "KB\n-BuchTypen: " +
+//		BuchTypenLength / 1024 + "KB\nGesamt: " + (BücherLength + AutorenLength + VerlägeLength + BuchTypenLength) / 1024 + "KB");
+//		
+//		// Test des Speicherns und Ladens der Bücher direkt
+//		File fileSpeichernBücher = new File("C:\\Users\\z1300a2k\\Documents\\Bücherverwaltung\\Bücher.ser");
+//		anfangsZeit = Start.getTime();
+//		try {
+//			myBücherVerwaltung.saveBücher(fileSpeichernBücher);
 //		} catch (BücherVerwaltungException e) {
 //			e.printStackTrace();
 //		}
-//		myBücherVerwaltung = new BücherVerwaltung(); // Auf "Null" setzen -> Alle Listen leer
+//		System.out.println("\nZeit Speichern Bücher: " + (Start.getTime() - anfangsZeit) + "ms");
+//		myBücherVerwaltung = new BücherVerwaltung();
+////		System.out.println(myBücherVerwaltung.getBücher());
+////		System.out.println(myBücherVerwaltung.getAutoren());
+//		anfangsZeit = Start.getTime();
+//		myBücherVerwaltung.loadBücher(fileSpeichernBücher);
+//		System.out.println("Zeit Laden Bücher: " + (Start.getTime() - anfangsZeit) + "ms");
+//		System.out.println("Länge der Datei: " + fileSpeichernBücher.length() / 1024 + "KB");
+////		System.out.println(myBücherVerwaltung.getBücher());
+////		System.out.println(myBücherVerwaltung.getAutoren());	
+//		
+		// Test des Speicherns und Ladens der Bücherverwaltung
+		File fileSpeichernBücherVerwaltung = new File("C:\\Users\\z1300a2k\\Documents\\Bücherverwaltung\\myBücherVerwaltung.ser");
+		anfangsZeit = Start.getTime();
+		try {
+			myBücherVerwaltung.save(fileSpeichernBücherVerwaltung);
+		} catch (BücherVerwaltungException e) {
+			e.printStackTrace();
+		}
+		System.out.println("\nZeit Speichern BücherVerwaltung: " + (Start.getTime() - anfangsZeit) + "ms");
+		myBücherVerwaltung = new BücherVerwaltung(); // Auf "Null" setzen -> Alle Listen leer
 //		System.out.println(myBücherVerwaltung.getBücher());
 //		System.out.println(myBücherVerwaltung.getAutoren());
 //		System.out.println(myBücherVerwaltung.getVerläge());
 //		System.out.println(myBücherVerwaltung.getBuchTypen());
-//		myBücherVerwaltung = myBücherVerwaltung.load(new File ("C:\\Users\\z1300a2k\\Documents\\Bücherverwaltung\\myBücherVerwaltung"));
+		anfangsZeit = Start.getTime();
+		myBücherVerwaltung = myBücherVerwaltung.load(fileSpeichernBücherVerwaltung);
+		System.out.println("Zeit Laden BücherVerwaltung: " + (Start.getTime() - anfangsZeit) + "ms");
+		System.out.println("Länge der Datei: " + fileSpeichernBücherVerwaltung.length() / 1024 + "KB");
 //		System.out.println(myBücherVerwaltung.getBücher());
 //		System.out.println(myBücherVerwaltung.getAutoren());
 //		System.out.println(myBücherVerwaltung.getVerläge());
@@ -53,18 +115,6 @@ public class Start {
 //		System.out.println(myBücherVerwaltung.getBücher().iterator().next().getBuchTyp());
 //		System.out.println(myBücherVerwaltung.getBücher().iterator().next().getVerläge());
 //		System.out.println(myBücherVerwaltung.getBücher().iterator().next().getAutoren());
-		
-//		long anfangsZeit = Start.getTime();
-//		for (int i = 0; i < 15; i++) {
-//			myBücherVerwaltung.addNewBuch(("The Hunger Games" + i), "978-0-439-02352-8", 2008, verläge1, new BuchTyp(""+ (-i%17)), autoren1);
-//		}
-//		System.out.println("Zeit: " + (Start.getTime() - anfangsZeit) + "ms");
-//		
-//		ArrayList<Buch> helpList = new ArrayList<>();
-//		helpList.addAll(myBücherVerwaltung.getBücher());
-//		System.out.println(helpList.get(9));
-//		System.out.println(helpList.get(1).equals(helpList.get(0)));
-//		
 //		
 //		// Test des Löschens eines Buches und ob auch alles damit verbundene angepasst wurde (nicht sämtliche Test abgebildet)
 //		System.out.println("Vor der Buchlöschung:");

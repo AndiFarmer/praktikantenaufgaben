@@ -16,6 +16,10 @@ public class Verlag implements Comparable<Verlag>, Serializable {
 	private Collection<Buch> bücher;
 	
 	
+	public Verlag() {
+		// Existiert nur zur Speicherung/Lesen als XML durch XMLEncoder/Decoder
+	}
+	
 	public Verlag(String name, String ort) {
 		this.setName(name);
 		this.setOrt(ort);

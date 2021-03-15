@@ -16,6 +16,9 @@ public class Autor implements Comparable<Autor>, Serializable{
 	private Collection<Buch> bücher;
 	private Collection<Verlag> verläge;
 
+	public Autor() {
+		// Existiert nur zur Speicherung/Lesen als XML durch XMLEncoder/Decoder 
+	}
 	
 	public Autor(String vorName, String nachName) {
 		this.setVorName(vorName);

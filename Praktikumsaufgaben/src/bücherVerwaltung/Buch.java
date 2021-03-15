@@ -23,6 +23,9 @@ public class Buch implements Comparable<Buch>, Serializable {
 	private BuchTyp buchTyp;
 	private Collection<Autor> autoren;
 	
+	public Buch() {
+		// Existiert nur zur Speicherung/Lesen als XML durch XMLEncoder/Decoder
+	}
 	
 	public Buch(String titel, String isbn, int erscheinungsJahr, Collection<Verlag> beteiligteVerläge, BuchTyp myBuchTyp, Collection<Autor> beteiligteAutoren) {
 		this.setTitel(titel);
