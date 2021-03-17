@@ -4,6 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "Verlag")
+@XmlAccessorType (XmlAccessType.FIELD)
+
 public class Verlag implements Comparable<Verlag>, Serializable {
 
 	/**

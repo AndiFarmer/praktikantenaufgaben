@@ -14,6 +14,18 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.naming.Context;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "BücherVerwaltung")
+@XmlAccessorType(XmlAccessType.FIELD) // theoretisch braucht man dadurch keine Getter/Setter 
+
 public class BücherVerwaltung implements Serializable{
 	
 	/**
@@ -25,9 +37,8 @@ public class BücherVerwaltung implements Serializable{
 	private transient BuchTypVerwalter buchTypVerwalter;
 	
 	private transient CollectionAdjuster collectionAdjuster;
-	
+//	@XmlElement(name = "Buch XY") // Kann man benutzen, wenn man default element name überschreiben will
 	private Collection<Buch> bücher;
-	
 	private Collection<Autor> autoren;
 	private Collection<Verlag> verläge;
 	private Collection<BuchTyp> buchTypen;
@@ -212,6 +223,8 @@ public class BücherVerwaltung implements Serializable{
 			XMLEncoder encoder = new XMLEncoder(bos);
 //			ObjectOutputStream oos = new ObjectOutputStream(bos);
 			encoder.writeObject(this);
+//			oos.writeObject(this);
+//			oos.close();
 			encoder.close();
 			bos.close();
 		} catch (IOException e) {
@@ -228,6 +241,8 @@ public class BücherVerwaltung implements Serializable{
 //			ObjectInputStream ois = new ObjectInputStream(bis);
 			XMLDecoder decoder = new XMLDecoder(bis);
 			BücherVerwaltung output = (BücherVerwaltung) decoder.readObject();
+//			BücherVerwaltung output = (BücherVerwaltung) ois.readObject();
+//			ois.close();
 			decoder.close();
 			bis.close();
 			return output;
@@ -242,6 +257,22 @@ public class BücherVerwaltung implements Serializable{
 //					+ "aus dem Programm übereinstimmt");
 //		}
 		return null;
+	}
+	
+	public void save2(File file) throws BücherVerwaltungException {
+		final JAXBContext context;
+		try {
+			context = JAXBContext.newInstance(BücherVerwaltung.class);
+			Marshaller marshaller = context.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			marshaller.marshal(this , file);
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void load2(File file) throws BücherVerwaltungException {
+		
 	}
 	
 	public AutorenVerwalter getAutorenVerwalter() {

@@ -21,52 +21,51 @@ public class Fenster extends JFrame {
 	
 	public Fenster() {
 		//GUI
-		setTitle("Editor");
-		setSize(800, 600);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		this.setTitle("Editor");
+		this.setSize(800, 600);
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
 		
 		//ContentPanes
-		myContentPane = new Panel(); // contentPane von diesem JFrame ist ein JPanel
-		setContentPane(myContentPane); // wie kommt es, dass 
-		nestedContentPaneNorth = new Panel();
-		nestedContentPaneCenter = new Panel();
-		
+		this.myContentPane = new Panel(); // contentPane von diesem JFrame ist ein JPanel
+		this.setContentPane(this.myContentPane); // wie kommt es, dass 
+		this.nestedContentPaneNorth = new Panel();
+		this.nestedContentPaneCenter = new Panel();
 		
 		//Layout
 		//groupLayout = new GruppenLayout(myContentPane);
 		//myContentPane.setLayout(groupLayout);
-		myContentPane.setLayout(new BorderLayout());
-		nestedContentPaneNorth.setLayout(new GridLayout());
-		myContentPane.add(nestedContentPaneNorth, BorderLayout.NORTH);
-		myContentPane.add(nestedContentPaneCenter, BorderLayout.CENTER);
+		this.myContentPane.setLayout(new BorderLayout());
+		this.nestedContentPaneNorth.setLayout(new GridLayout());
+		this.myContentPane.add(this.nestedContentPaneNorth, BorderLayout.NORTH);
+		this.myContentPane.add(this.nestedContentPaneCenter, BorderLayout.CENTER);
 		
 		
 		//Button
-		buttonSammlung = new Button[5];
-		for(int i = 0; i < buttonSammlung.length ; i++) {
-			buttonSammlung[i] = new Button("button" + i);
-			nestedContentPaneNorth.add(buttonSammlung[i]);
+		this.buttonSammlung = new Button[5];
+		for(int i = 0; i < this.buttonSammlung.length ; i++) {
+			this.buttonSammlung[i] = new Button("button" + i);
+			this.nestedContentPaneNorth.add(this.buttonSammlung[i]);
 		}
-		getContentPane().add(buttonSammlung[0], BorderLayout.SOUTH);
+		this.getContentPane().add(this.buttonSammlung[0], BorderLayout.SOUTH);
 		//this.groupLayout.setVerticalGroup(this.groupLayout.createSequentialGroup().addComponent(buttonSammlung[0]).addComponent(buttonSammlung[1]).addComponent(buttonSammlung[2]));
 		//this.groupLayout.setHorizontalGroup(this.groupLayout.createParallelGroup().addComponent(buttonSammlung[0]).addComponent(buttonSammlung[1]).addComponent(buttonSammlung[2]));
 		
 		
 		//TextField
-		textField = new TextField("hier steht ein text");
-		nestedContentPaneCenter.add(textField);
+		this.textField = new TextField("hier steht ein text");
+		this.nestedContentPaneCenter.add(this.textField);
 		
 		
 		//Label
-		label = new JLabel("Das ist ein JLabel");
-		nestedContentPaneCenter.add(label);
+		this.label = new JLabel("Das ist ein JLabel");
+		this.nestedContentPaneCenter.add(this.label);
 		
 		
 		//MenuBar
-		menuBar = new MenüBar();
-		setJMenuBar(menuBar);
+		this.menuBar = new MenüBar();
+		this.setJMenuBar(this.menuBar);
 	}
 	
 }

@@ -26,10 +26,10 @@ public class Start {
 		BuchTyp buchTyp2 = new BuchTyp("Online");
 		Collection<Autor> autoren2 = new ArrayList<>();
 		autoren2.add(new Autor("Vorname2", "Nachname2"));
-		Buch buch2 = new Buch("Buch Zwei", "DiesIstISBN", 2021, verläge2, buchTyp2, autoren2);
+		Buch buch2 = new Buch("Buch Zwei", "DiesIstISBN", 2021, verläge1, buchTyp2, autoren2);
 		myBücherVerwaltung.addNewBuch(buch2);
 		
-		int anzahlNeuerBücher = 20000;
+		int anzahlNeuerBücher = 10000;
 		long anfangsZeit = Start.getTime();
 		for (int i = 0; i < anzahlNeuerBücher; i++) {
 			myBücherVerwaltung.addNewBuch(new Buch(("The Hunger Games" + i), "978-0-439-02352-8", 2008, verläge1, new BuchTyp(""+ (-i%17)), autoren1));
@@ -90,7 +90,8 @@ public class Start {
 		File fileSpeichernBücherVerwaltung = new File("C:\\Users\\z1300a2k\\Documents\\Bücherverwaltung\\myBücherVerwaltung.ser");
 		anfangsZeit = Start.getTime();
 		try {
-			myBücherVerwaltung.save(fileSpeichernBücherVerwaltung);
+//			myBücherVerwaltung.save(fileSpeichernBücherVerwaltung);
+			myBücherVerwaltung.save2(fileSpeichernBücherVerwaltung);
 		} catch (BücherVerwaltungException e) {
 			e.printStackTrace();
 		}
@@ -101,9 +102,9 @@ public class Start {
 //		System.out.println(myBücherVerwaltung.getVerläge());
 //		System.out.println(myBücherVerwaltung.getBuchTypen());
 		anfangsZeit = Start.getTime();
-		myBücherVerwaltung = myBücherVerwaltung.load(fileSpeichernBücherVerwaltung);
-		System.out.println("Zeit Laden BücherVerwaltung: " + (Start.getTime() - anfangsZeit) + "ms");
-		System.out.println("Länge der Datei: " + fileSpeichernBücherVerwaltung.length() / 1024 + "KB");
+	//	myBücherVerwaltung = myBücherVerwaltung.load(fileSpeichernBücherVerwaltung);
+	//	System.out.println("Zeit Laden BücherVerwaltung: " + (Start.getTime() - anfangsZeit) + "ms");
+	//	System.out.println("Länge der Datei: " + fileSpeichernBücherVerwaltung.length() / 1024 + "KB");
 //		System.out.println(myBücherVerwaltung.getBücher());
 //		System.out.println(myBücherVerwaltung.getAutoren());
 //		System.out.println(myBücherVerwaltung.getVerläge());
