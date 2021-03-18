@@ -75,6 +75,7 @@ class BücherVerwaltungTest {
 		}
 		BücherVerwaltung myBücherVerwaltung2 = new BücherVerwaltung();
 		myBücherVerwaltung2 = myBücherVerwaltung2.load(file);
+		// Besser statt dem Folgenden wäre eine equals-Methode in BücherVerwaltung
 		Assertions.assertEquals(myBücherVerwaltung.getBücher(), myBücherVerwaltung2.getBücher());
 		Assertions.assertEquals(myBücherVerwaltung.getAutoren(), myBücherVerwaltung2.getAutoren());
 		Assertions.assertEquals(myBücherVerwaltung.getVerläge(), myBücherVerwaltung2.getVerläge());
@@ -95,7 +96,6 @@ class BücherVerwaltungTest {
 			autorenArr[i].add(new Autor("VorName" + i, "NachName" + i));
 			output[i] = new Buch("Titel" + i, "ISBN" + i, i, verlägeArr[i], new BuchTyp("BuchTyp" + i), autorenArr[i]);
 		}
-		System.out.println("output[0].getAutoren().iterator().next().getBücher; ->" + output[0].getAutoren().iterator().next().getBücher()); // WIESO DRUCKT DAS 2MAL!!!???
 		return output;	
 	}
 

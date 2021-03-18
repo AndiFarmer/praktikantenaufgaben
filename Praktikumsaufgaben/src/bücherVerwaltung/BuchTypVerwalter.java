@@ -26,7 +26,7 @@ public class BuchTypVerwalter {
 	
 	
 	public BuchTyp searchBuchTyp(BuchTyp searchedBuchTyp) { 
-		ArrayList<BuchTyp> helpList = new ArrayList<>(bücherVerwaltung.getBuchTypen()); 
+		ArrayList<BuchTyp> helpList = new ArrayList<>(this.bücherVerwaltung.getBuchTypen()); 
 		helpList.sort(null);
 		//Collections.sort(helpList); -> ist ein indirketer Aufruf der Zeile drüber
 		return helpList.get(Collections.binarySearch(helpList, searchedBuchTyp));
