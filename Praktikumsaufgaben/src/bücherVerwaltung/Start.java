@@ -12,8 +12,7 @@ import java.util.TreeSet;
 public class Start {
 
 	public static void main(String[] args) {
-		FensterVerwalter myFensterVerwalter = new FensterVerwalter();
-		myFensterVerwalter.initStandardView();
+		StandardView myFensterVerwalter = new StandardView();
 		
 		
 		BücherVerwaltung myBücherVerwaltung = new BücherVerwaltung();
