@@ -2,6 +2,7 @@ package bücherVerwaltung;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridBagLayout;
 
 import javax.swing.JButton;
@@ -10,22 +11,15 @@ import javax.swing.JPanel;
 
 public class InfoPanelManager {
 
-//	BuchInfoPanel myBuchInfoPanel;
+	BuchInfoPanel myBuchInfoPanel;
 //	AutorInfoPanel myAutorInfoPanel;
 //	VerlagInfoPanel myVerlagInfoPanel;
 	
-	public InfoPanelManager() {
-		
+	public InfoPanelManager(BücherVerwaltung myBücherVerwaltung) {
+		this.myBuchInfoPanel = new BuchInfoPanel(myBücherVerwaltung);
 	}
 
-	public Component getDefaultPanel() {
-		JPanel testP = new JPanel();
-		testP.setBackground(new Color(0));
-//		testP.setLayout(new GridBagLayout());
-		testP.
-		testP.setSize(300,300);
-		testP.add(new JButton("InfoPanel"));
-		testP.add(new JLabel("dshfkjdsff"));
-		return testP; // Später das BuchInfoPanel
+	public JPanel getDefaultPanel() {
+		return this.myBuchInfoPanel;
 	}
 }

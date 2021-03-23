@@ -9,13 +9,21 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.TreeSet;
 
+import javax.swing.SwingUtilities;
+
 public class Start {
 
 	public static void main(String[] args) {
-		StandardView myFensterVerwalter = new StandardView();
-		
-		
 		BücherVerwaltung myBücherVerwaltung = new BücherVerwaltung();
+//		SwingUtilities.invokeLater(new Runnable() {
+//			@Override
+//			public void run() {
+				
+//			}
+//		});
+		StandardView myFensterVerwalter = new StandardView(myBücherVerwaltung);
+		
+		
 		Collection<Verlag> verläge1 = new ArrayList<Verlag>();
 		verläge1.add(new Verlag("Scholastic Press", "New York"));
 		BuchTyp buchTyp1 = new BuchTyp("Hardcover");

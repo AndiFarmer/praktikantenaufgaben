@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
 
 public class FirstWindowBuilderApp {
 
@@ -79,6 +82,7 @@ public class FirstWindowBuilderApp {
 		mnNewMenu.add(mntmNewMenuItem);
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("New menu item");
+		mntmNewMenuItem_1.setSelected(true);
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
 		JPanel panel_2 = new JPanel();
@@ -90,6 +94,9 @@ public class FirstWindowBuilderApp {
 		gbc_panel_2.gridx = 0;
 		gbc_panel_2.gridy = 1;
 		panel.add(panel_2, gbc_panel_2);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		panel_2.add(lblNewLabel);
 		
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();

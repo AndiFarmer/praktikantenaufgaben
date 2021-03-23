@@ -1,51 +1,60 @@
 package bücherVerwaltung;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
 public class GroundPanel extends GblPanel {
 	
 	SuchPanel mySuchPanel;
 	InfoPanelManager myInfoPanelManager;
 	MenüLeistePanel myMenüLeistePanel;
-	GridBagConstraints suchPanelGbc;
-	GridBagConstraints infoPanelGbc;
-	GridBagConstraints menüLeistePanelGbc;
 	
-	public GroundPanel() {
+	JPanel currentInfoPanel;
+	
+	public GroundPanel(BücherVerwaltung myBücherVerwaltung) {
 		super();
-		this.mySuchPanel = new SuchPanel();
-		this.myInfoPanelManager = new InfoPanelManager();
-		this.myMenüLeistePanel = new MenüLeistePanel();
+		this.initialize(myBücherVerwaltung);
+	}
+	
+	public void initialize(BücherVerwaltung myBücherVerwaltung) {
+		this.mySuchPanel = new SuchPanel(myBücherVerwaltung);
+		this.myInfoPanelManager = new InfoPanelManager(myBücherVerwaltung);
+		this.myMenüLeistePanel = new MenüLeistePanel(myBücherVerwaltung);
+		this.currentInfoPanel = this.myInfoPanelManager.getDefaultPanel();
 		this.configureGridBagConstraints();
-		this.setLayout(this.getGbl());
 		this.add(this.mySuchPanel);
-		this.add(this.myInfoPanelManager.getDefaultPanel());
-		
+		this.add(this.currentInfoPanel);
+		this.add(this.getMyMenüLeistePanel());
+		System.out.println(this.mySuchPanel.getHeight());
 	}
 
 	@Override
-	public void configureGridBagConstraints() {
-		this.setSuchPanelGbc(new GridBagConstraints());
-		this.setInfoPanelGbc(new GridBagConstraints());
-		this.setMenüLeistePanelGbc(new GridBagConstraints());
-		
-		this.getSuchPanelGbc().fill = GridBagConstraints.HORIZONTAL;
-		this.getSuchPanelGbc().insets = new Insets(50, 50, 50, 50);
-		this.getSuchPanelGbc().gridwidth = 2;
-		this.getSuchPanelGbc().gridheight = 2;
-		this.getSuchPanelGbc().gridx = 0;
-		this.getSuchPanelGbc().gridy = 0;
-		this.getGbl().setConstraints(this.getMySuchPanel(), this.getSuchPanelGbc());
-		
-		this.getInfoPanelGbc().fill = GridBagConstraints.BOTH;
-		this.getInfoPanelGbc().insets = new Insets(5, 5, 5, 5);
-		this.getInfoPanelGbc().gridx = 1;
-		this.getInfoPanelGbc().gridy = 0;
-		this.getInfoPanelGbc().gridheight = 2; 
-		this.getGbl().setConstraints(this.getMyInfoPanelManager().getDefaultPanel(), this.getInfoPanelGbc());
+	protected void configureGridBagConstraints() {
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.gridwidth = 2;
+		this.getGbl().setConstraints(this.getMyMenüLeistePanel(), gbc);
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.gridy = 1;
+		gbc.gridwidth = 1;
+		gbc.ipadx = StandardView.screenDimension.width / 3;
+		gbc.ipady = StandardView.screenDimension.height / 2;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		this.getGbl().setConstraints(this.getMySuchPanel(), gbc);
+		gbc.fill = GridBagConstraints.VERTICAL;
+		gbc.gridx = 1;
+		gbc.ipadx = StandardView.screenDimension.width / 7;
+		gbc.weightx = 0;
+		this.getGbl().setConstraints(this.currentInfoPanel, gbc);
 	}
 
 	public SuchPanel getMySuchPanel() {
@@ -70,30 +79,6 @@ public class GroundPanel extends GblPanel {
 
 	public void setMyMenüLeistePanel(MenüLeistePanel myMenüLeistePanel) {
 		this.myMenüLeistePanel = myMenüLeistePanel;
-	}
-
-	public GridBagConstraints getSuchPanelGbc() {
-		return this.suchPanelGbc;
-	}
-
-	public void setSuchPanelGbc(GridBagConstraints suchPanelGbc) {
-		this.suchPanelGbc = suchPanelGbc;
-	}
-
-	public GridBagConstraints getInfoPanelGbc() {
-		return this.infoPanelGbc;
-	}
-
-	public void setInfoPanelGbc(GridBagConstraints infoPanelGbc) {
-		this.infoPanelGbc = infoPanelGbc;
-	}
-
-	public GridBagConstraints getMenüLeistePanelGbc() {
-		return this.menüLeistePanelGbc;
-	}
-
-	public void setMenüLeistePanelGbc(GridBagConstraints menüLeistePanelGbc) {
-		this.menüLeistePanelGbc = menüLeistePanelGbc;
 	}
 
 }

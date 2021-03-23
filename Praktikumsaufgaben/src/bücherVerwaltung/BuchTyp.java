@@ -16,7 +16,7 @@ public class BuchTyp implements Comparable<BuchTyp>, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -3987272742978418998L;
-	String bezeichnung;
+	private String bezeichnung;
 	
 	public BuchTyp() {
 		// Existiert nur zur Speicherung/Lesen als XML durch XMLEncoder/Decoder 

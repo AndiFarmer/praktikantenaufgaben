@@ -14,7 +14,7 @@ public abstract class GblPanel extends JPanel{
 		this.setLayout(this.gbl);
 	}
 	
-	public abstract void configureGridBagConstraints();
+	protected abstract void configureGridBagConstraints();
 
 	public GridBagLayout getGbl() {
 		return this.gbl;
