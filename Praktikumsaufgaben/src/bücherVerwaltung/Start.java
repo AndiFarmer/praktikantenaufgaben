@@ -15,15 +15,7 @@ public class Start {
 
 	public static void main(String[] args) {
 		BücherVerwaltung myBücherVerwaltung = new BücherVerwaltung();
-//		SwingUtilities.invokeLater(new Runnable() {
-//			@Override
-//			public void run() {
-				
-//			}
-//		});
-		StandardView myFensterVerwalter = new StandardView(myBücherVerwaltung);
-		
-		
+
 		Collection<Verlag> verläge1 = new ArrayList<Verlag>();
 		verläge1.add(new Verlag("Scholastic Press", "New York"));
 		BuchTyp buchTyp1 = new BuchTyp("Hardcover");
@@ -38,6 +30,16 @@ public class Start {
 		autoren2.add(new Autor("Vorname2", "Nachname2"));
 		Buch buch2 = new Buch("Buch Zwei", "DiesIstISBN", 2021, verläge1, buchTyp2, autoren2);
 		myBücherVerwaltung.addNewBuch(buch2);
+//		SwingUtilities.invokeLater(new Runnable() {
+//		@Override
+//		public void run() {
+			
+//		}
+//	});
+		StandardView myFensterVerwalter = new StandardView(myBücherVerwaltung);
+		
+		
+		
 		
 		int anzahlNeuerBücher = 0000;
 		long anfangsZeit = Start.getTime();

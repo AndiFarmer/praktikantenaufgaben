@@ -51,7 +51,7 @@ public class GroundPanel extends GblPanel {
 		gbc.fill = GridBagConstraints.VERTICAL;
 		gbc.gridx = 1;
 		gbc.ipadx = StandardView.screenDimension.width / 7;
-		gbc.weightx = 0;
+		gbc.weightx = 0; // warum wird das mit 0 nicht verkleinert, mit 1 aber schon??
 		gbc.weighty = 1;
 		this.getGbl().setConstraints(this.currentInfoPanel, gbc);
 	}
