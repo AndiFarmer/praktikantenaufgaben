@@ -10,6 +10,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JButton;
+import javax.swing.JSpinner;
 
 public class FirstWindowBuilderApp {
 
@@ -106,5 +109,29 @@ public class FirstWindowBuilderApp {
 		gbc_panel_1.gridx = 9;
 		gbc_panel_1.gridy = 1;
 		panel.add(panel_1, gbc_panel_1);
+		
+		JList list = new JList();
+		panel_1.add(list);
+		
+		JButton btnNewButton = new JButton("New button");
+		panel_1.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("New button");
+		panel_1.add(btnNewButton_1);
+		
+		JScrollBar scrollBar = new JScrollBar();
+		panel_1.add(scrollBar);
+		
+		JButton btnNewButton_4 = new JButton("New button");
+		panel_1.add(btnNewButton_4);
+		
+		JButton btnNewButton_3 = new JButton("New button");
+		panel_1.add(btnNewButton_3);
+		
+		JButton btnNewButton_5 = new JButton("New button");
+		panel_1.add(btnNewButton_5);
+		
+		JButton btnNewButton_2 = new JButton("New button");
+		panel_1.add(btnNewButton_2);
 	}
 }

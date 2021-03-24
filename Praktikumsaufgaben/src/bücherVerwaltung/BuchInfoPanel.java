@@ -38,20 +38,18 @@ public class BuchInfoPanel extends InfoPanel {
 		autoren1.add(new Autor("Suzanne", "Collins"));
 		Buch buch = new Buch("The Hunger Games", "978-0-439-02352-8", 2008, verläge1, buchTyp1, autoren1);
 		
-		this.fillInformation(buch);
+		this.setInfo(buch);
 	}
-
 
 	@Override
 	protected void fillHeading() {
 		this.getHeading().setText("Buchinfos");
 	}
 
-	private void fillInformation(Buch buch) {
+	public void setInfo(Buch buch) {
 		if (buch == null) {
 			return;
 		}
-		
 		StringBuffer autorenInformation = new StringBuffer();
 		Iterator<Autor> aIter = buch.getAutoren().iterator();
 		while (aIter.hasNext()) {
@@ -61,7 +59,6 @@ public class BuchInfoPanel extends InfoPanel {
 				autorenInformation.append(", ");
 			}
 		}
-		
 		StringBuffer verlägeInformation = new StringBuffer();
 		Iterator<Verlag> vIter = buch.getVerläge().iterator();
 		while (vIter.hasNext()) {
@@ -76,10 +73,10 @@ public class BuchInfoPanel extends InfoPanel {
 		String doppelterZeilenUmbruch = System.lineSeparator() + System.lineSeparator();
 		allInformation.append("Titel: \"" + buch.getTitel() + "\"" + doppelterZeilenUmbruch + 
 				"Erscheinungsjahr: " + buch.getErscheinungsJahr() + doppelterZeilenUmbruch + 
+				"ISBN: " + buch.getIsbn() + doppelterZeilenUmbruch + 
 				"Autoren: " + autorenInformation.toString() + doppelterZeilenUmbruch + 
 				"Verläge: " + verlägeInformation.toString() + doppelterZeilenUmbruch + 
 				"Buchtyp: " + buch.getBuchTyp().getBezeichnung());
 		this.getInformation().setText(allInformation.toString());
 	}
-
 }

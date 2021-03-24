@@ -31,7 +31,6 @@ public class GroundPanel extends GblPanel {
 		this.add(this.mySuchPanel);
 		this.add(this.currentInfoPanel);
 		this.add(this.getMyMenüLeistePanel());
-		System.out.println(this.mySuchPanel.getHeight());
 	}
 
 	@Override
@@ -48,12 +47,12 @@ public class GroundPanel extends GblPanel {
 		gbc.ipadx = StandardView.screenDimension.width / 3;
 		gbc.ipady = StandardView.screenDimension.height / 2;
 		gbc.weightx = 1;
-		gbc.weighty = 1;
 		this.getGbl().setConstraints(this.getMySuchPanel(), gbc);
 		gbc.fill = GridBagConstraints.VERTICAL;
 		gbc.gridx = 1;
 		gbc.ipadx = StandardView.screenDimension.width / 7;
 		gbc.weightx = 0;
+		gbc.weighty = 1;
 		this.getGbl().setConstraints(this.currentInfoPanel, gbc);
 	}
 
