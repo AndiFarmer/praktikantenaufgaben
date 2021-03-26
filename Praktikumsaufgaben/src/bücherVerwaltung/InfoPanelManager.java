@@ -17,31 +17,19 @@ public class InfoPanelManager {
 	private VerlagInfoPanel myVerlagInfoPanel;
 	private AutorInfoPanel myAutorInfoPanel;
 	
-	public InfoPanelManager(BücherVerwaltung myBücherVerwaltung) {
-		this.initialize(myBücherVerwaltung);
-		
-		//vorübergehend
-				Collection<Verlag> verläge1 = new ArrayList<Verlag>();
-				verläge1.add(new Verlag("Scholastic Press", "New York"));
-				BuchTyp buchTyp1 = new BuchTyp("Hardcover");
-				Collection<Autor> autoren1 = new ArrayList<>();
-				autoren1.add(new Autor("Suzanne", "Collins"));
-				Buch buch = new Buch("The Hunger Games", "978-0-439-02352-8", 2008, verläge1, buchTyp1, autoren1);
-				myBücherVerwaltung.addNewBuch(buch);
-				try {
-					this.showInfo(myBücherVerwaltung.getBücher().iterator().next());
-				} catch (BücherVerwaltungException e) {
-					e.printStackTrace();
-				}
+	public InfoPanelManager(GroundPanel groundPanel) {
+		this.initialize(groundPanel);
 	}
 
 	public void showInfo(Object input) throws BücherVerwaltungException {
 		if (input.getClass() == Buch.class) {
+			System.out.println("showInfo -> Manager");
 			this.myBuchInfoPanel.setInfo((Buch) input);
 			
 			return;
 		}
 		if (input.getClass() == Autor.class) {
+			System.out.println("showInfo -> Manager");
 			this.myAutorInfoPanel.setInfo((Autor) input);
 			
 			return;
@@ -54,10 +42,10 @@ public class InfoPanelManager {
 		throw new BücherVerwaltungException("Das anzuzeigende Objekt muss der Klasse Buch, Autor oder Verlag angehören!");
 	}
 
-	public void initialize(BücherVerwaltung myBücherVerwaltung) {
-		this.myBuchInfoPanel = new BuchInfoPanel(myBücherVerwaltung);
-		this.myVerlagInfoPanel = new VerlagInfoPanel(myBücherVerwaltung);
-		this.myAutorInfoPanel = new AutorInfoPanel(myBücherVerwaltung);
+	public void initialize(GroundPanel groundPanel) {
+		this.myBuchInfoPanel = new BuchInfoPanel(groundPanel);
+		this.myVerlagInfoPanel = new VerlagInfoPanel(groundPanel);
+		this.myAutorInfoPanel = new AutorInfoPanel(groundPanel);
 	}
 
 	

@@ -47,7 +47,6 @@ public class Start {
 			myBücherVerwaltung.addNewBuch(new Buch(("The Hunger Games" + i), "978-0-439-02352-8", 2008, verläge1, new BuchTyp(""+ (-i%17)), autoren1));
 		}
 		System.out.println("Zeit Adden von "+ anzahlNeuerBücher + " Büchern: " + (Start.getTime() - anfangsZeit) + "ms");
-		
 //		ArrayList<Buch> helpList = new ArrayList<>();
 //		helpList.addAll(myBücherVerwaltung.getBücher());
 //		System.out.println(helpList.get(9));

@@ -6,29 +6,33 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 
 public class SuchPanel extends GblPanel {
 	
 	SuchLeistePanel mySuchLeistePanel;
-	ResultsPanelManager myResultsPanelManager;
+	ResultsPaneManager myResultsPaneManager;
 	
-	ResultsPanel currentResultsPanel;
+	ResultsPane currentResultsPane;
 
-	public SuchPanel(BücherVerwaltung myBücherVerwaltung) {
+	public SuchPanel(GroundPanel myGroundPanel) {
 		super();
-		this.initialize(myBücherVerwaltung);
+		this.initialize(myGroundPanel);
 	}
 
-	private void initialize(BücherVerwaltung myBücherVerwaltung) {
-		this.mySuchLeistePanel = new SuchLeistePanel(myBücherVerwaltung);
-		this.myResultsPanelManager = new ResultsPanelManager();
-		this.currentResultsPanel = this.myResultsPanelManager.getDefault();
+	private void initialize(GroundPanel myGroundPanel) {
+		this.mySuchLeistePanel = new SuchLeistePanel(myGroundPanel);
+		this.myResultsPaneManager = new ResultsPaneManager();
+		this.currentResultsPane = this.myResultsPaneManager.getDefault();
 		this.configureGridBagConstraints();
 		this.add(this.mySuchLeistePanel);
-		
-		this.add(this.currentResultsPanel);
+		this.add(this.currentResultsPane);
+		ArrayList<Buch> defaultList = (ArrayList<Buch>) myGroundPanel.getMyBücherVerwaltung().getBücher();
+//		ArrayList<Autor> defaultList = (ArrayList<Autor>) myGroundPanel.getMyBücherVerwaltung().getAutoren();
+		this.myResultsPaneManager.showResults((ArrayList<Object>)(List<?>)defaultList, myGroundPanel);
 	}
 
 	@Override
@@ -37,12 +41,12 @@ public class SuchPanel extends GblPanel {
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		gbc.weightx = 1;
+		gbc.weightx = 0.1;
 		this.getGbl().setConstraints(this.mySuchLeistePanel, gbc);
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridy = 1;
-		gbc.weighty = 1;
-		this.getGbl().setConstraints(this.currentResultsPanel, gbc);
+		gbc.weighty = 0.1;
+		this.getGbl().setConstraints(this.currentResultsPane, gbc);
 	}
 
 }

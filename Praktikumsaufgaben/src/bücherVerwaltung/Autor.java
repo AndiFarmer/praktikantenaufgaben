@@ -126,4 +126,8 @@ public class Autor implements Comparable<Autor>, Serializable{
 	public void setVerläge(Collection<Verlag> verläge) {
 		this.verläge = verläge;
 	}
+
+	public String getShortInfo() {
+		return (this.getVorName() + ", " + this.getNachName());
+	}
 }

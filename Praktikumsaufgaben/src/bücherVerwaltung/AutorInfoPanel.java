@@ -6,18 +6,15 @@ import java.util.Iterator;
 
 public class AutorInfoPanel extends InfoPanel {
 
-	private BücherVerwaltung myBücherVerwaltung;
-
-	public AutorInfoPanel(BücherVerwaltung myBücherVerwaltung) {
+	public AutorInfoPanel(GroundPanel groundPanel) {
 	super();
-	this.initialize(myBücherVerwaltung);
+	this.initialize(groundPanel);
 	}
 
-	public void initialize(BücherVerwaltung myBücherVerwaltung) {
+	public void initialize(GroundPanel groundPanel) {
 		this.add(this.heading);
 		this.add(this.separator);
 		this.add(this.information);
-		this.myBücherVerwaltung = myBücherVerwaltung;
 		this.fillHeading();
 	}
 	

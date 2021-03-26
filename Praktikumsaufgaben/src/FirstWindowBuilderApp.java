@@ -101,6 +101,9 @@ public class FirstWindowBuilderApp {
 		JLabel lblNewLabel = new JLabel("New label");
 		panel_2.add(lblNewLabel);
 		
+		JList list_1 = new JList();
+		panel_2.add(list_1);
+		
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.gridwidth = 5;

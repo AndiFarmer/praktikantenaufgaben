@@ -16,19 +16,16 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.StyledDocument;
 
 public class BuchInfoPanel extends InfoPanel {
-
-	BücherVerwaltung myBücherVerwaltung;
 	
-	public BuchInfoPanel(BücherVerwaltung myBücherVerwaltung) {
+	public BuchInfoPanel(GroundPanel groundPanel) {
 		super();
-		this.initialize(myBücherVerwaltung);
+		this.initialize(groundPanel);
 	}
 
-	public void initialize(BücherVerwaltung myBücherVerwaltung) {
+	public void initialize(GroundPanel groundPanel) {
 		this.add(this.heading);
 		this.add(this.separator);
 		this.add(this.information);
-		this.myBücherVerwaltung = myBücherVerwaltung;
 		this.fillHeading();
 		// nur Übergangsweise !!!
 		Collection<Verlag> verläge1 = new ArrayList<Verlag>();

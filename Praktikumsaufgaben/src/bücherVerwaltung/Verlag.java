@@ -115,4 +115,8 @@ public class Verlag implements Comparable<Verlag>, Serializable {
 	public void setBücher(Collection<Buch> bücher) {
 		this.bücher = bücher;
 	}
+
+	public String getShortInfo() {
+		return (this.getName() + ", " + this.getOrt());
+	}
 }

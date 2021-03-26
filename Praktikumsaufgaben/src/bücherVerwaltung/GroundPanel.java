@@ -15,6 +15,7 @@ public class GroundPanel extends GblPanel {
 	InfoPanelManager myInfoPanelManager;
 	MenüLeistePanel myMenüLeistePanel;
 	
+	BücherVerwaltung myBücherVerwaltung;
 	JPanel currentInfoPanel;
 	
 	public GroundPanel(BücherVerwaltung myBücherVerwaltung) {
@@ -23,9 +24,10 @@ public class GroundPanel extends GblPanel {
 	}
 	
 	public void initialize(BücherVerwaltung myBücherVerwaltung) {
-		this.mySuchPanel = new SuchPanel(myBücherVerwaltung);
-		this.myInfoPanelManager = new InfoPanelManager(myBücherVerwaltung);
-		this.myMenüLeistePanel = new MenüLeistePanel(myBücherVerwaltung);
+		this.myBücherVerwaltung = myBücherVerwaltung;
+		this.mySuchPanel = new SuchPanel(this);
+		this.myInfoPanelManager = new InfoPanelManager(this);
+		this.myMenüLeistePanel = new MenüLeistePanel(this);
 		this.currentInfoPanel = this.myInfoPanelManager.getDefaultPanel();
 		this.configureGridBagConstraints();
 		this.add(this.mySuchPanel);
@@ -40,19 +42,17 @@ public class GroundPanel extends GblPanel {
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.gridwidth = 2;
+		gbc.weightx = 0.1;
 		this.getGbl().setConstraints(this.getMyMenüLeistePanel(), gbc);
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridy = 1;
 		gbc.gridwidth = 1;
-		gbc.ipadx = StandardView.screenDimension.width / 3;
-		gbc.ipady = StandardView.screenDimension.height / 2;
-		gbc.weightx = 1;
+		gbc.weighty = 0.1;
 		this.getGbl().setConstraints(this.getMySuchPanel(), gbc);
 		gbc.fill = GridBagConstraints.VERTICAL;
 		gbc.gridx = 1;
-		gbc.ipadx = StandardView.screenDimension.width / 7;
 		gbc.weightx = 0; // warum wird das mit 0 nicht verkleinert, mit 1 aber schon??
-		gbc.weighty = 1;
+		gbc.weighty = 0.1;
 		this.getGbl().setConstraints(this.currentInfoPanel, gbc);
 	}
 
@@ -78,6 +78,22 @@ public class GroundPanel extends GblPanel {
 
 	public void setMyMenüLeistePanel(MenüLeistePanel myMenüLeistePanel) {
 		this.myMenüLeistePanel = myMenüLeistePanel;
+	}
+
+	public BücherVerwaltung getMyBücherVerwaltung() {
+		return this.myBücherVerwaltung;
+	}
+
+	public void setMyBücherVerwaltung(BücherVerwaltung myBücherVerwaltung) {
+		this.myBücherVerwaltung = myBücherVerwaltung;
+	}
+
+	public JPanel getCurrentInfoPanel() {
+		return this.currentInfoPanel;
+	}
+
+	public void setCurrentInfoPanel(JPanel currentInfoPanel) {
+		this.currentInfoPanel = currentInfoPanel;
 	}
 
 }

@@ -1,6 +1,7 @@
 package bücherVerwaltung;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 
 import javax.swing.JLabel;
@@ -20,6 +21,7 @@ public abstract class InfoPanel extends GblPanel {
 	}
 
 	private void initialize() { // da die Klasse abstrakt ist, wird niemals eine andere Klasse auf diese Methode zugreifen müssen
+		this.setPreferredSize(new Dimension(200, 300));
 		this.heading = new JLabel();
 		this.separator = new JSeparator();
 		this.information = new JTextPane();

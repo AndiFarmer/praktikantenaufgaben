@@ -6,30 +6,16 @@ import java.util.Iterator;
 
 public class VerlagInfoPanel extends InfoPanel{
 
-	private BücherVerwaltung myBücherVerwaltung;
-
-	public VerlagInfoPanel(BücherVerwaltung myBücherVerwaltung) {
+	public VerlagInfoPanel(GroundPanel groundPanel) {
 		super();
-		this.initialize(myBücherVerwaltung);
+		this.initialize(groundPanel);
 	}
 
-	public void initialize(BücherVerwaltung myBücherVerwaltung) {
+	public void initialize(GroundPanel groundPanel) {
 		this.add(this.heading);
 		this.add(this.separator);
 		this.add(this.information);
-		this.myBücherVerwaltung = myBücherVerwaltung;
 		this.fillHeading();
-		// nur Übergangsweise !!!
-		Collection<Verlag> verläge1 = new ArrayList<Verlag>();
-		verläge1.add(new Verlag("Scholastic Press", "New York"));
-		BuchTyp buchTyp1 = new BuchTyp("Hardcover");
-		Collection<Autor> autoren1 = new ArrayList<>();
-		autoren1.add(new Autor("Suzanne", "Collins"));
-		Buch buch = new Buch("The Hunger Games", "978-0-439-02352-8", 2008, verläge1, buchTyp1, autoren1);
-		myBücherVerwaltung.addNewBuch(buch);
-		Verlag verlag = myBücherVerwaltung.getVerläge().iterator().next();
-		
-		this.setInfo(verlag);
 	}
 
 	@Override

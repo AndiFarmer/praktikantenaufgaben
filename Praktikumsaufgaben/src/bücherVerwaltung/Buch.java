@@ -227,4 +227,8 @@ public class Buch implements Comparable<Buch>, Serializable {
 	public void setAutoren(Collection<Autor> autoren) {
 		this.autoren = autoren;
 	}
+
+	public String getShortInfo() {
+		return ("\"" + this.getTitel() + "\", " + this.getErscheinungsJahr());
+	}
 }
